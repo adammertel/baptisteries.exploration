@@ -1,0 +1,21 @@
+{
+  "name": "baptisteries.exploration",
+  "version": "0.0.1",
+  "description": "tool for exploration of early christian baptisteries",
+  "main": "index.js",
+  "repository": "git@github.com:adammertel/baptisteries.exploration.git",
+  "author": "adammertel <mertel.adam@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean-build": "rm -f -r -d build",
+    "start": "parcel app/index.html --open --out-dir build",
+    "build": "yarn run clean-build && parcel build app/index.html --out-dir build"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.9.7"
+  },
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  }
+}

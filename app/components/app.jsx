@@ -10,7 +10,7 @@ export default class App extends React.Component {
   render () {
     return (
       <div>
-        dummy component test
+        <a className='button is-primary'>dummy button test</a>
       </div>
     )
   }

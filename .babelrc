@@ -1,8 +1,4 @@
 {
-  "presets": ["flow", "env", "react"],
-  "plugins": [
-    "transform-decorators",
-    "transform-class-properties",
-    "transform-flow-strip-types"
-  ]
+  "presets": ["env", "react"],
+  "plugins": ["transform-decorators", "transform-class-properties"]
 }

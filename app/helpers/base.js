@@ -1,8 +1,6 @@
-// @flow
-
 var Base = {
   sum: (a: number, b: number): number => a + b,
-  load: (url: string, parse: boolean) => {
+  doRequest: (url: string, parse: boolean) => {
     let xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     // xhr.withCredentials = true;

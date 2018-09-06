@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react'
 import { observer, action } from 'mobx-react'
 import MapContainer from './map'

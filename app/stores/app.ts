@@ -9,11 +9,13 @@ import {
 import Base from './../helpers/base'
 
 export default class AppStore {
-  constructor () {
+  _loaded
+  constructor() {
     this._loaded = observable.box(false)
   }
 
-  @action load () {
+  @action
+  load() {
     this._loaded.set(true)
   }
 }

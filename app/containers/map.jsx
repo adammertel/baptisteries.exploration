@@ -5,15 +5,11 @@ import Base from './../helpers/base'
 type Props = {}
 
 export default class MapContainer extends React.Component<Props> {
-  constructor (props: any) {
+  constructor(props: any) {
     super(props)
   }
 
-  render () {
-    return (
-      <div className='map-container'>
-        map
-      </div>
-    )
+  render() {
+    return <div className="map-container">map</div>
   }
 }

@@ -1,8 +1,10 @@
 import React from 'react'
 import { observer, action } from 'mobx-react'
 
-export default class PanelContainer extends React.Component {
-  constructor (props) {
+type Props = {}
+
+export default class PanelContainer extends React.Component<Props> {
+  constructor (props: any) {
     super(props)
   }
 

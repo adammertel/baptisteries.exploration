@@ -1,10 +1,14 @@
+// @flow
+
 import React from 'react'
 import { observer, action } from 'mobx-react'
 import MapContainer from './map'
 import PanelContainer from './panel'
 
-export default class AppContainer extends React.Component {
-  constructor (props) {
+type Props = {}
+
+export default class AppContainer extends React.Component<Props> {
+  constructor (props: any) {
     super(props)
   }
 

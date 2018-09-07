@@ -15,7 +15,7 @@ export default class AppStore {
   }
 
   @action
-  load() {
+  load(): void {
     this._loaded.set(true)
   }
 }

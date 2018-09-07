@@ -1,21 +1,23 @@
 import React from 'react'
-import { observer, action } from 'mobx-react'
+import { observer } from 'mobx-react'
 import MapContainer from './map'
 import PanelContainer from './panel'
 
 type Props = {}
 
-export default class AppContainer extends React.Component<Props> {
-  constructor (props: any) {
+class AppContainer extends React.Component<any, any> {
+  constructor(props: any) {
     super(props)
   }
 
-  render () {
+  public render() {
     return (
-      <div className='app-container'>
+      <div className="app-container">
         <MapContainer />
         <PanelContainer />
       </div>
     )
   }
 }
+
+export default observer(AppContainer)

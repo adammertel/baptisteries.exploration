@@ -25,14 +25,15 @@ class MapContainer extends React.Component<Props> {
     const mapStore = this.props.stores.map
     const records = this.records()
     return (
-      <MapComponent
-        className="map-container"
-        store={this.props.stores.map}
-        handleViewportChange={this.handleViewportChange.bind(this)}
-        center={mapStore.center}
-        zoom={mapStore.zoom}
-        records={records}
-      />
+      <div className="container map-container">
+        <MapComponent
+          store={this.props.stores.map}
+          handleViewportChange={this.handleViewportChange.bind(this)}
+          center={mapStore.center}
+          zoom={mapStore.zoom}
+          records={records}
+        />
+      </div>
     )
   }
 }

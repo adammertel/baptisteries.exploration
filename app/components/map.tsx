@@ -53,7 +53,7 @@ class MapComponent extends React.Component<Props> {
         onViewportChanged={this.props.handleViewportChange}
         useFlyTo={true}
         ref="map"
-        style={this.mapStyle()}
+        className="map-component"
         attributionControl={false}
         bounds={store.mapExtent}
         zoom={this.props.zoom}

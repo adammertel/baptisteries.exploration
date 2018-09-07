@@ -12,7 +12,7 @@ class PanelContainer extends React.Component<Props> {
   }
 
   render() {
-    return <div className="panel-container">panel</div>
+    return <div className="container panel-container" />
   }
 }
 

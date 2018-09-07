@@ -2344,7 +2344,7 @@ fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
-fbjs@^0.8.16:
+fbjs@^0.8.16, fbjs@^0.8.17:
   version "0.8.17"
   resolved "https://registry.npmjs.org/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
@@ -3319,6 +3319,10 @@ kind-of@^5.0.0:
 kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
+
+konva@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/konva/-/konva-2.3.0.tgz#d6ff0f85838f4fb5da34d148b79eeb6c6e14ed9c"
 
 lcid@^1.0.0:
   version "1.0.0"
@@ -4929,6 +4933,13 @@ react-is@^16.3.2:
   version "16.4.2"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.4.2.tgz#84891b56c2b6d9efdee577cc83501dfc5ecead88"
 
+react-konva@^1.7.14:
+  version "1.7.14"
+  resolved "https://registry.npmjs.org/react-konva/-/react-konva-1.7.14.tgz#8f67529a1cf65694508637eb4832d2494e33ecc9"
+  dependencies:
+    fbjs "^0.8.17"
+    react-reconciler "^0.12.0"
+
 react-leaflet-markercluster@^2.0.0-rc3:
   version "2.0.0-rc3"
   resolved "https://registry.npmjs.org/react-leaflet-markercluster/-/react-leaflet-markercluster-2.0.0-rc3.tgz#8cadfa62eca88fe1fa7b404a81a5b171e6be60f6"
@@ -4945,6 +4956,15 @@ react-leaflet@^2.0.1:
 react-lifecycles-compat@^3.0.2:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+
+react-reconciler@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.npmjs.org/react-reconciler/-/react-reconciler-0.12.0.tgz#dd3ecd98f64a2d8449298dadab041910cafd2849"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react@^16.4.2:
   version "16.4.2"

@@ -2,7 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import AppContainer from './containers/app'
 import Base from './helpers/base'
+
+/* loading styles */
 import './main.scss'
+import './../node_modules/leaflet/dist/leaflet.css'
+import './../node_modules/leaflet-markercluster/MarkerCluster.css'
 
 import * as data from './../data/baptisteries.json'
 import AppStore from './stores/app'

@@ -1,17 +1,17 @@
-import { observable, action, computed } from 'mobx'
+import { observable, action, computed, toJS } from 'mobx'
 import Base from './../helpers/base'
 
 export default class MapStore {
   _center
   _zoom
   constructor() {
-    this._center = observable.box([0, 0])
-    this._zoom = observable.box(6)
+    this._center = observable.box([40, 15])
+    this._zoom = observable.box(4)
   }
 
   @computed
   get center(): Array<Number> {
-    return this._center.get()
+    return toJS(this._center)
   }
 
   @computed

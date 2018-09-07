@@ -15,9 +15,8 @@ export default class AppStore {
   }
 
   @computed
-  get data(): Array<Object> {
-    console.log(window['stores'].data.data)
-    return window['stores'].data.data
+  get features(): Array<Object> {
+    return window['stores'].data.features
   }
 
   @action

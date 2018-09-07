@@ -33,7 +33,7 @@ export default class DataStore {
   }
 
   @computed
-  get data(): Array<Object> {
+  get features(): Array<Object> {
     return this._data
   }
 }

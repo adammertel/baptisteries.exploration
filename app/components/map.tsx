@@ -22,6 +22,10 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 type Props = {
   store: Object
+  center: Array<Number>
+  zoom: Number
+  features: Array<Object>
+  handleViewportChange: Function
 }
 
 class MapComponent extends React.Component<Props> {
@@ -30,18 +34,9 @@ class MapComponent extends React.Component<Props> {
     super(props)
   }
 
-  mapStyle() {
-    return {
-      width: '100%',
-      bottom: '50%',
-      top: '0',
-      position: 'absolute'
-    }
-  }
-
   points() {
-    return this.props.records.map((record, ri) => {
-      return <Marker key={ri} position={record.geo} />
+    return this.props.features.map((feature, ri) => {
+      return <Marker key={ri} position={feature.geo} />
     })
   }
 

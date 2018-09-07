@@ -1,9 +1,12 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
-type Props = {}
+type Props = {
+  stores: Array<Object>
+}
 
 class PanelContainer extends React.Component<Props> {
+  props
   constructor(props: any) {
     super(props)
   }

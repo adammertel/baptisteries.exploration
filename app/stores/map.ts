@@ -4,7 +4,7 @@ import Base from './../helpers/base'
 export default class MapStore {
   _center
   _zoom
-  constructor(data) {
+  constructor() {
     this._center = observable.box([0, 0])
     this._zoom = observable.box(6)
   }

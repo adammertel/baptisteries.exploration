@@ -3,9 +3,12 @@ import { observer } from 'mobx-react'
 import MapContainer from './map'
 import PanelContainer from './panel'
 
-type Props = {}
+type Props = {
+  stores: Array<Object>
+}
 
 class AppContainer extends React.Component<any, any> {
+  props
   constructor(props: any) {
     super(props)
   }
@@ -13,8 +16,8 @@ class AppContainer extends React.Component<any, any> {
   public render() {
     return (
       <div className="app-container">
-        <MapContainer />
-        <PanelContainer />
+        <MapContainer stores={this.props.stores} />
+        <PanelContainer stores={this.props.stores} />
       </div>
     )
   }

@@ -6,7 +6,8 @@ import Base from './helpers/base'
 /* loading styles */
 import './main.scss'
 import './../node_modules/leaflet/dist/leaflet.css'
-import './../node_modules/leaflet-markercluster/MarkerCluster.css'
+import './../node_modules/leaflet.markercluster/dist/MarkerCluster.css'
+import './../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css'
 
 import * as data from './../data/baptisteries.json'
 import AppStore from './stores/app'

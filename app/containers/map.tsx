@@ -17,8 +17,13 @@ class MapContainer extends React.Component<Props> {
     this.props.stores.map.mapMoved(e.center, e.zoom)
   }
 
+  records() {
+    return window['stores'].app.data
+  }
+
   render() {
     const mapStore = this.props.stores.map
+    const records = this.records()
     return (
       <MapComponent
         className="map-container"
@@ -26,6 +31,7 @@ class MapContainer extends React.Component<Props> {
         handleViewportChange={this.handleViewportChange.bind(this)}
         center={mapStore.center}
         zoom={mapStore.zoom}
+        records={records}
       />
     )
   }

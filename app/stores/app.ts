@@ -14,6 +14,12 @@ export default class AppStore {
     this._loaded = observable.box(false)
   }
 
+  @computed
+  get data(): Array<Object> {
+    console.log(window['stores'].data.data)
+    return window['stores'].data.data
+  }
+
   @action
   load(): void {
     this._loaded.set(true)

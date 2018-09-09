@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 
-import { Stage, Layer, Rect, Text } from 'react-konva'
+import { Stage, Layer, Rect, Line } from 'react-konva'
 import Konva from 'konva'
 
 type Props = {
@@ -27,7 +27,7 @@ class TimeBarComponent extends React.Component<Props> {
         }}
       >
         <Stage width={position.w} height={position.h}>
-          <Layer>
+          <Layer key="bars">
             {this.props.features.map((feature, fi) => {
               return (
                 <Rect
@@ -37,6 +37,22 @@ class TimeBarComponent extends React.Component<Props> {
                   width={10}
                   height={feature.h}
                   fill="red"
+                />
+              )
+            })}
+          </Layer>
+          <Layer key="ticks-lines">
+            {this.props.ticks.map((tick, ti) => {
+              const x1 = 0
+              const x2 = position.w
+              const y = tick.y
+
+              return (
+                <Line
+                  key={ti}
+                  points={[x1, y, x2, y]}
+                  stroke="black"
+                  strokeWidth={0.5}
                 />
               )
             })}

@@ -19,6 +19,7 @@ export default class TimeLegendComponent extends React.Component<
 
   render() {
     const position = this.props.position
+    const fontSize = 10
     return (
       <div
         className="timebar-wrapper"
@@ -35,7 +36,9 @@ export default class TimeLegendComponent extends React.Component<
                 <Text
                   key={ti}
                   x={20}
-                  y={tick.y}
+                  fontSize={fontSize}
+                  y={tick.y - fontSize / 2}
+                  verticalAlign="bottom"
                   text={tick.date}
                   color="black"
                 />

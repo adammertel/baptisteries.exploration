@@ -20,19 +20,15 @@ class PanelContainer extends React.Component<Props> {
     const y = fMax => oneYearH * (maxDate - fMax)
     const fh = (fMin, fMax) => oneYearH * (fMax - fMin)
 
-    return this.props.stores.app.features
-      .sort((a, b) => {
-        return a.props.date_after > b.props.date_after ? -1 : 1
-      })
-      .map(feature => {
-        const featureMin = feature.props.date_after
-        const featureMax = feature.props.date_before
+    return this.props.stores.app.features.map(feature => {
+      const featureMin = feature.props.date_after
+      const featureMax = feature.props.date_before
 
-        return {
-          y: y(featureMax),
-          h: fh(featureMin, featureMax)
-        }
-      })
+      return {
+        y: y(featureMax),
+        h: fh(featureMin, featureMax)
+      }
+    })
   }
 
   render() {

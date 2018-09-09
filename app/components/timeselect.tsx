@@ -47,7 +47,7 @@ class TimeSelect extends React.Component<Props> {
               stroke="black"
             />
             <Rect
-              key="min-date-range"
+              key="date-range"
               width={pipeW}
               height={minDateY - maxDateY}
               x={marginLeft}
@@ -63,6 +63,19 @@ class TimeSelect extends React.Component<Props> {
               y={this.props.maxDateY - handlerH / 2}
               stroke="red"
               fill="orange"
+              draggable={true}
+              onDragEnd={this.props.onDragMax}
+              dragBoundFunc={pos => {
+                const maxY = this.props.minDateY
+                const minY = 0 + handlerH / 2
+                const newY =
+                  pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
+
+                return {
+                  x: 0,
+                  y: newY
+                }
+              }}
             />
             <Rect
               key="min-date-handler"
@@ -72,6 +85,19 @@ class TimeSelect extends React.Component<Props> {
               y={this.props.minDateY - handlerH / 2}
               stroke="red"
               fill="orange"
+              draggable={true}
+              onDragEnd={this.props.onDragMin}
+              dragBoundFunc={pos => {
+                const maxY = this.props.position.h - handlerH / 2
+                const minY = this.props.maxDateY
+                const newY =
+                  pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
+
+                return {
+                  x: 0,
+                  y: newY
+                }
+              }}
             />
           </Layer>
         </Stage>

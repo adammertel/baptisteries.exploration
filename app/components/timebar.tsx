@@ -37,7 +37,6 @@ class TimeBarComponent extends React.Component<Props> {
                   width={10}
                   height={feature.h}
                   fill="red"
-                  shadowBlur={5}
                 />
               )
             })}

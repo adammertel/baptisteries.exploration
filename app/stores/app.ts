@@ -47,4 +47,18 @@ export default class AppStore {
   changeMethod(newProp: string): void {
     this._sortProp.set(newProp)
   }
+
+  @action
+  changeMinDateSelection(newMinDate: number): void {
+    const newDateSelection = this.dateSelection.slice()
+    newDateSelection[0] = newMinDate
+    this._sortProp.set(newDateSelection)
+  }
+
+  @action
+  changeMaxDateSelection(newMaxDate: number): void {
+    const newDateSelection = this.dateSelection.slice()
+    newDateSelection[1] = newMaxDate
+    this._sortProp.set(newDateSelection)
+  }
 }

@@ -34,6 +34,22 @@ class TimeBarComponent extends React.Component<Props> {
         }}
       >
         <Stage width={position.w} height={position.h}>
+          <Layer key="ticks-lines">
+            {this.props.ticks.map((tick, ti) => {
+              const x1 = 0
+              const x2 = position.w
+              const y = tick.y
+
+              return (
+                <Line
+                  key={ti}
+                  points={[x1, y, x2, y]}
+                  stroke="black"
+                  strokeWidth={0.5}
+                />
+              )
+            })}
+          </Layer>
           <Layer key="bars-hl">
             {this.props.bars
               .filter(f => f.spatial)
@@ -64,22 +80,6 @@ class TimeBarComponent extends React.Component<Props> {
                   width={barWidth}
                   height={feature.h + (barHl - barWidth)}
                   fill="red"
-                />
-              )
-            })}
-          </Layer>
-          <Layer key="ticks-lines">
-            {this.props.ticks.map((tick, ti) => {
-              const x1 = 0
-              const x2 = position.w
-              const y = tick.y
-
-              return (
-                <Line
-                  key={ti}
-                  points={[x1, y, x2, y]}
-                  stroke="black"
-                  strokeWidth={0.5}
                 />
               )
             })}

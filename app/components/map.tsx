@@ -43,12 +43,20 @@ export default class MapComponent extends React.Component<Props> {
 
   componentDidMount() {
     this.mapEl = this.refs['map'].leafletElement
+    this.props.handleViewportChange(
+      this.props.center,
+      this.props.zoom,
+      this.mapEl.getBounds()
+    )
   }
 
   handleMapMoved(e) {
-    console.log('map moved')
     if (this.mapEl) {
-      this.props.handleViewportChange(e, this.mapEl.getBounds())
+      this.props.handleViewportChange(
+        e.center,
+        e.zoom,
+        this.mapEl.getBounds()
+      )
     }
   }
 

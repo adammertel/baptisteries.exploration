@@ -16,10 +16,10 @@ export default class MapContainer extends React.Component<Props> {
     super(props)
   }
 
-  handleViewportChange(e, newBounds) {
+  handleViewportChange(newCenter, newZoom, newBounds) {
     const sw = newBounds.getSouthWest()
     const ne = newBounds.getNorthEast()
-    this.props.stores.map.mapMoved(e.center, e.zoom, [
+    this.props.stores.map.mapMoved(newCenter, newZoom, [
       [sw.lat, sw.lng],
       [ne.lat, ne.lng]
     ])

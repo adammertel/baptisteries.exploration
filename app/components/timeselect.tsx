@@ -7,6 +7,8 @@ import Konva from 'konva'
 
 type Props = {
   position: Object
+  minDateY: number
+  maxDateY: number
 }
 
 class TimeSelect extends React.Component<Props> {
@@ -17,8 +19,14 @@ class TimeSelect extends React.Component<Props> {
 
   render() {
     const position = this.props.position
-    const maxDateY = 100
-    const minDateY = 250
+    const maxDateY = this.props.maxDateY
+    const minDateY = this.props.minDateY
+
+    const handlerH = 10
+    const handlerW = 30
+    const pipeW = 10
+    const marginLeft = (handlerW - pipeW) / 2
+
     return (
       <div
         className="timeselect-wrapper"
@@ -32,36 +40,36 @@ class TimeSelect extends React.Component<Props> {
           <Layer>
             <Rect
               key="background"
-              width={10}
+              width={pipeW}
               y={0}
-              x={10}
+              x={marginLeft}
               height={position.h}
               stroke="black"
             />
             <Rect
               key="min-date-range"
-              width={10}
+              width={pipeW}
               height={minDateY - maxDateY}
-              x={10}
+              x={marginLeft}
               y={maxDateY}
               stroke="orange"
               fill="orange"
             />
             <Rect
               key="max-date-handler"
-              width={30}
-              height={10}
+              width={handlerW}
+              height={handlerH}
               x={0}
-              y={maxDateY}
+              y={this.props.maxDateY - handlerH / 2}
               stroke="red"
               fill="orange"
             />
             <Rect
               key="min-date-handler"
-              width={30}
-              height={10}
+              width={handlerW}
+              height={handlerH}
               x={0}
-              y={minDateY}
+              y={this.props.minDateY - handlerH / 2}
               stroke="red"
               fill="orange"
             />

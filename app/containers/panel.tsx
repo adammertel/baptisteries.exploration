@@ -83,13 +83,13 @@ class PanelContainer extends React.Component<Props> {
 
   render() {
     const screenStore = this.props.stores.screen
+    const appStore = this.props.stores.app
     const positions = this.calculatePositions(
       screenStore.height,
       screenStore.width
     )
 
     const timeBars = this.timeBars(positions.timeBars.h)
-    console.log(positions.timeBars)
 
     return (
       <div className="container panel-container">
@@ -97,7 +97,17 @@ class PanelContainer extends React.Component<Props> {
           position={positions.timeBars}
           features={timeBars}
         />
-        <TimeSelectComponent position={positions.timeSelect} />
+        <TimeSelectComponent
+          minDateY={this.dateHPosition(
+            positions.timeSelect.h,
+            appStore.dateSelection[0]
+          )}
+          maxDateY={this.dateHPosition(
+            positions.timeSelect.h,
+            appStore.dateSelection[1]
+          )}
+          position={positions.timeSelect}
+        />
       </div>
     )
   }

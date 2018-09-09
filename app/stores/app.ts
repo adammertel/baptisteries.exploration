@@ -34,7 +34,16 @@ export default class AppStore {
 
   @computed
   get features(): Array<Object> {
-    return window['stores'].data.features.sort(this.sortMethod)
+    return window['stores'].data.features
+      .sort(this.sortMethod)
+      .map(feature => {
+        feature.selection = {
+          temporal: true,
+          attributional: true,
+          spatial: true
+        }
+        return feature
+      })
   }
 
   @computed

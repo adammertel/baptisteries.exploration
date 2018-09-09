@@ -29,6 +29,8 @@ type Props = {
 
 export default class MapComponent extends React.Component<Props> {
   props
+  mapEl
+  refs
   constructor(props: any) {
     super(props)
   }
@@ -39,16 +41,24 @@ export default class MapComponent extends React.Component<Props> {
     })
   }
 
+  componentDidMount() {
+    this.mapEl = this.refs['map'].leafletElement
+  }
+
+  handleMapMoved(e) {
+    console.log('map moved')
+    if (this.mapEl) {
+      this.props.handleViewportChange(e, this.mapEl.getBounds())
+    }
+  }
+
   render() {
     return (
       <Map
-        autoPanSpeed={50}
-        onViewportChanged={this.props.handleViewportChange}
-        useFlyTo={true}
+        onViewportChanged={this.handleMapMoved.bind(this)}
         ref="map"
         className="map-component"
         attributionControl={false}
-        bounds={this.props.extent}
         zoom={this.props.zoom}
         center={this.props.center}
         maxZoom={20}

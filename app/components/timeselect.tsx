@@ -17,10 +17,6 @@ class TimeSelect extends React.Component<Props> {
     super(props)
   }
 
-  shouldComponentUpdate() {
-    return true
-  }
-
   render() {
     const position = this.props.position
     const maxDateY = this.props.maxDateY

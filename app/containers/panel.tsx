@@ -124,10 +124,6 @@ export default class PanelContainer extends React.Component<Props> {
     return maxDate - Math.round(onePxYears * y)
   }
 
-  shouldComponentUpdate() {
-    return true
-  }
-
   render() {
     const screenStore = this.props.stores.screen
     const appStore = this.props.stores.app

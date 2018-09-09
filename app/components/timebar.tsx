@@ -19,6 +19,11 @@ class TimeBarComponent extends React.Component<Props> {
 
   render() {
     const position = this.props.position
+    const barWidth = 6
+    const barHl = 10
+    const barMargin = 4
+    const barSpace = barWidth + barMargin
+
     return (
       <div
         className="timebar-wrapper"
@@ -29,16 +34,36 @@ class TimeBarComponent extends React.Component<Props> {
         }}
       >
         <Stage width={position.w} height={position.h}>
+          <Layer key="bars-hl">
+            {this.props.bars
+              .filter(f => f.spatial)
+              .map((feature, fi) => {
+                const x =
+                  barSpace / 2 - barHl / 2 + feature.x * barSpace
+                return (
+                  <Rect
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    width={barHl}
+                    height={feature.h}
+                    fill="yellow"
+                  />
+                )
+              })}
+          </Layer>
           <Layer key="bars">
             {this.props.bars.map((feature, fi) => {
+              const x =
+                barSpace / 2 - barWidth / 2 + feature.x * barSpace
               return (
                 <Rect
                   key={fi}
-                  x={12 * fi}
-                  y={feature.y}
-                  width={10}
-                  height={feature.h}
-                  fill={feature.spatial ? 'red' : 'grey'}
+                  x={x}
+                  y={feature.y - (barHl - barWidth) / 2}
+                  width={barWidth}
+                  height={feature.h + (barHl - barWidth)}
+                  fill="red"
                 />
               )
             })}

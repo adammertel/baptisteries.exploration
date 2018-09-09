@@ -86,12 +86,13 @@ export default class PanelContainer extends React.Component<Props> {
   }
 
   timeBars(h) {
-    return this.props.stores.app.features.map(feature => {
+    return this.props.stores.app.features.map((feature, fi) => {
       const yMax = this.dateToY(h, feature.props.date_before)
       const yMin = this.dateToY(h, feature.props.date_after)
 
       return {
         y: yMax,
+        x: fi,
         h: yMax - yMin,
         spatial: feature.selection.spatial
       }

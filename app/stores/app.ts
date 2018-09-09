@@ -34,22 +34,31 @@ export default class AppStore {
 
   @computed
   get features(): Array<Object> {
+    const extent = window['stores'].map.extent
+    console.log(extent)
     return window['stores'].data.features
-      .sort(this.sortMethod)
       .map(feature => {
         feature.selection = {
           temporal: true,
           attributional: true,
-          spatial: true
+          spatial: Base.pointInBounds(feature.geo, extent)
         }
         return feature
       })
+      .sort(this.sortMethod)
   }
 
   @computed
   get sortMethod(): Function {
-    return (a, b) =>
-      a.props[this.sortProp] > b.props[this.sortProp] ? -1 : 1
+    return (a, b) => {
+      if (a.selection.spatial) {
+        return -1
+      }
+      if (b.selection.spatial) {
+        return 1
+      }
+      return a.props[this.sortProp] > b.props[this.sortProp] ? -1 : 1
+    }
   }
 
   @action

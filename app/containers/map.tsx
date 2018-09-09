@@ -28,6 +28,11 @@ export default class MapContainer extends React.Component<Props> {
   render() {
     const mapStore = this.props.stores.map
 
+    console.log(
+      'spatial',
+      this.props.stores.app.features.filter(f => f.selection.spatial)
+        .length
+    )
     return (
       <div className="container map-container">
         <MapComponent

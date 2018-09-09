@@ -1,3 +1,4 @@
+import L from 'leaflet'
 var Base = {
   sum: (a: number, b: number): number => a + b,
 
@@ -39,6 +40,20 @@ var Base = {
       a[to - from] = to
     }
     return a
+  },
+
+  pointInBounds: (
+    point: Array<number>,
+    extent: Array<number>
+  ): boolean => {
+    const x = point[1]
+    const y = point[0]
+    return (
+      extent[0][1] < x &&
+      extent[1][1] > x &&
+      extent[0][0] < y &&
+      extent[1][0] > y
+    )
   }
 }
 

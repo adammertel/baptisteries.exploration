@@ -30,7 +30,16 @@ var Base = {
   screenHeight: () =>
     window.innerHeight ||
     document.documentElement.clientHeight ||
-    document.body.clientHeight
+    document.body.clientHeight,
+
+  intRangeArray: (from: number, to: number): Array<number> => {
+    var a = []
+
+    while (to-- && to > from) {
+      a[to - from] = to
+    }
+    return a
+  }
 }
 
 export default Base

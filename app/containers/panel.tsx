@@ -2,15 +2,19 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import TimeBarComponent from './../components/timebar'
 import TimeSelectComponent from './../components/timeselect'
+import TimeLegendComponent from './../components/timelegend'
 import Config from './../helpers/config'
+import Base from './../helpers/base'
 
 type Props = {
   stores: Array<Object>
 }
 
-class PanelContainer extends React.Component<Props> {
+@observer
+export default class PanelContainer extends React.Component<Props> {
   props
   positions
+
   constructor(props: any) {
     super(props)
   }
@@ -37,6 +41,7 @@ class PanelContainer extends React.Component<Props> {
 
     const histogramWidth = 200
     const timeSelectWidth = 60
+    const timeLegendWidth = 50
 
     const middleHeight = h - optionHeight - timelineHeight
 
@@ -53,16 +58,22 @@ class PanelContainer extends React.Component<Props> {
         x: 0,
         y: optionHeight
       },
-      timeBars: {
-        h: middleHeight,
-        w: w - histogramWidth - timeSelectWidth,
-        x: histogramWidth + timeSelectWidth,
-        y: optionHeight
-      },
       timeSelect: {
         h: middleHeight,
         w: timeSelectWidth,
         x: histogramWidth,
+        y: optionHeight
+      },
+      timeLegend: {
+        h: middleHeight,
+        w: timeLegendWidth,
+        x: histogramWidth + timeSelectWidth,
+        y: optionHeight
+      },
+      timeBars: {
+        h: middleHeight,
+        w: w - histogramWidth - timeSelectWidth - timeLegendWidth,
+        x: histogramWidth + timeSelectWidth + timeLegendWidth,
         y: optionHeight
       },
       timeline: {
@@ -86,6 +97,17 @@ class PanelContainer extends React.Component<Props> {
     })
   }
 
+  timeTicks(h: number) {
+    const minDate = Config.dates.min
+    const maxDate = Config.dates.max
+    return Base.intRangeArray(minDate - 1, maxDate + 1)
+      .filter(i => !(i % 100))
+      .map(i => ({
+        y: this.dateToY(h, i),
+        date: i
+      }))
+  }
+
   /* returns the y coordinate for the given date */
   dateToY(h: number, date: number) {
     const minDate = Config.dates.min
@@ -102,21 +124,31 @@ class PanelContainer extends React.Component<Props> {
     return maxDate - Math.round(onePxYears * y)
   }
 
+  shouldComponentUpdate() {
+    return true
+  }
+
   render() {
     const screenStore = this.props.stores.screen
     const appStore = this.props.stores.app
+
     const positions = (this.positions = this.calculatePositions(
       screenStore.height,
       screenStore.width
     ))
 
-    const timeBars = this.timeBars(positions.timeBars.h)
+    const timeTicks = this.timeTicks(positions.timeSelect.h)
 
     return (
       <div className="container panel-container">
         <TimeBarComponent
           position={positions.timeBars}
-          features={timeBars}
+          features={this.timeBars(positions.timeBars.h)}
+          ticks={timeTicks}
+        />
+        <TimeLegendComponent
+          position={positions.timeLegend}
+          ticks={timeTicks}
         />
         <TimeSelectComponent
           minDateY={this.dateToY(
@@ -135,5 +167,3 @@ class PanelContainer extends React.Component<Props> {
     )
   }
 }
-
-export default observer(PanelContainer)

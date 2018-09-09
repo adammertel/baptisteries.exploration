@@ -18,18 +18,21 @@ import ScreenStore from './stores/screen'
 
 console.log(data)
 
-window['stores'] = {
+var stores = (window['stores'] = {
   app: new AppStore(),
   map: new MapStore(),
   data: new DataStore(data),
   screen: new ScreenStore()
-}
+})
 
 if (document.body) {
   document.body.innerHTML = ''
 
   ReactDOM.render(
-    React.createElement(AppContainer, { stores: window['stores'] }),
+    React.createElement(AppContainer, {
+      stores: stores,
+      appStore: stores.app
+    }),
     document.body.appendChild(document.createElement('div'))
   )
 }

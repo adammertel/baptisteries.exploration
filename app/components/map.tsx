@@ -21,14 +21,13 @@ import 'leaflet.markercluster.placementstrategies'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 type Props = {
-  store: Object
   center: Array<Number>
   zoom: Number
   features: Array<Object>
   handleViewportChange: Function
 }
 
-class MapComponent extends React.Component<Props> {
+export default class MapComponent extends React.Component<Props> {
   props
   constructor(props: any) {
     super(props)
@@ -41,7 +40,6 @@ class MapComponent extends React.Component<Props> {
   }
 
   render() {
-    const store = this.props.store
     return (
       <Map
         autoPanSpeed={50}
@@ -50,7 +48,7 @@ class MapComponent extends React.Component<Props> {
         ref="map"
         className="map-component"
         attributionControl={false}
-        bounds={store.mapExtent}
+        bounds={this.props.extent}
         zoom={this.props.zoom}
         center={this.props.center}
         maxZoom={20}
@@ -79,5 +77,3 @@ class MapComponent extends React.Component<Props> {
     )
   }
 }
-
-export default observer(MapComponent)

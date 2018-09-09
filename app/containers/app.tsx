@@ -7,7 +7,8 @@ type Props = {
   stores: Array<Object>
 }
 
-class AppContainer extends React.Component<any, any> {
+@observer
+export default class AppContainer extends React.Component<any, any> {
   props
   constructor(props: any) {
     super(props)
@@ -16,11 +17,9 @@ class AppContainer extends React.Component<any, any> {
   public render() {
     return (
       <div className="container-wrapper app-container">
-        <MapContainer stores={this.props.stores} />
         <PanelContainer stores={this.props.stores} />
+        <MapContainer stores={this.props.stores} />
       </div>
     )
   }
 }
-
-export default observer(AppContainer)

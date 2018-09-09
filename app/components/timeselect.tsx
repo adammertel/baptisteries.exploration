@@ -17,6 +17,10 @@ class TimeSelect extends React.Component<Props> {
     super(props)
   }
 
+  shouldComponentUpdate() {
+    return true
+  }
+
   render() {
     const position = this.props.position
     const maxDateY = this.props.maxDateY
@@ -26,6 +30,8 @@ class TimeSelect extends React.Component<Props> {
     const handlerW = 30
     const pipeW = 10
     const marginLeft = (handlerW - pipeW) / 2
+
+    console.log('render', this.props.maxDateY)
 
     return (
       <div
@@ -52,7 +58,7 @@ class TimeSelect extends React.Component<Props> {
               height={minDateY - maxDateY}
               x={marginLeft}
               y={maxDateY}
-              stroke="orange"
+              stroke="black"
               fill="orange"
             />
             <Rect

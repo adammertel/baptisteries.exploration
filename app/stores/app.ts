@@ -52,13 +52,14 @@ export default class AppStore {
   changeMinDateSelection(newMinDate: number): void {
     const newDateSelection = this.dateSelection.slice()
     newDateSelection[0] = newMinDate
-    this._sortProp.set(newDateSelection)
+    console.log(newMinDate)
+    this._dateSelection.set(newDateSelection)
   }
 
   @action
   changeMaxDateSelection(newMaxDate: number): void {
     const newDateSelection = this.dateSelection.slice()
     newDateSelection[1] = newMaxDate
-    this._sortProp.set(newDateSelection)
+    this._dateSelection.set(newDateSelection)
   }
 }

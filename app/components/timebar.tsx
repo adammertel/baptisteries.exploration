@@ -6,10 +6,7 @@ import { Stage, Layer, Rect, Text } from 'react-konva'
 import Konva from 'konva'
 
 type Props = {
-  width: Number
-  height: Number
-  x: Number
-  y: Number
+  position: Object
 }
 
 class TimeBarComponent extends React.Component<Props> {
@@ -19,18 +16,17 @@ class TimeBarComponent extends React.Component<Props> {
   }
 
   render() {
-    const width = this.props.width
-    const height = this.props.height
+    const position = this.props.position
     return (
       <div
         className="timebar-wrapper"
         style={{
           position: 'absolute',
-          top: this.props.x,
-          left: this.props.y
+          top: position.y,
+          left: position.x
         }}
       >
-        <Stage width={width} height={height}>
+        <Stage width={position.w} height={position.h}>
           <Layer>
             {this.props.features.map((feature, fi) => {
               return (

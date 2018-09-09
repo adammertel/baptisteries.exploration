@@ -12,6 +12,46 @@ class PanelContainer extends React.Component<Props> {
     super(props)
   }
 
+  calculatePositions(screenH, screenW) {
+    const margins = 10
+    const h = screenH / 2 - margins * 2
+    const w = screenW - margins * 2
+
+    const optionHeight = 50
+    const timelineHeight = 75
+
+    const histogramWidth = 200
+
+    const middleHeight = h - optionHeight - timelineHeight
+
+    return {
+      options: {
+        h: optionHeight,
+        w: w,
+        x: 100,
+        y: 0
+      },
+      historgram: {
+        h: middleHeight,
+        w: histogramWidth,
+        x: 0,
+        y: optionHeight
+      },
+      timeBars: {
+        h: middleHeight,
+        w: w - histogramWidth,
+        x: histogramWidth,
+        y: optionHeight
+      },
+      timeline: {
+        h: timelineHeight,
+        w: w,
+        x: 0,
+        y: optionHeight + middleHeight
+      }
+    }
+  }
+
   timeBars(h) {
     const minDate = 200
     const maxDate = 1500
@@ -32,19 +72,19 @@ class PanelContainer extends React.Component<Props> {
   }
 
   render() {
-    console.log(this.props.stores.screen.width)
+    const screenStore = this.props.stores.screen
+    const positions = this.calculatePositions(
+      screenStore.height,
+      screenStore.width
+    )
 
-    const timeBarHeight = 300
-    const timeBarWidth = 800
+    const timeBars = this.timeBars(positions.timeBars.h)
+    console.log(positions.timeBars)
 
-    const timeBars = this.timeBars(timeBarHeight)
     return (
       <div className="container panel-container">
         <TimeBarComponent
-          y={50}
-          x={50}
-          height={timeBarHeight}
-          width={timeBarWidth}
+          position={positions.timeBars}
           features={timeBars}
         />
       </div>

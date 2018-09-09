@@ -14,7 +14,6 @@ type Props = {
 
 class TimeBarComponent extends React.Component<Props> {
   props
-
   constructor(props: any) {
     super(props)
   }

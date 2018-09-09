@@ -32,6 +32,8 @@ class PanelContainer extends React.Component<Props> {
   }
 
   render() {
+    console.log(this.props.stores.screen.width)
+
     const timeBarHeight = 300
     const timeBarWidth = 800
 

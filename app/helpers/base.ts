@@ -2,8 +2,8 @@ var Base = {
   sum: (a: number, b: number): number => a + b,
 
   doRequest: (url: string, next: Function, parse: boolean = true) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
     // xhr.withCredentials = true;
 
     xhr.onload = () => {
@@ -11,23 +11,26 @@ var Base = {
         if (xhr.status === 200) {
           parse
             ? next(JSON.parse(xhr.responseText))
-            : next(xhr.responseText);
+            : next(xhr.responseText)
         } else {
-          next({});
-
-
-
-
+          next({})
         }
       } else {
-        next({});
+        next({})
       }
-    };
-    xhr.send();
+    }
+    xhr.send()
   },
-};
 
-export default Base;
+  screenWidth: () =>
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth,
 
+  screenHeight: () =>
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
+}
 
-
+export default Base

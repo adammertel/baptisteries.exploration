@@ -13,13 +13,15 @@ import * as data from './../data/baptisteries.json'
 import AppStore from './stores/app'
 import DataStore from './stores/data'
 import MapStore from './stores/map'
+import ScreenStore from './stores/screen'
 
 console.log(data)
 
 window['stores'] = {
   app: new AppStore(),
   map: new MapStore(),
-  data: new DataStore(data)
+  data: new DataStore(data),
+  screen: new ScreenStore()
 }
 
 if (document.body) {

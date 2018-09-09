@@ -32,7 +32,6 @@ export default class MapStore {
     newZoom: Number,
     newExtent: Array<Number>
   ): void {
-    console.log('setting new Center', newExtent)
     this._center.set(newCenter)
     this._zoom.set(newZoom)
     this._extent.set(newExtent)

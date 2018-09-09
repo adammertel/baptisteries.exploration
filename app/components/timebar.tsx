@@ -22,7 +22,7 @@ class TimeBarComponent extends React.Component<Props> {
     const barWidth = 6
     const barHl = 10
     const barMargin = 4
-    const barSpace = barWidth + barMargin
+    const barSpace = barHl + barMargin
 
     return (
       <div

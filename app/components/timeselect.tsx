@@ -27,8 +27,6 @@ class TimeSelect extends React.Component<Props> {
     const pipeW = 10
     const marginLeft = (handlerW - pipeW) / 2
 
-    console.log('render', this.props.maxDateY)
-
     return (
       <div
         className="timeselect-wrapper"

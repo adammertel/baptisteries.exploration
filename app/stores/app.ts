@@ -35,7 +35,7 @@ export default class AppStore {
   @computed
   get features(): Array<Object> {
     const extent = window['stores'].map.extent
-    console.log(extent)
+
     return window['stores'].data.features
       .map(feature => {
         feature.selection = {
@@ -70,7 +70,6 @@ export default class AppStore {
   changeMinDateSelection(newMinDate: number): void {
     const newDateSelection = this.dateSelection.slice()
     newDateSelection[0] = newMinDate
-    console.log(newMinDate)
     this._dateSelection.set(newDateSelection)
   }
 

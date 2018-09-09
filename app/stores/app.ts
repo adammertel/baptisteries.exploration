@@ -3,16 +3,28 @@ import {
   observable,
   action,
   computed,
-  extendObservable
+  extendObservable,
+  toJS
 } from 'mobx'
 
 import Base from './../helpers/base'
+import Config from './../helpers/config'
 
 export default class AppStore {
   _sortProp
+  _dateSelection
 
   constructor() {
     this._sortProp = observable.box('date_after')
+    this._dateSelection = observable.box([
+      Config.dates.min,
+      Config.dates.max
+    ])
+  }
+
+  @computed
+  get dateSelection(): Array<number> {
+    return toJS(this._dateSelection)
   }
 
   @computed

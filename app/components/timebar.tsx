@@ -32,7 +32,7 @@ class TimeBarComponent extends React.Component<Props> {
               return (
                 <Rect
                   key={fi}
-                  x={50 + 12 * fi}
+                  x={12 * fi}
                   y={feature.y}
                   width={10}
                   height={feature.h}

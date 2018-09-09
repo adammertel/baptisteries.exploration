@@ -7,6 +7,8 @@ import Konva from 'konva'
 
 type Props = {
   position: Object
+  bars: Array<Object>
+  ticks: Array<Object>
 }
 
 class TimeBarComponent extends React.Component<Props> {
@@ -28,7 +30,7 @@ class TimeBarComponent extends React.Component<Props> {
       >
         <Stage width={position.w} height={position.h}>
           <Layer key="bars">
-            {this.props.features.map((feature, fi) => {
+            {this.props.bars.map((feature, fi) => {
               return (
                 <Rect
                   key={fi}
@@ -36,7 +38,7 @@ class TimeBarComponent extends React.Component<Props> {
                   y={feature.y}
                   width={10}
                   height={feature.h}
-                  fill="red"
+                  fill={feature.spatial ? 'red' : 'grey'}
                 />
               )
             })}

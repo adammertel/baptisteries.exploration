@@ -92,7 +92,8 @@ export default class PanelContainer extends React.Component<Props> {
 
       return {
         y: yMax,
-        h: yMax - yMin
+        h: yMax - yMin,
+        spatial: feature.selection.spatial
       }
     })
   }
@@ -134,12 +135,13 @@ export default class PanelContainer extends React.Component<Props> {
     ))
 
     const timeTicks = this.timeTicks(positions.timeSelect.h)
+    const timeBars = this.timeBars(positions.timeBars.h)
 
     return (
       <div className="container panel-container">
         <TimeBarComponent
           position={positions.timeBars}
-          features={this.timeBars(positions.timeBars.h)}
+          bars={timeBars}
           ticks={timeTicks}
         />
         <TimeLegendComponent

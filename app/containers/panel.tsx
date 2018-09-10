@@ -14,9 +14,11 @@ type Props = {
 export default class PanelContainer extends React.Component<Props> {
   props
   positions
+  _middleTM // margin of y for the middle components
 
   constructor(props: any) {
     super(props)
+    this._middleTM = 10
   }
 
   handleTimeSelectDragMin(e) {
@@ -112,18 +114,20 @@ export default class PanelContainer extends React.Component<Props> {
 
   /* returns the y coordinate for the given date */
   dateToY(h: number, date: number) {
+    const hm = h - 2 * this._middleTM
     const minDate = Config.dates.min
     const maxDate = Config.dates.max
-    const oneYearPxs = h / (maxDate - minDate)
-    return Math.round(oneYearPxs * (maxDate - date))
+    const oneYearPxs = hm / (maxDate - minDate)
+    return Math.round(oneYearPxs * (maxDate - date)) + this._middleTM
   }
 
   /* returns the date for the given y */
   yToDate(h: number, y: number) {
+    const hm = h - 2 * this._middleTM
     const minDate = Config.dates.min
     const maxDate = Config.dates.max
-    const onePxYears = (maxDate - minDate) / h
-    return maxDate - Math.round(onePxYears * y)
+    const onePxYears = (maxDate - minDate) / hm
+    return maxDate - Math.round(onePxYears * (y - this._middleTM))
   }
 
   render() {
@@ -144,20 +148,25 @@ export default class PanelContainer extends React.Component<Props> {
           position={positions.timeBars}
           bars={timeBars}
           ticks={timeTicks}
+          margin={this._middleTM}
         />
         <TimeLegendComponent
           position={positions.timeLegend}
+          margin={this._middleTM}
           ticks={timeTicks}
         />
         <TimeSelectComponent
+          margin={this._middleTM}
           minDateY={this.dateToY(
             positions.timeSelect.h,
             appStore.dateSelection[0]
           )}
+          minDate={appStore.dateSelection[0]}
           maxDateY={this.dateToY(
             positions.timeSelect.h,
             appStore.dateSelection[1]
           )}
+          maxDate={appStore.dateSelection[1]}
           position={positions.timeSelect}
           onDragMin={this.handleTimeSelectDragMin.bind(this)}
           onDragMax={this.handleTimeSelectDragMax.bind(this)}

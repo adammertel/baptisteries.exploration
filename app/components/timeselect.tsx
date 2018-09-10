@@ -67,7 +67,7 @@ class TimeSelect extends React.Component<Props> {
               onDragEnd={this.props.onDragMax}
               dragBoundFunc={pos => {
                 const maxY = this.props.minDateY
-                const minY = 0 + handlerH / 2
+                const minY = this.props.margin + handlerH / 2
                 const newY =
                   pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
 
@@ -88,7 +88,10 @@ class TimeSelect extends React.Component<Props> {
               draggable={true}
               onDragEnd={this.props.onDragMin}
               dragBoundFunc={pos => {
-                const maxY = this.props.position.h - handlerH / 2
+                const maxY =
+                  this.props.position.h -
+                  handlerH / 2 -
+                  this.props.margin
                 const minY = this.props.maxDateY
                 const newY =
                   pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y

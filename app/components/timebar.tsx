@@ -19,6 +19,7 @@ class TimeBarComponent extends React.Component<Props> {
 
   render() {
     const position = this.props.position
+
     const barWidth = 6
     const barHl = 10
     const barMargin = 4

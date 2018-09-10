@@ -1,7 +1,8 @@
 var Config = {
   dates: {
     min: 200,
-    max: 1600
+    max: 1600,
+    barCircleTreshold: 5
   }
 }
 

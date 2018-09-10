@@ -29,11 +29,13 @@ export default class DataStore {
       })
       // filter features with invalid time span
       .filter(feature => {
+        const before = feature.properties.date_before
+        const after = feature.properties.date_after
+
         return (
-          Number.isInteger(feature.properties.date_before) &&
-          Number.isInteger(feature.properties.date_after) &&
-          feature.properties.date_before >
-            feature.properties.date_after
+          Number.isInteger(before) &&
+          Number.isInteger(after) &&
+          before > after
         )
       })
       .map(feature => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 
-import { Stage, Layer, Rect, Line } from 'react-konva'
+import { Stage, Layer, Rect, Line, Circle } from 'react-konva'
 import Konva from 'konva'
 
 type Props = {
@@ -24,6 +24,11 @@ class TimeBarComponent extends React.Component<Props> {
     const barHl = 10
     const barMargin = 4
     const barSpace = barHl + barMargin
+
+    console.log(
+      this.props.bars.length,
+      this.props.bars.filter(f => f.circle).length
+    )
 
     return (
       <div
@@ -54,6 +59,7 @@ class TimeBarComponent extends React.Component<Props> {
           <Layer key="bars-hl">
             {this.props.bars
               .filter(f => f.spatial)
+              .filter(t => !t.circle)
               .map((feature, fi) => {
                 const x =
                   barSpace / 2 - barHl / 2 + feature.x * barSpace
@@ -61,29 +67,51 @@ class TimeBarComponent extends React.Component<Props> {
                   <Rect
                     key={fi}
                     x={x}
-                    y={feature.y}
+                    y={feature.y - (barHl - barWidth) / 2}
                     width={barHl}
-                    height={feature.h}
+                    height={feature.h + (barHl - barWidth)}
                     fill="yellow"
                   />
                 )
               })}
           </Layer>
           <Layer key="bars">
-            {this.props.bars.map((feature, fi) => {
-              const x =
-                barSpace / 2 - barWidth / 2 + feature.x * barSpace
-              return (
-                <Rect
-                  key={fi}
-                  x={x}
-                  y={feature.y - (barHl - barWidth) / 2}
-                  width={barWidth}
-                  height={feature.h + (barHl - barWidth)}
-                  fill="red"
-                />
-              )
-            })}
+            {this.props.bars
+              .filter(t => !t.circle)
+              .map((feature, fi) => {
+                const x =
+                  barSpace / 2 - barWidth / 2 + feature.x * barSpace
+                return (
+                  <Rect
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    width={barWidth}
+                    height={feature.h}
+                    fill="red"
+                  />
+                )
+              })}
+          </Layer>
+          <Layer key="bars-circles">
+            {this.props.bars
+              .filter(t => t.circle)
+              .map((feature, fi) => {
+                const x = barSpace - barWidth + feature.x * barSpace
+                return (
+                  <Circle
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    radius={barWidth}
+                    fill="red"
+                    strokeWidth={
+                      feature.spatial ? (barHl - barWidth) / 2 : 0
+                    }
+                    stroke={feature.spatial ? 'yellow' : 'none'}
+                  />
+                )
+              })}
           </Layer>
         </Stage>
       </div>

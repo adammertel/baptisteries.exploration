@@ -89,11 +89,14 @@ export default class PanelContainer extends React.Component<Props> {
 
   timeBars(h) {
     return this.props.stores.app.features.map((feature, fi) => {
-      const yMax = this.dateToY(h, feature.props.date_before)
-      const yMin = this.dateToY(h, feature.props.date_after)
+      const dateMin = feature.props.date_after
+      const dateMax = feature.props.date_before
+      const yMax = this.dateToY(h, dateMax)
+      const yMin = this.dateToY(h, dateMin)
       const barH = yMin - yMax
 
       return {
+        circle: dateMax - dateMin < Config.dates.barCircleTreshold,
         y: yMax,
         x: fi,
         h: barH,

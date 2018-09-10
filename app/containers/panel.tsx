@@ -91,11 +91,12 @@ export default class PanelContainer extends React.Component<Props> {
     return this.props.stores.app.features.map((feature, fi) => {
       const yMax = this.dateToY(h, feature.props.date_before)
       const yMin = this.dateToY(h, feature.props.date_after)
+      const barH = yMin - yMax
 
       return {
         y: yMax,
         x: fi,
-        h: yMax - yMin,
+        h: barH,
         spatial: feature.selection.spatial
       }
     })

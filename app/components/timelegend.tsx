@@ -35,7 +35,7 @@ export default class TimeLegendComponent extends React.Component<
               return (
                 <Text
                   key={ti}
-                  x={20}
+                  x={0}
                   fontSize={fontSize}
                   y={tick.y - fontSize / 2}
                   verticalAlign="bottom"

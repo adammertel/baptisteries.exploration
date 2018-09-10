@@ -102,6 +102,20 @@ class TimeSelect extends React.Component<Props> {
                 }
               }}
             />
+            <Text
+              key="min-date-label"
+              x={35}
+              y={this.props.minDateY - handlerH / 2 + 3}
+              stroke="red"
+              text={this.props.minDate}
+            />
+            <Text
+              key="max-date-label"
+              x={35}
+              y={this.props.maxDateY - handlerH / 2 - 3}
+              stroke="red"
+              text={this.props.maxDate}
+            />
           </Layer>
         </Stage>
       </div>

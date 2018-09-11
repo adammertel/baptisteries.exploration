@@ -7,8 +7,8 @@ import Konva from 'konva'
 
 type Props = {
   position: Object
-  minDateY: number
-  maxDateY: number
+  selectedMinDateY: number
+  selectedMaxDateY: number
 }
 
 class TimeSelect extends React.Component<Props> {
@@ -19,8 +19,8 @@ class TimeSelect extends React.Component<Props> {
 
   render() {
     const position = this.props.position
-    const maxDateY = this.props.maxDateY
-    const minDateY = this.props.minDateY
+    const selectedMaxDateY = this.props.selectedMaxDateY
+    const selectedMinDateY = this.props.selectedMinDateY
 
     const handlerH = 10
     const handlerW = 30
@@ -49,9 +49,9 @@ class TimeSelect extends React.Component<Props> {
             <Rect
               key="date-range"
               width={pipeW}
-              height={minDateY - maxDateY}
+              height={selectedMinDateY - selectedMaxDateY}
               x={marginLeft}
-              y={maxDateY}
+              y={selectedMaxDateY}
               stroke="black"
               fill="orange"
             />
@@ -60,13 +60,16 @@ class TimeSelect extends React.Component<Props> {
               width={handlerW}
               height={handlerH}
               x={0}
-              y={this.props.maxDateY - handlerH / 2}
+              y={this.props.selectedMaxDateY - handlerH / 2}
               stroke="red"
               fill="orange"
               draggable={true}
               onDragEnd={this.props.onDragMax}
               dragBoundFunc={pos => {
-                const maxY = this.props.minDateY
+                console.log('newY', pos.y)
+                console.log('maxY', this.props.selectedMinDateY)
+
+                const maxY = this.props.selectedMinDateY
                 const minY = this.props.margin + handlerH / 2
                 const newY =
                   pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
@@ -82,7 +85,7 @@ class TimeSelect extends React.Component<Props> {
               width={handlerW}
               height={handlerH}
               x={0}
-              y={this.props.minDateY - handlerH / 2}
+              y={this.props.selectedMinDateY - handlerH / 2}
               stroke="red"
               fill="orange"
               draggable={true}
@@ -92,7 +95,7 @@ class TimeSelect extends React.Component<Props> {
                   this.props.position.h -
                   handlerH / 2 -
                   this.props.margin
-                const minY = this.props.maxDateY
+                const minY = this.props.selectedMaxDateY
                 const newY =
                   pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
 
@@ -105,14 +108,14 @@ class TimeSelect extends React.Component<Props> {
             <Text
               key="min-date-label"
               x={35}
-              y={this.props.minDateY - handlerH / 2 + 3}
+              y={this.props.selectedMinDateY - handlerH / 2 + 3}
               stroke="red"
               text={this.props.minDate}
             />
             <Text
               key="max-date-label"
               x={35}
-              y={this.props.maxDateY - handlerH / 2 - 3}
+              y={this.props.selectedMaxDateY - handlerH / 2 - 3}
               stroke="red"
               text={this.props.maxDate}
             />

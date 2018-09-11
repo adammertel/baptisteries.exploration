@@ -36,10 +36,14 @@ export default class AppStore {
   get features(): Array<Object> {
     const extent = window['stores'].map.extent
 
+    const temporalCertainty = feature => {
+      return true
+    }
+
     return window['stores'].data.features
       .map(feature => {
         feature.selection = {
-          temporal: true,
+          temporal: temporalCertainty(feature),
           attributional: true,
           spatial: Base.pointInBounds(feature.geo, extent)
         }

@@ -7,6 +7,7 @@ import {
 } from 'mobx'
 
 import Base from './../helpers/base'
+import { featureProp } from './../helpers/feature'
 
 interface INumber {
   isInteger: Function
@@ -27,17 +28,6 @@ export default class DataStore {
           feature.geometry.coordinates.length === 2
         )
       })
-      // filter features with invalid time span
-      .filter(feature => {
-        const before = feature.properties.date_before
-        const after = feature.properties.date_after
-
-        return (
-          Number.isInteger(before) &&
-          Number.isInteger(after) &&
-          before > after
-        )
-      })
       .map(feature => {
         return {
           props: feature.properties,
@@ -46,6 +36,17 @@ export default class DataStore {
             feature.geometry.coordinates[0]
           ]
         }
+      })
+      // filter features with invalid time span
+      .filter(feature => {
+        const dateMin = featureProp(feature, 'dateMin')
+        const dateMax = featureProp(feature, 'dateMax')
+
+        return (
+          Number.isInteger(dateMin) &&
+          Number.isInteger(dateMax) &&
+          dateMax > dateMin
+        )
       })
   }
 

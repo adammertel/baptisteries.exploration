@@ -4,6 +4,7 @@ import TimeBarComponent from './../components/timebar'
 import TimeSelectComponent from './../components/timeselect'
 import TimeLegendComponent from './../components/timelegend'
 import Config from './../helpers/config'
+import { featureProp } from './../helpers/feature'
 import Base from './../helpers/base'
 
 type Props = {
@@ -88,9 +89,10 @@ export default class PanelContainer extends React.Component<Props> {
   }
 
   timeBars(h) {
-    return this.props.stores.app.features.map((feature, fi) => {
-      const dateMin = feature.props.date_after
-      const dateMax = feature.props.date_before
+    const store = this.props.stores.app
+    return store.features.map((feature, fi) => {
+      const dateMin = featureProp(feature, 'dateMin')
+      const dateMax = featureProp(feature, 'dateMax')
       const yMax = this.dateToY(h, dateMax)
       const yMin = this.dateToY(h, dateMin)
       const barH = yMin - yMax
@@ -161,15 +163,27 @@ export default class PanelContainer extends React.Component<Props> {
         />
         <TimeSelectComponent
           margin={this._middleTM}
-          minDateY={this.dateToY(
+          minY={this.dateToY(
             positions.timeSelect.h,
             appStore.dateSelection[0]
           )}
-          minDate={appStore.dateSelection[0]}
+          minDateY={this.dateToY(
+            positions.timeSelect.h,
+            Config.dates.min
+          )}
           maxDateY={this.dateToY(
+            positions.timeSelect.h,
+            Config.dates.max
+          )}
+          selectedMinDateY={this.dateToY(
+            positions.timeSelect.h,
+            appStore.dateSelection[0]
+          )}
+          selectedMaxDateY={this.dateToY(
             positions.timeSelect.h,
             appStore.dateSelection[1]
           )}
+          minDate={appStore.dateSelection[0]}
           maxDate={appStore.dateSelection[1]}
           position={positions.timeSelect}
           onDragMin={this.handleTimeSelectDragMin.bind(this)}

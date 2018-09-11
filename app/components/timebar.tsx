@@ -25,11 +25,6 @@ class TimeBarComponent extends React.Component<Props> {
     const barMargin = 4
     const barSpace = barHl + barMargin
 
-    console.log(
-      this.props.bars.length,
-      this.props.bars.filter(f => f.circle).length
-    )
-
     return (
       <div
         className="timebar-wrapper"

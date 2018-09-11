@@ -41,6 +41,7 @@ export default class AppStore {
       const dateMin = featureProp(feature, 'dateMin')
       const dateMax = featureProp(feature, 'dateMax')
       const duration = Base.intRangeArray(dateMin, dateMax)
+
       const selectedDuration = Base.intRangeArray(
         this.dateSelection[0],
         this.dateSelection[1]

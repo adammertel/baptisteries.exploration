@@ -36,7 +36,7 @@ var Base = {
   intRangeArray: (from: number, to: number): Array<number> => {
     var a = []
 
-    while (to-- && to > from) {
+    while (to-- && to >= from) {
       a[to - from] = to
     }
     return a

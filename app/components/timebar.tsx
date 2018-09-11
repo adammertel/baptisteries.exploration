@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
-
+import chroma from 'chroma-js'
 import { Stage, Layer, Rect, Line, Circle } from 'react-konva'
 import Konva from 'konva'
 
@@ -24,6 +24,8 @@ class TimeBarComponent extends React.Component<Props> {
     const barHl = 10
     const barMargin = 4
     const barSpace = barHl + barMargin
+
+    const timeScale = chroma.scale(['grey', 'red'])
 
     return (
       <div
@@ -83,7 +85,7 @@ class TimeBarComponent extends React.Component<Props> {
                     y={feature.y}
                     width={barWidth}
                     height={feature.h}
-                    fill="red"
+                    fill={timeScale(feature.temporal).hex()}
                   />
                 )
               })}
@@ -99,7 +101,7 @@ class TimeBarComponent extends React.Component<Props> {
                     x={x}
                     y={feature.y}
                     radius={barWidth}
-                    fill="red"
+                    fill={timeScale(feature.temporal).hex()}
                     strokeWidth={
                       feature.spatial ? (barHl - barWidth) / 2 : 0
                     }

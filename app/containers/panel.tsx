@@ -102,7 +102,8 @@ export default class PanelContainer extends React.Component<Props> {
         y: yMax,
         x: fi,
         h: barH,
-        spatial: feature.selection.spatial
+        spatial: feature.selection.spatial,
+        temporal: feature.selection.temporal
       }
     })
   }

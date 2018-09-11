@@ -42,6 +42,10 @@ var Base = {
     return a
   },
 
+  arrayIntersection: (a, b) => {
+    return a.filter(a1 => b.includes(a1))
+  },
+
   pointInBounds: (
     point: Array<number>,
     extent: Array<number>

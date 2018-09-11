@@ -8,6 +8,7 @@ import {
 } from 'mobx'
 
 import Base from './../helpers/base'
+import { featureProp } from './../helpers/feature'
 import Config from './../helpers/config'
 
 export default class AppStore {
@@ -37,7 +38,20 @@ export default class AppStore {
     const extent = window['stores'].map.extent
 
     const temporalCertainty = feature => {
-      return true
+      const dateMin = featureProp(feature, 'dateMin')
+      const dateMax = featureProp(feature, 'dateMax')
+      const duration = Base.intRangeArray(dateMin, dateMax)
+      const selectedDuration = Base.intRangeArray(
+        this.dateSelection[0],
+        this.dateSelection[1]
+      )
+      const intersection = Base.arrayIntersection(
+        duration,
+        selectedDuration
+      )
+      const ratio = intersection.length / duration.length
+      // console.log(intersection.length, duration.length, ratio)
+      return ratio
     }
 
     return window['stores'].data.features

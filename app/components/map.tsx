@@ -1,6 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
+import { timeColor } from './../helpers/feature'
+import L from 'leaflet'
 import {
   Map,
   LayerGroup,
@@ -27,18 +29,14 @@ type Props = {
   handleViewportChange: Function
 }
 
+@observer
 export default class MapComponent extends React.Component<Props> {
   props
   mapEl
+  markerClusterGroup
   refs
   constructor(props: any) {
     super(props)
-  }
-
-  points() {
-    return this.props.features.map((feature, ri) => {
-      return <Marker key={ri} position={feature.geo} />
-    })
   }
 
   componentDidMount() {
@@ -60,7 +58,35 @@ export default class MapComponent extends React.Component<Props> {
     }
   }
 
+  clusterMakerIcon(cluster) {
+    var markers = cluster.getAllChildMarkers()
+    const timeSelections = markers.map(
+      marker => marker.options.data.selection.temporal
+    )
+
+    return L.divIcon({
+      html:
+        '<div class="marker-icon" style="background-color: ' +
+        timeColor(Base.average(timeSelections)) +
+        '" >' +
+        markers.length +
+        '</div>',
+      className: 'map-marker map-marker-cluster',
+      iconSize: L.point(40, 40)
+    })
+  }
+
+  componentDidUpdate() {
+    if (
+      this.markerClusterGroup &&
+      this.markerClusterGroup.refreshClusters
+    ) {
+      this.markerClusterGroup.refreshClusters()
+    }
+  }
+
   render() {
+    console.log('--map component')
     return (
       <Map
         onViewportChanged={this.handleMapMoved.bind(this)}
@@ -83,12 +109,19 @@ export default class MapComponent extends React.Component<Props> {
             zoomToBoundsOnClick={true}
             removeOutsideVisibleBounds={true}
             elementsPlacementStrategy="clock-concentric"
+            iconCreateFunction={this.clusterMakerIcon}
             animate={false}
             singleMarkerMode={true}
             spiderLegPolylineOptions={{ weight: 0 }}
             clockHelpingCircleOptions={{ weight: 0 }}
+            ref={markerClusterGroup => {
+              if (markerClusterGroup) {
+                this.markerClusterGroup =
+                  markerClusterGroup.leafletElement
+              }
+            }}
           >
-            {this.points()}
+            {this.props.points}
           </MarkerClusterGroup>
         </Pane>
       </Map>

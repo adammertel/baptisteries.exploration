@@ -4,7 +4,7 @@ import TimeBarComponent from './../components/timebar'
 import TimeSelectComponent from './../components/timeselect'
 import TimeLegendComponent from './../components/timelegend'
 import Config from './../helpers/config'
-import { featureProp } from './../helpers/feature'
+import { featureProp, timeColor } from './../helpers/feature'
 import Base from './../helpers/base'
 
 type Props = {
@@ -102,8 +102,8 @@ export default class PanelContainer extends React.Component<Props> {
         y: yMax,
         x: fi,
         h: barH,
-        spatial: feature.selection.spatial,
-        temporal: feature.selection.temporal
+        fill: timeColor(feature.selection.temporal),
+        spatial: feature.selection.spatial
       }
     })
   }

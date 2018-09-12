@@ -1,4 +1,5 @@
 import Config from './config'
+import chroma from 'chroma-js'
 
 export var featureProp = (feature, propName): any => {
   if (propName in Config.props) {
@@ -6,4 +7,9 @@ export var featureProp = (feature, propName): any => {
   } else {
     return feature.props[propName]
   }
+}
+
+var timeScale = chroma.scale(['grey', 'red'])
+export var timeColor = certainty => {
+  return timeScale(certainty).hex()
 }

@@ -50,3 +50,22 @@ html {
   width: 100%;
   height: 100%;
 }
+
+$color-marker-icon-halo: white;
+.marker-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 12px;
+  font-weight: 800;
+  color: grey;
+  text-shadow: -1px 0 $color-marker-icon-halo,
+    0 1px $color-marker-icon-halo, 1px 0 $color-marker-icon-halo,
+    0 -1px $color-marker-icon-halo;
+}
+
+.map-marker {
+  //border: 2px solid black;
+  border-radius: 50%;
+}

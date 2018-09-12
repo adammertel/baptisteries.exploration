@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
+import Colors from './../helpers/colors'
 
 import { Stage, Layer, Rect, Text } from 'react-konva'
 import Konva from 'konva'
@@ -44,7 +45,7 @@ class TimeSelect extends React.Component<Props> {
               y={0}
               x={marginLeft}
               height={position.h}
-              stroke="black"
+              stroke={Colors.passive}
             />
             <Rect
               key="date-range"
@@ -52,8 +53,8 @@ class TimeSelect extends React.Component<Props> {
               height={selectedMinDateY - selectedMaxDateY}
               x={marginLeft}
               y={selectedMaxDateY}
-              stroke="black"
-              fill="orange"
+              stroke={Colors.passive}
+              fill={Colors.passive}
             />
             <Rect
               key="max-date-handler"
@@ -61,8 +62,7 @@ class TimeSelect extends React.Component<Props> {
               height={handlerH}
               x={0}
               y={this.props.selectedMaxDateY - handlerH / 2}
-              stroke="red"
-              fill="orange"
+              fill={Colors.active}
               draggable={true}
               onDragEnd={this.props.onDragMax}
               dragBoundFunc={pos => {
@@ -83,8 +83,7 @@ class TimeSelect extends React.Component<Props> {
               height={handlerH}
               x={0}
               y={this.props.selectedMinDateY - handlerH / 2}
-              stroke="red"
-              fill="orange"
+              fill={Colors.active}
               draggable={true}
               onDragEnd={this.props.onDragMin}
               dragBoundFunc={pos => {
@@ -106,14 +105,16 @@ class TimeSelect extends React.Component<Props> {
               key="min-date-label"
               x={35}
               y={this.props.selectedMinDateY - handlerH / 2 + 3}
-              stroke="red"
+              stroke={Colors.active}
+              strokeWidth={1}
               text={this.props.minDate}
             />
             <Text
               key="max-date-label"
               x={35}
+              strokeWidth={1}
               y={this.props.selectedMaxDateY - handlerH / 2 - 3}
-              stroke="red"
+              stroke={Colors.active}
               text={this.props.maxDate}
             />
           </Layer>

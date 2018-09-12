@@ -59,7 +59,8 @@ export default class MapComponent extends React.Component<Props> {
   }
 
   clusterMakerIcon(cluster) {
-    var markers = cluster.getAllChildMarkers()
+    const markers = cluster.getAllChildMarkers()
+
     const timeSelections = markers.map(
       marker => marker.options.data.selection.temporal
     )
@@ -72,7 +73,7 @@ export default class MapComponent extends React.Component<Props> {
         markers.length +
         '</div>',
       className: 'map-marker map-marker-cluster',
-      iconSize: L.point(40, 40)
+      iconSize: L.point(30, 30)
     })
   }
 

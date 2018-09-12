@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
+import Colors from './../helpers/colors'
 
 import { Stage, Layer, Text } from 'react-konva'
 import Konva from 'konva'
@@ -40,7 +41,8 @@ export default class TimeLegendComponent extends React.Component<
                   y={tick.y - fontSize / 2}
                   verticalAlign="bottom"
                   text={tick.date}
-                  color="black"
+                  stroke={Colors.passive}
+                  strokeWidth={1}
                 />
               )
             })}

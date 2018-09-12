@@ -57,9 +57,10 @@ $color-marker-icon-halo: white;
   height: 100%;
   border-radius: 50%;
   text-align: center;
-  padding-top: 12px;
+  font-size: 10px;
+  padding-top: 9px;
   font-weight: 800;
-  color: grey;
+  color: rgb(36, 36, 36);
   text-shadow: -1px 0 $color-marker-icon-halo,
     0 1px $color-marker-icon-halo, 1px 0 $color-marker-icon-halo,
     0 -1px $color-marker-icon-halo;

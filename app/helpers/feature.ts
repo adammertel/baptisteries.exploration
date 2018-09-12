@@ -1,4 +1,5 @@
 import Config from './config'
+import Colors from './colors'
 import chroma from 'chroma-js'
 
 export var featureProp = (feature, propName): any => {
@@ -9,7 +10,10 @@ export var featureProp = (feature, propName): any => {
   }
 }
 
-var timeScale = chroma.scale(['grey', 'red'])
+var timeScale = chroma.scale([
+  Colors.unSelectedSpatial,
+  Colors.feature
+])
 export var timeColor = certainty => {
   return timeScale(certainty).hex()
 }

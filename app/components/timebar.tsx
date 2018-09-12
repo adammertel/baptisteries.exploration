@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
+import Colors from './../helpers/colors'
 import { Stage, Layer, Rect, Line, Circle } from 'react-konva'
 import Konva from 'konva'
 
@@ -44,7 +45,7 @@ class TimeBarComponent extends React.Component<Props> {
                 <Line
                   key={ti}
                   points={[x1, y, x2, y]}
-                  stroke="black"
+                  stroke={Colors.passive}
                   strokeWidth={0.5}
                 />
               )
@@ -64,7 +65,7 @@ class TimeBarComponent extends React.Component<Props> {
                     y={feature.y - (barHl - barWidth) / 2}
                     width={barHl}
                     height={feature.h + (barHl - barWidth)}
-                    fill="yellow"
+                    fill={Colors.selectedSpatial}
                   />
                 )
               })}
@@ -99,7 +100,7 @@ class TimeBarComponent extends React.Component<Props> {
                     x={x}
                     y={feature.y}
                     radius={barWidth}
-                    fill="yellow"
+                    fill={Colors.selectedSpatial}
                   />
                 )
               })}

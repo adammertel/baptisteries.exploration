@@ -87,6 +87,23 @@ class TimeBarComponent extends React.Component<Props> {
                 )
               })}
           </Layer>
+          <Layer key="bars-circles-hl">
+            {this.props.bars
+              .filter(t => t.circle)
+              .filter(f => f.spatial)
+              .map((feature, fi) => {
+                const x = barSpace - barWidth + feature.x * barSpace
+                return (
+                  <Circle
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    radius={barWidth}
+                    fill="yellow"
+                  />
+                )
+              })}
+          </Layer>
           <Layer key="bars-circles">
             {this.props.bars
               .filter(t => t.circle)
@@ -97,12 +114,8 @@ class TimeBarComponent extends React.Component<Props> {
                     key={fi}
                     x={x}
                     y={feature.y}
-                    radius={barWidth}
+                    radius={barWidth - 2}
                     fill={feature.fill}
-                    strokeWidth={
-                      feature.spatial ? (barHl - barWidth) / 2 : 0
-                    }
-                    stroke={feature.spatial ? 'yellow' : 'none'}
                   />
                 )
               })}

@@ -42,7 +42,7 @@ export default class TimeLegendComponent extends React.Component<
                   verticalAlign="bottom"
                   text={tick.date}
                   stroke={Colors.passive}
-                  strokeWidth={1}
+                  strokeWidth={0.5}
                 />
               )
             })}

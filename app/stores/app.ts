@@ -70,13 +70,12 @@ export default class AppStore {
   @computed
   get sortMethod(): Function {
     return (a, b) => {
-      if (a.selection.spatial) {
-        return -1
-      }
-      if (b.selection.spatial) {
-        return 1
-      }
-      return a.props[this.sortProp] > b.props[this.sortProp] ? -1 : 1
+      let aRank = a.selection.spatial ? 100 : -100
+      let bRank = b.selection.spatial ? 100 : -100
+
+      aRank +=
+        a.props[this.sortProp] > b.props[this.sortProp] ? 1 : -1
+      return aRank > bRank ? -1 : 1
     }
   }
 

@@ -67,7 +67,7 @@ export default class MapComponent extends React.Component<Props> {
 
     return L.divIcon({
       html:
-        '<div class="marker-icon" style="background-color: ' +
+        '<div class="marker-icon diagonal-stripe-2" style="background-color: ' +
         timeColor(Base.average(timeSelections)) +
         '" >' +
         markers.length +

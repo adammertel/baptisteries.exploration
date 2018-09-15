@@ -70,12 +70,18 @@ export default class MapComponent extends React.Component<Props> {
     const spatialCertainties = markers.map(
       marker => marker.options.data.props.certainty_location
     )
+    const existenceCertainties = markers.map(
+      marker => marker.options.data.props.certainty_existence
+    )
 
     const timeSelectionAvg = Base.average(timeSelections)
     const spatialCertaintiesAvg = Base.average(spatialCertainties)
+    const existenceCertaintiesAvg = Base.average(existenceCertainties)
+
+    const existenceCertaintyRatio =
+      0.3 + (1 - (existenceCertaintiesAvg - 1) / 2) * 0.7
 
     const ids = markers.map(m => m.options.data.props.id)
-    //console.log('cluster', ids, timeSelections)
 
     const markerOuterSize = 50
     const markerInnerSize = 30
@@ -83,8 +89,12 @@ export default class MapComponent extends React.Component<Props> {
     const fillMarker =
       '<div key="fill_' +
       ids +
-      '" class="marker-icon marker-icon-fill diagonal-stripe-2" style="background-color: ' +
-      timeColor(timeSelectionAvg) +
+      '" class="marker-icon marker-icon-fill" style="' +
+      Base.cssStripes(
+        timeColor(timeSelectionAvg),
+        5,
+        existenceCertaintyRatio
+      ) +
       '" >' +
       markers.length +
       '</div>'
@@ -102,7 +112,6 @@ export default class MapComponent extends React.Component<Props> {
       markerInnerSize +
       spaceRadiusDelta * ((spatialCertaintiesAvg - 1) / 2)
 
-    console.log(spaceUncertaintyRadius)
     const spaceUncertaintyMargin =
       (spaceRadiusDelta -
         (spaceUncertaintyRadius - markerInnerSize)) /
@@ -113,11 +122,11 @@ export default class MapComponent extends React.Component<Props> {
       ids +
       '" class="marker-icon marker-icon-certainty-circle" style="background-color: ' +
       Colors.temporal +
-      ';width: ' +
+      '; width: ' +
       spaceUncertaintyRadius +
-      'px;height: ' +
+      'px; height: ' +
       spaceUncertaintyRadius +
-      'px;margin: ' +
+      'px; margin: ' +
       spaceUncertaintyMargin +
       'px 0px 0px ' +
       spaceUncertaintyMargin +

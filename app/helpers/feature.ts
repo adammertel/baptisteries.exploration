@@ -12,7 +12,7 @@ export var featureProp = (feature, propName): any => {
 
 var timeScale = chroma.scale([Colors.unselected, Colors.temporal])
 
-var markerBorder = chroma.scale([Colors.temporal, Colors.temporal])
+var markerBorder = chroma.scale([Colors.unselected, Colors.temporal])
 export var markerBorderColor = certainty => {
   return markerBorder(certainty).hex()
 }

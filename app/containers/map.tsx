@@ -4,9 +4,6 @@ import Base from './../helpers/base'
 import MapComponent from './../components/map'
 import { timeColor } from './../helpers/feature'
 import { Marker } from 'react-leaflet'
-import 'leaflet.markercluster'
-
-import 'leaflet.markercluster.placementstrategies'
 
 type Props = {
   stores: Array<Object>

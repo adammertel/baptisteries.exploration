@@ -74,10 +74,9 @@ $color-marker-icon-halo: white;
     font-size: 10px;
     padding-top: 9px;
     font-weight: 800;
-    color: red;
-    text-shadow: -1px 0 $color-marker-icon-halo,
-      0 1px $color-marker-icon-halo, 1px 0 $color-marker-icon-halo,
-      0 -1px $color-marker-icon-halo;
+    text-shadow: -2px 0 $color-marker-icon-halo,
+      0 2px $color-marker-icon-halo, 2px 0 $color-marker-icon-halo,
+      0 -2px $color-marker-icon-halo;
   }
   .marker-icon-certainty-circle {
     opacity: 0.2;

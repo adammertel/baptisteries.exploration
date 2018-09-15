@@ -66,6 +66,26 @@ var Base = {
       extent[0][0] < y &&
       extent[1][0] > y
     )
+  },
+
+  cssStripes: (color, w, ratio) => {
+    const color2 = '#ffffffff'
+
+    return (
+      'background: repeating-linear-gradient(45deg, ' +
+      color +
+      ', ' +
+      color +
+      ' ' +
+      w * ratio +
+      'px, ' +
+      color2 +
+      ' 0px, ' +
+      color2 +
+      ' ' +
+      w +
+      'px)'
+    )
   }
 }
 

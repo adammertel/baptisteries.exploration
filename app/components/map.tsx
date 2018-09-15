@@ -66,9 +66,14 @@ export default class MapComponent extends React.Component<Props> {
       marker => marker.options.data.selection.temporal
     )
 
+    const ids = markers.map(m => m.options.data.props.id)
+    //console.log('cluster', ids, timeSelections)
+
     return L.divIcon({
       html:
-        '<div class="marker-icon diagonal-stripe-2" style="background-color: ' +
+        '<div key="fill_' +
+        ids +
+        '" class="marker-icon-fill diagonal-stripe-2" style="background-color: ' +
         timeColor(Base.average(timeSelections)) +
         '" >' +
         markers.length +

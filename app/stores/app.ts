@@ -18,7 +18,7 @@ export default class AppStore {
   constructor() {
     this._sortProp = observable.box('date_after')
     this._dateSelection = observable.box([
-      Config.dates.min,
+      550, //Config.dates.min,
       Config.dates.max
     ])
   }

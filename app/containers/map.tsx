@@ -47,19 +47,21 @@ export default class MapContainer extends React.Component<Props> {
 
   points(features) {
     console.log('drawing points')
-    return features.map((feature, ri) => {
-      return (
-        <Marker
-          fillColor={timeColor(feature.selection.temporal)}
-          fillOpacity="1"
-          weight="0"
-          key={ri}
-          radius={10}
-          position={feature.geo}
-          data={feature}
-        />
-      )
-    })
+    return features
+      .filter(f => f.selection.spatial)
+      .map((feature, ri) => {
+        return (
+          <Marker
+            fillColor={timeColor(feature.selection.temporal)}
+            fillOpacity="1"
+            weight="0"
+            key={feature.props.id}
+            radius={10}
+            position={feature.geo}
+            data={feature}
+          />
+        )
+      })
   }
 
   render() {

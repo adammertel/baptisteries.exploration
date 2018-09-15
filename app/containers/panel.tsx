@@ -141,6 +141,13 @@ export default class PanelContainer extends React.Component<Props> {
     const screenStore = this.props.stores.screen
     const appStore = this.props.stores.app
 
+    /*
+    console.log(
+      'spatial',
+      appStore.features.filter(f => f.selection.spatial)
+    )
+    */
+
     const positions = (this.positions = this.calculatePositions(
       screenStore.height,
       screenStore.width

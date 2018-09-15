@@ -3,7 +3,7 @@ var Colors = {
   passive: 'darkgrey',
   feature: 'red',
   selectedSpatial: 'yellow',
-  unSelectedSpatial: 'grey'
+  unSelectedSpatial: 'lightgrey'
 }
 
 export default Colors

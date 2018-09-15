@@ -25,6 +25,8 @@ class TimeBarComponent extends React.Component<Props> {
     const barMargin = 4
     const barSpace = barHl + barMargin
 
+    const bars = this.props.bars
+
     return (
       <div
         className="timebar-wrapper"
@@ -52,7 +54,7 @@ class TimeBarComponent extends React.Component<Props> {
             })}
           </Layer>
           <Layer key="bars-hl">
-            {this.props.bars
+            {bars
               .filter(f => f.spatial)
               .filter(t => !t.circle)
               .map((feature, fi) => {
@@ -71,25 +73,23 @@ class TimeBarComponent extends React.Component<Props> {
               })}
           </Layer>
           <Layer key="bars">
-            {this.props.bars
-              .filter(t => !t.circle)
-              .map((feature, fi) => {
-                const x =
-                  barSpace / 2 - barWidth / 2 + feature.x * barSpace
-                return (
-                  <Rect
-                    key={fi}
-                    x={x}
-                    y={feature.y}
-                    width={barWidth}
-                    height={feature.h}
-                    fill={feature.fill}
-                  />
-                )
-              })}
+            {bars.filter(t => !t.circle).map((feature, fi) => {
+              const x =
+                barSpace / 2 - barWidth / 2 + feature.x * barSpace
+              return (
+                <Rect
+                  key={fi}
+                  x={x}
+                  y={feature.y}
+                  width={barWidth}
+                  height={feature.h}
+                  fill={feature.fill}
+                />
+              )
+            })}
           </Layer>
           <Layer key="bars-circles-hl">
-            {this.props.bars
+            {bars
               .filter(t => t.circle)
               .filter(f => f.spatial)
               .map((feature, fi) => {
@@ -106,20 +106,18 @@ class TimeBarComponent extends React.Component<Props> {
               })}
           </Layer>
           <Layer key="bars-circles">
-            {this.props.bars
-              .filter(t => t.circle)
-              .map((feature, fi) => {
-                const x = barSpace - barWidth + feature.x * barSpace
-                return (
-                  <Circle
-                    key={fi}
-                    x={x}
-                    y={feature.y}
-                    radius={barWidth - 2}
-                    fill={feature.fill}
-                  />
-                )
-              })}
+            {bars.filter(t => t.circle).map((feature, fi) => {
+              const x = barSpace - barWidth + feature.x * barSpace
+              return (
+                <Circle
+                  key={fi}
+                  x={x}
+                  y={feature.y}
+                  radius={barWidth - 2}
+                  fill={feature.fill}
+                />
+              )
+            })}
           </Layer>
         </Stage>
       </div>

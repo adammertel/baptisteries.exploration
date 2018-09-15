@@ -1,9 +1,10 @@
 var Colors = {
   active: 'black',
   passive: 'darkgrey',
-  feature: 'red',
-  selectedSpatial: 'yellow',
-  unSelectedSpatial: 'lightgrey'
+  temporal: 'red',
+  spatial: 'lightblue',
+  attribute: 'orange',
+  unselected: 'lightgrey'
 }
 
 export default Colors

@@ -2,27 +2,11 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 import MapComponent from './../components/map'
-import map from './../components/map'
 import { timeColor } from './../helpers/feature'
-import L from 'leaflet'
-import {
-  Map,
-  LayerGroup,
-  TileLayer,
-  WMSTileLayer,
-  GeoJSON,
-  Pane,
-  CircleMarker,
-  ScaleControl,
-  AttributionControl,
-  Marker,
-  Popup,
-  Tooltip
-} from 'react-leaflet'
+import { Marker } from 'react-leaflet'
 import 'leaflet.markercluster'
 
 import 'leaflet.markercluster.placementstrategies'
-import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 type Props = {
   stores: Array<Object>

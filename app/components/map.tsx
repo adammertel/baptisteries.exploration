@@ -2,7 +2,8 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 import Config from './../helpers/config'
-import { timeColor } from './../helpers/feature'
+import Colors from './../helpers/colors'
+import { timeColor, markerBorderColor } from './../helpers/feature'
 import L from 'leaflet'
 import {
   Map,
@@ -66,20 +67,74 @@ export default class MapComponent extends React.Component<Props> {
       marker => marker.options.data.selection.temporal
     )
 
+    const spatialCertainties = markers.map(
+      marker => marker.options.data.props.certainty_location
+    )
+
+    const timeSelectionAvg = Base.average(timeSelections)
+    const spatialCertaintiesAvg = Base.average(spatialCertainties)
+
     const ids = markers.map(m => m.options.data.props.id)
     //console.log('cluster', ids, timeSelections)
 
+    const markerOuterSize = 50
+    const markerInnerSize = 30
+
+    const fillMarker =
+      '<div key="fill_' +
+      ids +
+      '" class="marker-icon marker-icon-fill diagonal-stripe-2" style="background-color: ' +
+      timeColor(timeSelectionAvg) +
+      '" >' +
+      markers.length +
+      '</div>'
+
+    const strokeMarker =
+      '<div key="stroke_' +
+      ids +
+      '" class="marker-icon marker-icon-stroke" style="border: 2px solid ' +
+      markerBorderColor(Base.average(timeSelections)) +
+      '" >' +
+      '</div>'
+
+    const spaceRadiusDelta = markerOuterSize - markerInnerSize
+    const spaceUncertaintyRadius =
+      markerInnerSize +
+      spaceRadiusDelta * ((spatialCertaintiesAvg - 1) / 2)
+
+    console.log(spaceUncertaintyRadius)
+    const spaceUncertaintyMargin =
+      (spaceRadiusDelta -
+        (spaceUncertaintyRadius - markerInnerSize)) /
+      2
+
+    const spaceUncertaintyCircle =
+      '<div key="space_uncertainty_' +
+      ids +
+      '" class="marker-icon marker-icon-certainty-circle" style="background-color: ' +
+      Colors.temporal +
+      ';width: ' +
+      spaceUncertaintyRadius +
+      'px;height: ' +
+      spaceUncertaintyRadius +
+      'px;margin: ' +
+      spaceUncertaintyMargin +
+      'px 0px 0px ' +
+      spaceUncertaintyMargin +
+      'px" >' +
+      '</div>'
+
     return L.divIcon({
       html:
-        '<div key="fill_' +
+        '<div class="marker-icon-wrapper" key="marker_wrapper_' +
         ids +
-        '" class="marker-icon-fill diagonal-stripe-2" style="background-color: ' +
-        timeColor(Base.average(timeSelections)) +
-        '" >' +
-        markers.length +
+        '">' +
+        spaceUncertaintyCircle +
+        fillMarker +
+        strokeMarker +
         '</div>',
       className: 'map-marker map-marker-cluster',
-      iconSize: L.point(30, 30)
+      iconSize: L.point(50, 50)
     })
   }
 

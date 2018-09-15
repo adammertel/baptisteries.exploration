@@ -7,6 +7,9 @@ var Config = {
   props: {
     dateMin: 'date_after',
     dateMax: 'date_before'
+  },
+  map: {
+    clusterRadius: 60
   }
 }
 

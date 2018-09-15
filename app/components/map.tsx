@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
+import Config from './../helpers/config'
 import { timeColor } from './../helpers/feature'
 import L from 'leaflet'
 import {
@@ -108,6 +109,7 @@ export default class MapComponent extends React.Component<Props> {
           <MarkerClusterGroup
             showCoverageOnHover={false}
             zoomToBoundsOnClick={true}
+            maxClusterRadius={Config.map.clusterRadius}
             removeOutsideVisibleBounds={true}
             elementsPlacementStrategy="clock-concentric"
             iconCreateFunction={this.clusterMakerIcon}

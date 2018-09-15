@@ -2,7 +2,7 @@ var Colors = {
   active: 'black',
   passive: 'darkgrey',
   temporal: 'red',
-  spatial: 'lightblue',
+  spatial: 'darkcyan',
   attribute: 'orange',
   unselected: 'lightgrey'
 }

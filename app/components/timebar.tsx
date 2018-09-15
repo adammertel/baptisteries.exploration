@@ -21,9 +21,10 @@ class TimeBarComponent extends React.Component<Props> {
     const position = this.props.position
 
     const barWidth = 6
+    const barStroke = 8
     const barHl = 10
     const barMargin = 4
-    const barSpace = barHl + barMargin
+    const barSpace = barStroke + barMargin
 
     const bars = this.props.bars
 
@@ -53,42 +54,48 @@ class TimeBarComponent extends React.Component<Props> {
               )
             })}
           </Layer>
-          <Layer key="bars-hl">
+
+          <Layer key="bars-space">
             {bars
-              .filter(f => f.spatial)
               .filter(t => !t.circle)
+              .filter(f => f.spatial)
               .map((feature, fi) => {
                 const x =
-                  barSpace / 2 - barHl / 2 + feature.x * barSpace
+                  barSpace / 2 - barWidth / 2 + feature.x * barSpace
                 return (
                   <Rect
                     key={fi}
                     x={x}
-                    y={feature.y - (barHl - barWidth) / 2}
-                    width={barHl}
-                    height={feature.h + (barHl - barWidth)}
-                    fill={Colors.selectedSpatial}
+                    y={feature.y}
+                    width={barWidth}
+                    height={feature.h}
+                    fill={feature.fill}
+                    stroke={Colors.temporal}
+                    strokeWidth={1}
                   />
                 )
               })}
           </Layer>
-          <Layer key="bars">
-            {bars.filter(t => !t.circle).map((feature, fi) => {
-              const x =
-                barSpace / 2 - barWidth / 2 + feature.x * barSpace
-              return (
-                <Rect
-                  key={fi}
-                  x={x}
-                  y={feature.y}
-                  width={barWidth}
-                  height={feature.h}
-                  fill={feature.fill}
-                />
-              )
-            })}
+          <Layer key="bars-outside">
+            {bars
+              .filter(t => !t.circle)
+              .filter(f => !f.spatial)
+              .map((feature, fi) => {
+                const x =
+                  barSpace / 2 - barWidth / 2 + feature.x * barSpace
+                return (
+                  <Rect
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    width={barWidth}
+                    height={feature.h}
+                    fill={Colors.passive}
+                  />
+                )
+              })}
           </Layer>
-          <Layer key="bars-circles-hl">
+          <Layer key="bars-circles-space">
             {bars
               .filter(t => t.circle)
               .filter(f => f.spatial)
@@ -99,25 +106,29 @@ class TimeBarComponent extends React.Component<Props> {
                     key={fi}
                     x={x}
                     y={feature.y}
-                    radius={barWidth}
-                    fill={Colors.selectedSpatial}
+                    radius={barWidth / 2}
+                    fill={feature.fill}
+                    stroke={Colors.temporal}
                   />
                 )
               })}
           </Layer>
-          <Layer key="bars-circles">
-            {bars.filter(t => t.circle).map((feature, fi) => {
-              const x = barSpace - barWidth + feature.x * barSpace
-              return (
-                <Circle
-                  key={fi}
-                  x={x}
-                  y={feature.y}
-                  radius={barWidth - 2}
-                  fill={feature.fill}
-                />
-              )
-            })}
+          <Layer key="bars-circles-passive">
+            {bars
+              .filter(f => !f.spatial)
+              .filter(t => t.circle)
+              .map((feature, fi) => {
+                const x = barSpace - barWidth + feature.x * barSpace
+                return (
+                  <Circle
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    radius={barWidth / 2}
+                    fill={Colors.passive}
+                  />
+                )
+              })}
           </Layer>
         </Stage>
       </div>

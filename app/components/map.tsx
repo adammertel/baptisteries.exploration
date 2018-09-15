@@ -102,8 +102,9 @@ export default class MapComponent extends React.Component<Props> {
         <ScaleControl position="topleft" imperial={false} />
         <AttributionControl position="bottomleft" />
         <TileLayer
-          url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-          attribution="&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+          url="http://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png"
+          attribution="awmc"
+          className="map-base-layer-awmc"
         />
         <Pane>
           <MarkerClusterGroup

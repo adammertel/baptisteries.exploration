@@ -54,7 +54,6 @@ class TimeBarComponent extends React.Component<Props> {
               )
             })}
           </Layer>
-
           <Layer key="bars-space">
             {bars
               .filter(t => !t.circle)
@@ -76,6 +75,7 @@ class TimeBarComponent extends React.Component<Props> {
                 )
               })}
           </Layer>
+
           <Layer key="bars-outside">
             {bars
               .filter(t => !t.circle)
@@ -90,11 +90,12 @@ class TimeBarComponent extends React.Component<Props> {
                     y={feature.y}
                     width={barWidth}
                     height={feature.h}
-                    fill={Colors.passive}
+                    fill={feature.fill}
                   />
                 )
               })}
           </Layer>
+
           <Layer key="bars-circles-space">
             {bars
               .filter(t => t.circle)
@@ -125,7 +126,7 @@ class TimeBarComponent extends React.Component<Props> {
                     x={x}
                     y={feature.y}
                     radius={barWidth / 2}
-                    fill={Colors.passive}
+                    fill={feature.fill}
                   />
                 )
               })}

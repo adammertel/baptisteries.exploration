@@ -1,3 +1,5 @@
+import { satisfies } from 'semver'
+
 var Colors = {
   active: 'black',
   passive: 'darkgrey',

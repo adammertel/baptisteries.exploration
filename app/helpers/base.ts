@@ -72,7 +72,7 @@ var Base = {
     const color2 = '#ffffffff'
 
     return (
-      'background: repeating-linear-gradient(45deg, ' +
+      'background: repeating-linear-gradient(135deg, ' +
       color +
       ', ' +
       color +
@@ -86,6 +86,50 @@ var Base = {
       w +
       'px)'
     )
+  },
+
+  konvaStripes: (color, w, wp, ratio) => {
+    const color2 = '#ffffffff'
+    const ws = wp * ratio // white part
+    const d = 0.0001
+
+    let usedW = 0
+    let times = 1
+    let parts = 0
+    const values = []
+
+    while (usedW < w) {
+      let thisW = 0
+      let thisC = color
+      const baseW = parts * wp
+
+      if (times % 4 === 1) {
+        thisW = baseW + d
+        thisC = color
+      } else if (times % 4 === 2) {
+        thisW = baseW + ws
+        thisC = color
+      } else if (times % 4 === 3) {
+        thisW = baseW + ws + d
+        thisC = color2
+      } else if (times % 4 === 0) {
+        thisW = baseW + wp
+        thisC = color2
+      }
+
+      if (times % 4 === 0) {
+        parts = parts + 1
+      }
+      times = times + 1
+
+      if (thisW < w) {
+        values.push(thisW / w)
+        values.push(thisC)
+      }
+      usedW = thisW
+    }
+
+    return values
   }
 }
 

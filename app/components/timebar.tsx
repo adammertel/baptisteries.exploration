@@ -23,7 +23,7 @@ class TimeBarComponent extends React.Component<Props> {
     const barWidth = 6
     const barStroke = 8
     const barHl = 10
-    const barMargin = 4
+    const barMargin = 2
     const barSpace = barStroke + barMargin
 
     const bars = this.props.bars
@@ -54,82 +54,100 @@ class TimeBarComponent extends React.Component<Props> {
               )
             })}
           </Layer>
-          <Layer key="bars-space">
-            {bars
-              .filter(t => !t.circle)
-              .filter(f => f.spatial)
-              .map((feature, fi) => {
-                const x =
-                  barSpace / 2 - barWidth / 2 + feature.x * barSpace
-                return (
-                  <Rect
-                    key={fi}
-                    x={x}
-                    y={feature.y}
-                    width={barWidth}
-                    height={feature.h}
-                    fill={feature.fill}
-                    stroke={Colors.temporal}
-                    strokeWidth={1}
-                  />
-                )
-              })}
+          <Layer key="bars-rectangles">
+            {bars.filter(t => !t.circle).map((feature, fi) => {
+              const x =
+                barSpace / 2 - barWidth / 2 + feature.x * barSpace
+
+              // existence certainty
+              let gradientRatio = 1
+              if (feature.existence === 2) {
+                gradientRatio = 0.6
+              } else if (feature.existence === 3) {
+                gradientRatio = 0.3
+              }
+
+              const gradient = gradientRatio !== 1
+              const inMap = feature.spatial
+
+              return (
+                <Rect
+                  key={fi}
+                  x={x}
+                  y={feature.y}
+                  width={barWidth}
+                  height={feature.h}
+                  stroke={inMap ? Colors.temporal : ''}
+                  strokeWidth={inMap ? 1 : 0}
+                  fillLinearGradientStartPoint={
+                    gradient && {
+                      x: 0,
+                      y: 0
+                    }
+                  }
+                  fillLinearGradientEndPoint={{
+                    x: feature.h,
+                    y: feature.h
+                  }}
+                  fillLinearGradientColorStops={
+                    gradient &&
+                    Base.konvaStripes(
+                      feature.fill,
+                      feature.h,
+                      5,
+                      gradientRatio
+                    )
+                  }
+                  fill={gradient ? '' : feature.fill}
+                />
+              )
+            })}
           </Layer>
 
-          <Layer key="bars-outside">
-            {bars
-              .filter(t => !t.circle)
-              .filter(f => !f.spatial)
-              .map((feature, fi) => {
-                const x =
-                  barSpace / 2 - barWidth / 2 + feature.x * barSpace
-                return (
-                  <Rect
-                    key={fi}
-                    x={x}
-                    y={feature.y}
-                    width={barWidth}
-                    height={feature.h}
-                    fill={feature.fill}
-                  />
-                )
-              })}
-          </Layer>
+          <Layer key="bars-circles">
+            {bars.filter(t => t.circle).map((feature, fi) => {
+              const x = barSpace - barWidth + feature.x * barSpace
 
-          <Layer key="bars-circles-space">
-            {bars
-              .filter(t => t.circle)
-              .filter(f => f.spatial)
-              .map((feature, fi) => {
-                const x = barSpace - barWidth + feature.x * barSpace
-                return (
-                  <Circle
-                    key={fi}
-                    x={x}
-                    y={feature.y}
-                    radius={barWidth / 2}
-                    fill={feature.fill}
-                    stroke={Colors.temporal}
-                  />
-                )
-              })}
-          </Layer>
-          <Layer key="bars-circles-passive">
-            {bars
-              .filter(f => !f.spatial)
-              .filter(t => t.circle)
-              .map((feature, fi) => {
-                const x = barSpace - barWidth + feature.x * barSpace
-                return (
-                  <Circle
-                    key={fi}
-                    x={x}
-                    y={feature.y}
-                    radius={barWidth / 2}
-                    fill={feature.fill}
-                  />
-                )
-              })}
+              let gradientRatio = 1
+              if (feature.existence === 2) {
+                gradientRatio = 0.8
+              } else if (feature.existence === 3) {
+                gradientRatio = 0.6
+              }
+
+              const gradient = gradientRatio !== 1
+              const inMap = feature.spatial
+
+              return (
+                <Circle
+                  key={fi}
+                  x={x}
+                  y={feature.y}
+                  radius={barWidth / 2}
+                  fill={gradient ? '' : feature.fill}
+                  fillLinearGradientStartPoint={
+                    gradient && {
+                      x: -barWidth / 2,
+                      y: -barWidth / 2
+                    }
+                  }
+                  fillLinearGradientEndPoint={{
+                    x: barWidth / 2,
+                    y: barWidth / 2
+                  }}
+                  fillLinearGradientColorStops={
+                    gradient &&
+                    Base.konvaStripes(
+                      feature.fill,
+                      barWidth * 2,
+                      3,
+                      gradientRatio
+                    )
+                  }
+                  stroke={inMap ? Colors.temporal : ''}
+                />
+              )
+            })}
           </Layer>
         </Stage>
       </div>

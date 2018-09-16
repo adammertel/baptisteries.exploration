@@ -56,6 +56,7 @@ html {
 }
 
 $color-marker-icon-halo: white;
+$color-marker-icon-radius: 1px;
 
 .marker-icon-wrapper {
   div {
@@ -71,12 +72,20 @@ $color-marker-icon-halo: white;
   }
   .marker-icon-fill {
     text-align: center;
-    font-size: 10px;
-    padding-top: 9px;
-    font-weight: 800;
-    text-shadow: -2px 0 $color-marker-icon-halo,
-      0 2px $color-marker-icon-halo, 2px 0 $color-marker-icon-halo,
-      0 -2px $color-marker-icon-halo;
+    font-size: 12px;
+    padding-top: 7px;
+    font-weight: 900;
+    font-family: system-ui;
+    text-shadow: 0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo,
+      0 0 $color-marker-icon-radius $color-marker-icon-halo;
   }
   .marker-icon-certainty-circle {
     opacity: 0.2;

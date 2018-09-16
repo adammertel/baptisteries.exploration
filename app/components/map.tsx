@@ -78,8 +78,19 @@ export default class MapComponent extends React.Component<Props> {
     const spatialCertaintiesAvg = Base.average(spatialCertainties)
     const existenceCertaintiesAvg = Base.average(existenceCertainties)
 
+    const color = markerBorderColor(Base.average(timeSelections))
+
     const existenceCertaintyRatio =
       0.3 + (1 - (existenceCertaintiesAvg - 1) / 2) * 0.7
+
+    const stripes =
+      existenceCertaintyRatio === 1
+        ? 'background-color: ' + color
+        : Base.cssStripes(
+            timeColor(timeSelectionAvg),
+            5,
+            existenceCertaintyRatio
+          )
 
     const ids = markers.map(m => m.options.data.props.id)
 
@@ -90,11 +101,9 @@ export default class MapComponent extends React.Component<Props> {
       '<div key="fill_' +
       ids +
       '" class="marker-icon marker-icon-fill" style="' +
-      Base.cssStripes(
-        timeColor(timeSelectionAvg),
-        5,
-        existenceCertaintyRatio
-      ) +
+      stripes +
+      ';color: ' +
+      color +
       '" >' +
       markers.length +
       '</div>'
@@ -103,7 +112,7 @@ export default class MapComponent extends React.Component<Props> {
       '<div key="stroke_' +
       ids +
       '" class="marker-icon marker-icon-stroke" style="border: 2px solid ' +
-      markerBorderColor(Base.average(timeSelections)) +
+      color +
       '" >' +
       '</div>'
 

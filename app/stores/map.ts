@@ -7,7 +7,7 @@ export default class MapStore {
   _extent
   constructor() {
     this._center = observable.box([36.8, 10.1])
-    this._zoom = observable.box(11)
+    this._zoom = observable.box(6)
     this._extent = observable.box([[10, 10], [20, 20]])
   }
 

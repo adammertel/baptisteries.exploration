@@ -3,6 +3,8 @@ import { observer } from 'mobx-react'
 import TimeBarComponent from './../components/timebar'
 import TimeSelectComponent from './../components/timeselect'
 import TimeLegendComponent from './../components/timelegend'
+import PanelFilterComponent from './../components/panelfilter'
+import PanelSettingsComponent from './../components/panelsettings'
 import Config from './../helpers/config'
 import { featureProp, timeColor } from './../helpers/feature'
 import Base from './../helpers/base'
@@ -39,51 +41,57 @@ export default class PanelContainer extends React.Component<Props> {
     const h = screenH / 2 - margins * 2
     const w = screenW - margins * 2
 
-    const optionHeight = 50
+    const settingsHeight = 50
     const timelineHeight = 75
 
     const histogramWidth = 300
     const timeSelectWidth = 70
     const timeLegendWidth = 30
-
-    const middleHeight = h - optionHeight - timelineHeight
+    const settingsWidth = 150
+    const middleHeight = h - settingsHeight - timelineHeight
 
     return {
-      options: {
-        h: optionHeight,
-        w: w,
-        x: 100,
+      settings: {
+        h: settingsHeight,
+        w: settingsWidth,
+        x: w - settingsWidth,
+        y: 0
+      },
+      filter: {
+        h: settingsHeight,
+        w: w - settingsWidth,
+        x: 0,
         y: 0
       },
       historgram: {
         h: middleHeight,
         w: histogramWidth,
         x: 0,
-        y: optionHeight
+        y: settingsHeight
       },
       timeSelect: {
         h: middleHeight,
         w: timeSelectWidth,
         x: histogramWidth,
-        y: optionHeight
+        y: settingsHeight
       },
       timeLegend: {
         h: middleHeight,
         w: timeLegendWidth,
         x: histogramWidth + timeSelectWidth,
-        y: optionHeight
+        y: settingsHeight
       },
       timeBars: {
         h: middleHeight,
         w: w - histogramWidth - timeSelectWidth - timeLegendWidth,
         x: histogramWidth + timeSelectWidth + timeLegendWidth,
-        y: optionHeight
+        y: settingsHeight
       },
       timeline: {
         h: timelineHeight,
         w: w,
         x: 0,
-        y: optionHeight + middleHeight
+        y: settingsHeight + middleHeight
       }
     }
   }
@@ -159,6 +167,9 @@ export default class PanelContainer extends React.Component<Props> {
 
     return (
       <div className="container panel-container">
+        <PanelSettingsComponent position={positions.settings} />
+        <PanelFilterComponent position={positions.filter} />
+
         <TimeBarComponent
           position={positions.timeBars}
           bars={timeBars}

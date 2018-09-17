@@ -95,7 +95,7 @@ export default class MapComponent extends React.Component<Props> {
 
     const ids = markers.map(m => m.options.data.props.id)
 
-    const markerOuterSize = single ? 30 : 50
+    const markerOuterSize = single ? 40 : 60
     const markerInnerSize = single ? 20 : 30
     const markerMargin = (markerOuterSize - markerInnerSize) / 2
 

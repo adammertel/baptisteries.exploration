@@ -14,9 +14,6 @@ export default class PanelSettingsComponent extends React.Component<
   state
   constructor(props: any) {
     super(props)
-    this.state = {
-      newFilterValue: false
-    }
   }
 
   render() {
@@ -30,12 +27,7 @@ export default class PanelSettingsComponent extends React.Component<
           left: position.x
         }}
       >
-        <div className="select">
-          <select>
-            <option>Select dropdown</option>
-            <option>With options</option>
-          </select>
-        </div>
+        settings
       </div>
     )
   }

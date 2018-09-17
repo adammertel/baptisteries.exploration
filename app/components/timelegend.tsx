@@ -23,9 +23,8 @@ export default class TimeLegendComponent extends React.Component<
     const fontSize = 10
     return (
       <div
-        className="timebar-wrapper"
+        className="timebar-wrapper panel-component panel-middle-component"
         style={{
-          position: 'absolute',
           top: position.y,
           left: position.x
         }}

@@ -30,9 +30,8 @@ class TimeSelect extends React.Component<Props> {
 
     return (
       <div
-        className="timeselect-wrapper"
+        className="timeselect-wrapper panel-component panel-middle-component"
         style={{
-          position: 'absolute',
           top: position.y,
           left: position.x
         }}

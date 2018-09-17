@@ -11,8 +11,12 @@ export default class PanelFilterComponent extends React.Component<
   Props
 > {
   props
+  state
   constructor(props: any) {
     super(props)
+    this.state = {
+      newFilterValue: false
+    }
   }
 
   render() {
@@ -23,9 +27,19 @@ export default class PanelFilterComponent extends React.Component<
         style={{
           position: 'absolute',
           top: position.y,
-          left: position.x
+          left: position.x,
+          padding: 10
         }}
-      />
+      >
+        Filters :{' '}
+        <div className="select is-small">
+          <select value={this.state.newFilterValue}>
+            {}
+            <option>Select attribute to filter</option>
+            <option>With options</option>
+          </select>
+        </div>
+      </div>
     )
   }
 }

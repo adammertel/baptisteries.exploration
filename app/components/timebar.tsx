@@ -30,9 +30,8 @@ class TimeBarComponent extends React.Component<Props> {
 
     return (
       <div
-        className="timebar-wrapper"
+        className="timebar-wrapper panel-component panel-middle-component"
         style={{
-          position: 'absolute',
           top: position.y,
           left: position.x
         }}
@@ -144,6 +143,7 @@ class TimeBarComponent extends React.Component<Props> {
                       gradientRatio
                     )
                   }
+                  strokeWidth={inMap ? 1 : 0}
                   stroke={inMap ? Colors.temporal : ''}
                 />
               )

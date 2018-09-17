@@ -169,7 +169,7 @@ export default class PanelContainer extends React.Component<Props> {
       <div className="container panel-container">
         <PanelSettingsComponent position={positions.settings} />
         <PanelFilterComponent position={positions.filter} />
-
+        <hr className="panel-line" />
         <TimeBarComponent
           position={positions.timeBars}
           bars={timeBars}

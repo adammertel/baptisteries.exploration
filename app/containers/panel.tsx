@@ -42,7 +42,7 @@ export default class PanelContainer extends React.Component<Props> {
     const optionHeight = 50
     const timelineHeight = 75
 
-    const histogramWidth = 200
+    const histogramWidth = 300
     const timeSelectWidth = 70
     const timeLegendWidth = 30
 

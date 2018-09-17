@@ -54,6 +54,8 @@ var Base = {
     return total / a.length
   },
 
+  unique: arr => arr.filter((v, i, a) => a.indexOf(v) === i),
+
   pointInBounds: (
     point: Array<number>,
     extent: Array<number>

@@ -17,11 +17,12 @@ import MapStore from './stores/map'
 import ScreenStore from './stores/screen'
 
 console.log(data)
+const dataStore = new DataStore(data)
 
 var stores = (window['stores'] = {
-  app: new AppStore(),
+  app: new AppStore(dataStore),
   map: new MapStore(),
-  data: new DataStore(data),
+  data: dataStore,
   screen: new ScreenStore()
 })
 

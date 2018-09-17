@@ -25,9 +25,7 @@ export default class PanelFilterComponent extends React.Component<
           top: position.y,
           left: position.x
         }}
-      >
-        filter
-      </div>
+      />
     )
   }
 }

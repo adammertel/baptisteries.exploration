@@ -14,42 +14,16 @@ import Config from './../helpers/config'
 export default class AppStore {
   _sortProp
   _dateSelection
-  _filterAttributes
   _dataStore
 
   constructor(dataStore) {
     this._dataStore = dataStore
-    this._filterAttributes = [
-      {
-        id: 'ciborium',
-        label: 'ciborium'
-      },
-      {
-        id: 'piscina_shape',
-        label: 'piscina shape'
-      },
-      {
-        id: 'shape',
-        label: 'building shape'
-      }
-    ]
-
-    this.initFilters()
 
     this._sortProp = observable.box('date_after')
     this._dateSelection = observable.box([
       550, //Config.dates.min,
       Config.dates.max
     ])
-  }
-
-  // initialise filters
-  initFilters(): void {
-    this._filterAttributes.forEach(attr => {
-      attr.values = Base.unique(
-        this._dataStore.features.map(f => f.props[attr.id])
-      )
-    })
   }
 
   @computed

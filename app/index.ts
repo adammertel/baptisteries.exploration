@@ -15,12 +15,14 @@ import AppStore from './stores/app'
 import DataStore from './stores/data'
 import MapStore from './stores/map'
 import ScreenStore from './stores/screen'
+import FilterStore from './stores/filter'
 
 console.log(data)
 const dataStore = new DataStore(data)
 
 var stores = (window['stores'] = {
   app: new AppStore(dataStore),
+  filter: new FilterStore(dataStore),
   map: new MapStore(),
   data: dataStore,
   screen: new ScreenStore()

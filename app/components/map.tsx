@@ -62,6 +62,7 @@ export default class MapComponent extends React.Component<Props> {
 
   clusterMakerIcon(cluster) {
     const markers = cluster.getAllChildMarkers()
+    const single = markers.length === 1
 
     const timeSelections = markers.map(
       marker => marker.options.data.selection.temporal
@@ -94,8 +95,19 @@ export default class MapComponent extends React.Component<Props> {
 
     const ids = markers.map(m => m.options.data.props.id)
 
-    const markerOuterSize = 50
-    const markerInnerSize = 30
+    const markerOuterSize = single ? 30 : 50
+    const markerInnerSize = single ? 20 : 30
+    const markerMargin = (markerOuterSize - markerInnerSize) / 2
+
+    const innerStyle =
+      ';width:' +
+      markerInnerSize +
+      ';height:' +
+      markerInnerSize +
+      ';margin-top:' +
+      markerMargin +
+      ';margin-left:' +
+      markerMargin
 
     const fillMarker =
       '<div key="fill_' +
@@ -104,8 +116,9 @@ export default class MapComponent extends React.Component<Props> {
       stripes +
       ';color: ' +
       color +
+      innerStyle +
       '" >' +
-      markers.length +
+      (single ? '' : markers.length) +
       '</div>'
 
     const strokeMarker =
@@ -113,6 +126,7 @@ export default class MapComponent extends React.Component<Props> {
       ids +
       '" class="marker-icon marker-icon-stroke" style="border: 2px solid ' +
       color +
+      innerStyle +
       '" >' +
       '</div>'
 
@@ -151,8 +165,10 @@ export default class MapComponent extends React.Component<Props> {
         fillMarker +
         strokeMarker +
         '</div>',
-      className: 'map-marker map-marker-cluster',
-      iconSize: L.point(50, 50)
+      className:
+        'map-marker ' +
+        (single ? 'map-marker-single' : 'map-marker-cluster'),
+      iconSize: L.point(markerOuterSize, markerOuterSize)
     })
   }
 
@@ -187,6 +203,16 @@ export default class MapComponent extends React.Component<Props> {
         <Pane>
           <MarkerClusterGroup
             showCoverageOnHover={false}
+            firstCircleElements={6}
+            clockHelpingCircleOptions={{
+              weight: 0.7,
+              opacity: 1,
+              color: 'black',
+              fillOpacity: 0,
+              dashArray: '10 5',
+              transform: 'translateY(-10px)'
+            }}
+            spiderfyDistanceSurplus={35}
             zoomToBoundsOnClick={true}
             maxClusterRadius={Config.map.clusterRadius}
             removeOutsideVisibleBounds={true}
@@ -195,7 +221,6 @@ export default class MapComponent extends React.Component<Props> {
             animate={false}
             singleMarkerMode={true}
             spiderLegPolylineOptions={{ weight: 0 }}
-            clockHelpingCircleOptions={{ weight: 0 }}
             ref={markerClusterGroup => {
               if (markerClusterGroup) {
                 this.markerClusterGroup =

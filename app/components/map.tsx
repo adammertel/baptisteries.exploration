@@ -144,7 +144,7 @@ export default class MapComponent extends React.Component<Props> {
       '<div key="space_uncertainty_' +
       ids +
       '" class="marker-icon marker-icon-certainty-circle" style="background-color: ' +
-      Colors.temporal +
+      color +
       '; width: ' +
       spaceUncertaintyRadius +
       'px; height: ' +

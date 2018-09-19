@@ -52,7 +52,7 @@ export default class PanelFilterComponent extends React.Component<
           position: 'absolute',
           top: position.y,
           left: position.x,
-          padding: 10
+          height: position.h
         }}
       >
         <div className="heading">Filters </div>

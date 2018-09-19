@@ -15,15 +15,44 @@ export default class AppStore {
   _sortProp
   _dateSelection
   _dataStore
+  timeBarOrdering
 
   constructor(dataStore) {
     this._dataStore = dataStore
 
-    this._sortProp = observable.box('date_after')
     this._dateSelection = observable.box([
       550, //Config.dates.min,
       Config.dates.max
     ])
+
+    this.timeBarOrdering = [
+      {
+        id: 'time_certainty',
+        label: 'time certainty',
+        fn: (f1, f2) => {
+          return f1.selection['temporal'] > f2.selection['temporal']
+            ? 1
+            : -1
+        }
+      },
+      {
+        id: 'after',
+        label: 'ante quem',
+        fn: (f1, f2) => {
+          return f1.props['date_after'] > f2.props['date_after']
+            ? 1
+            : -1
+        }
+      },
+      {
+        id: 'before',
+        label: 'post quem',
+        fn: (f1, f2) => {
+          return f1.props['date_before'] > f2.props['date_before']
+        }
+      }
+    ]
+    this._sortProp = observable.box(this.timeBarOrdering[0])
   }
 
   @computed
@@ -32,8 +61,14 @@ export default class AppStore {
   }
 
   @computed
-  get sortProp(): string {
+  get sortProp() {
     return this._sortProp.get()
+  }
+
+  @action
+  changeSortProp(id: string): void {
+    const sortAtt = this.timeBarOrdering.find(att => att.id === id)
+    sortAtt && this._sortProp.set(sortAtt)
   }
 
   @computed
@@ -70,7 +105,10 @@ export default class AppStore {
       .map(feature => {
         feature.selection = {
           temporal: temporalCertainty(feature),
-          attributional: attributtionalSelection(feature),
+          attributional:
+            filters.length !== 0
+              ? attributtionalSelection(feature)
+              : false,
           spatial: Base.pointInBounds(feature.geo, extent)
         }
         return feature
@@ -84,15 +122,9 @@ export default class AppStore {
       let aRank = a.selection.spatial ? 100 : -100
       let bRank = b.selection.spatial ? 100 : -100
 
-      aRank +=
-        a.props[this.sortProp] > b.props[this.sortProp] ? 1 : -1
+      aRank += this.sortProp.fn(a, b)
       return aRank > bRank ? -1 : 1
     }
-  }
-
-  @action
-  changeMethod(newProp: string): void {
-    this._sortProp.set(newProp)
   }
 
   @action

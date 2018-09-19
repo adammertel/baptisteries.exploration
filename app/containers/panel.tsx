@@ -47,7 +47,7 @@ export default class PanelContainer extends React.Component<Props> {
     const histogramWidth = 300
     const timeSelectWidth = 70
     const timeLegendWidth = 30
-    const settingsWidth = 150
+    const settingsWidth = 200
     const middleHeight = h - settingsHeight - timelineHeight
 
     return {
@@ -173,7 +173,10 @@ export default class PanelContainer extends React.Component<Props> {
 
     return (
       <div className="container panel-container">
-        <PanelSettingsComponent position={positions.settings} />
+        <PanelSettingsComponent
+          store={appStore}
+          position={positions.settings}
+        />
         <PanelFilterComponent
           columns={this.filterableColumns()}
           position={positions.filter}

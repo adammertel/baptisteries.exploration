@@ -140,7 +140,7 @@ $color-marker-icon-radius: 1px;
       }
       .dropdown {
         .dropdown-menu {
-          z-index: 9999;
+          z-index: 2000;
           padding: 10px;
           .line {
             display: block;
@@ -159,4 +159,8 @@ $color-marker-icon-radius: 1px;
       }
     }
   }
+}
+
+.modal {
+  z-index: 3000;
 }

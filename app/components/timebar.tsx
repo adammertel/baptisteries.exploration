@@ -53,6 +53,16 @@ class TimeBarComponent extends React.Component<Props> {
               )
             })}
           </Layer>
+          <Layer key="in-map-area">
+            <Rect
+              x={0}
+              y={0}
+              height={position.h}
+              width={bars.filter(f => f.spatial).length * barSpace}
+              fill={Colors.temporal}
+              opacity={0.2}
+            />
+          </Layer>
           <Layer key="bars-rectangles">
             {bars.filter(t => !t.circle).map((feature, fi) => {
               const x =
@@ -89,8 +99,6 @@ class TimeBarComponent extends React.Component<Props> {
                     y={feature.y}
                     width={barWidth}
                     height={feature.h}
-                    stroke={inMap ? Colors.temporal : ''}
-                    strokeWidth={inMap ? 1 : 0}
                     fillLinearGradientStartPoint={
                       gradient && {
                         x: 0,
@@ -164,12 +172,10 @@ class TimeBarComponent extends React.Component<Props> {
                       Base.konvaStripes(
                         feature.fill,
                         barWidth * 2,
-                        3,
+                        4,
                         gradientRatio
                       )
                     }
-                    strokeWidth={inMap ? 1 : 0}
-                    stroke={inMap ? Colors.temporal : ''}
                   />
                 </Group>
               )

@@ -7,6 +7,7 @@ A brief documentation about visualisation methods and interaction possibilities 
 Besides the geographic position signs on the map denote the following properties of baptisteries:  
 
 - *spatial uncertainty* (unclear coordinates) is visualised as a halo around the sign
+
 ![](imgs/mao-halo.png)
 - *time selection* is visualised as a colour shade on the scale from turquoise to gray, turquoise meaning the baptistery certainly falls in the selected time interval, the more gray the farther from the time interval
 - *certainty of the object being a baptistery* is visualised by various hatching density

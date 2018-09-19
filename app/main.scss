@@ -116,6 +116,10 @@ $color-marker-icon-radius: 1px;
       }
     }
 
+    .select {
+      margin-right: 5px;
+    }
+
     .heading {
       padding-left: 10px;
       padding-right: 5px;
@@ -140,7 +144,6 @@ $color-marker-icon-radius: 1px;
           padding: 10px;
           .line {
             display: block;
-            margin: 5px;
             text-align: left;
             label.checkbox {
               line-height: 1;

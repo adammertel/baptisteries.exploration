@@ -16,9 +16,15 @@ export default class AppStore {
   _dataStore
   _filters
   _newId
+  _mode
+  modes
 
   constructor(dataStore) {
     this._newId = 0
+
+    this._mode = observable.box('highlight')
+    this.modes = ['highlight', 'display']
+
     this._dataStore = dataStore
     this._filters = observable.box([])
 
@@ -36,6 +42,16 @@ export default class AppStore {
     ]
 
     this.initFilters()
+  }
+
+  @computed
+  get mode() {
+    return toJS(this._mode)
+  }
+
+  @action
+  modeChange(newMode: string): void {
+    this._mode.set(newMode)
   }
 
   @computed

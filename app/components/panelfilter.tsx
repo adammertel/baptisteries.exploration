@@ -43,6 +43,10 @@ export default class PanelFilterComponent extends React.Component<
     this.props.store.remove(filter.id)
   }
 
+  handleModeChange(e): void {
+    this.props.store.modeChange(e.target.value)
+  }
+
   render() {
     const position = this.props.position
     return (
@@ -56,7 +60,7 @@ export default class PanelFilterComponent extends React.Component<
         }}
       >
         <div className="first-line panel-top-component-line">
-          <div className="heading">Filters </div>
+          <div className="heading">New Filter </div>
           <div className="new-filter">
             <div className="select is-small">
               <select
@@ -74,8 +78,25 @@ export default class PanelFilterComponent extends React.Component<
               </select>
             </div>
           </div>
+          <div className="heading">Display Mode </div>
+          <div className="mode-filter">
+            <div className="select is-small">
+              <select
+                value={this.props.store.mode}
+                onChange={this.handleModeChange.bind(this)}
+              >
+                {this.props.store.modes.map(mode => {
+                  return (
+                    <option value={mode} key={mode}>
+                      {mode}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          </div>
         </div>
-        <div className="first-line panel-top-component-line">
+        <div className="second-line panel-top-component-line">
           {this.props.store.filters.length !== 0 && (
             <div className="active-filters heading">
               Active Filters

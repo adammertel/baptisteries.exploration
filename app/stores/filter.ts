@@ -78,7 +78,7 @@ export default class AppStore {
         const newFilter = {
           id: this._newId,
           column: column,
-          values: column['values'].splice()
+          values: [] //column['values'].slice()
         }
         console.log('newFilter', newFilter)
         newFilters.push(newFilter)

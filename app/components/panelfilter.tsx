@@ -35,7 +35,8 @@ export default class PanelFilterComponent extends React.Component<
     }
   }
 
-  handleValueClicked(filter, value): void {
+  handleValueClicked(filter, value, e): void {
+    e.preventDefault()
     this.props.store.toggleValue(value, filter.id)
   }
 
@@ -51,7 +52,7 @@ export default class PanelFilterComponent extends React.Component<
           padding: 10
         }}
       >
-        <div className="heading">Filters : </div>
+        <div className="heading">Filters </div>
         <div className="new-filter">
           <div className="select is-small">
             <select
@@ -69,38 +70,43 @@ export default class PanelFilterComponent extends React.Component<
             </select>
           </div>
         </div>
-        <div className="active-filters">Active Filters</div>
+        {this.props.store.filters.length !== 0 && (
+          <div className="active-filters heading">Active Filters</div>
+        )}
+
         {this.props.store.filters.map(filter => {
           const column = filter.column
 
           const dropClass =
-            'dropdown is-up ' +
+            'dropdown is-up buttons has-addons ' +
             (this.state.open === filter.id ? 'is-active' : '')
 
           return (
             <div key={filter.id}>
-              <div className="filter-name">{filter.column.label}</div>
-              <div
-                className={dropClass}
-                onClick={this.handleOpenDropdown.bind(
-                  this,
-                  filter.id
-                )}
-              >
+              <div className={dropClass}>
                 <div className="dropdown-trigger">
                   <button
                     className="is-small button"
                     aria-haspopup="true"
                     aria-controls="dropdown-menu"
+                    onClick={this.handleOpenDropdown.bind(
+                      this,
+                      filter.id
+                    )}
                   >
                     <span>{column.label}</span>
                     <span className="icon is-small">
                       <i
-                        className="fas fa-angle-down"
+                        className="fa fa-angle-down"
                         aria-hidden="true"
                       />
                     </span>
                   </button>
+                  <span className="button is-small is-danger">
+                    <span className="icon is-small">
+                      <i className="fas fa-trash-alt" />
+                    </span>
+                  </span>
                 </div>
                 <div
                   className="dropdown-menu dropdown-content"
@@ -109,18 +115,20 @@ export default class PanelFilterComponent extends React.Component<
                 >
                   {column.values.map(value => {
                     return (
-                      <div key={value} className="">
-                        <label className="checkbox">
+                      <div key={value} className="line">
+                        <label
+                          onClick={this.handleValueClicked.bind(
+                            this,
+                            filter,
+                            value
+                          )}
+                          className="checkbox"
+                        >
                           <input
-                            onChange={this.handleValueClicked.bind(
-                              this,
-                              filter,
-                              value
-                            )}
                             type="checkbox"
                             checked={filter.values.includes(value)}
                           />
-                          {value}
+                          <span className="line-label">{value}</span>
                         </label>
                       </div>
                     )

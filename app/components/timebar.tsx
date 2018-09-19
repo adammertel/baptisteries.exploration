@@ -193,6 +193,7 @@ class TimeBarComponent extends React.Component<Props> {
               ]}
               stroke={Colors.active}
               strokeWidth={2}
+              dash={[5, 5]}
             />
             <Line
               key="min"
@@ -204,6 +205,7 @@ class TimeBarComponent extends React.Component<Props> {
               ]}
               stroke={Colors.active}
               strokeWidth={2}
+              dash={[5, 5]}
             />
           </Layer>
         </Stage>

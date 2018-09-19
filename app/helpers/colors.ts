@@ -1,7 +1,7 @@
 import { satisfies } from 'semver'
 
 var Colors = {
-  active: 'rgba(255, 126, 107, 1)',
+  active: 'rgb(255,59,31)',
   passive: 'darkgrey',
   temporal: 'rgba(8, 126, 139, 1)',
   spatial: 'darkcyan',

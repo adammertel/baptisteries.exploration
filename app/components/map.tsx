@@ -68,6 +68,10 @@ export default class MapComponent extends React.Component<Props> {
       marker => marker.options.data.selection.temporal
     )
 
+    const attSelections = markers.map(
+      marker => marker.options.data.selection.attributional
+    )
+
     const spatialCertainties = markers.map(
       marker => marker.options.data.props.certainty_location
     )
@@ -78,6 +82,7 @@ export default class MapComponent extends React.Component<Props> {
     const timeSelectionAvg = Base.average(timeSelections)
     const spatialCertaintiesAvg = Base.average(spatialCertainties)
     const existenceCertaintiesAvg = Base.average(existenceCertainties)
+    const attSelection = attSelections.some(a => a)
 
     const color = markerBorderColor(Base.average(timeSelections))
 
@@ -109,6 +114,17 @@ export default class MapComponent extends React.Component<Props> {
       ';margin-left:' +
       markerMargin
 
+    const attBorderW = 4
+    const attStyle =
+      ';width:' +
+      (markerInnerSize + attBorderW) +
+      ';height:' +
+      (markerInnerSize + attBorderW) +
+      ';margin-top:' +
+      (markerMargin - attBorderW / 2) +
+      ';margin-left:' +
+      (markerMargin - attBorderW / 2)
+
     const fillMarker =
       '<div key="fill_' +
       ids +
@@ -127,6 +143,17 @@ export default class MapComponent extends React.Component<Props> {
       '" class="marker-icon marker-icon-stroke" style="border: 2px solid ' +
       color +
       innerStyle +
+      '" >' +
+      '</div>'
+
+    const attStrokeMarker =
+      '<div key="attribute_' +
+      ids +
+      '" class="marker-icon marker-icon-stroke marker-icon-attribute" style="border: ' +
+      attBorderW +
+      'px solid ' +
+      Colors.attribute +
+      attStyle +
       '" >' +
       '</div>'
 
@@ -162,6 +189,7 @@ export default class MapComponent extends React.Component<Props> {
         ids +
         '">' +
         spaceUncertaintyCircle +
+        (attSelection ? attStrokeMarker : '') +
         fillMarker +
         strokeMarker +
         '</div>',

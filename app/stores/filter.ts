@@ -49,6 +49,14 @@ export default class AppStore {
     return this._columns
   }
 
+  @computed
+  get columnsNotUsed(): Array<Object> {
+    const filters = this.filters
+    return this._columns.filter(
+      c => !filters.find(f => f.column === c.id)
+    )
+  }
+
   // initialise filters
   initFilters(): void {
     this._columns.forEach(attr => {
@@ -62,11 +70,14 @@ export default class AppStore {
   addNew(column): number {
     this._newId = this._newId + 1
     const newFilters = this.filters.slice()
-    const newFilter = {
-      id: this._newId,
-      column: column,
-      values: []
+    if (!newFilters.find(f => f.column === column)) {
+      const newFilter = {
+        id: this._newId,
+        column: column,
+        values: []
+      }
     }
+    console.log('newFilter', newFilter)
     newFilters.push(newFilter)
     this._filters.set(newFilters)
     return this._newId

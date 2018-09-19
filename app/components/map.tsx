@@ -82,7 +82,9 @@ export default class MapComponent extends React.Component<Props> {
     const timeSelectionAvg = Base.average(timeSelections)
     const spatialCertaintiesAvg = Base.average(spatialCertainties)
     const existenceCertaintiesAvg = Base.average(existenceCertainties)
-    const attSelection = attSelections.some(a => a)
+    const attSelectionHl = attSelections.some(
+      a => a === 'highlighted'
+    )
 
     const color = markerBorderColor(Base.average(timeSelections))
 
@@ -190,7 +192,7 @@ export default class MapComponent extends React.Component<Props> {
         ids +
         '">' +
         spaceUncertaintyCircle +
-        (attSelection ? attStrokeMarker : '') +
+        (attSelectionHl ? attStrokeMarker : '') +
         fillMarker +
         strokeMarker +
         '</div>',

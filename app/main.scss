@@ -107,8 +107,8 @@ $color-marker-icon-radius: 1px;
     display: table;
 
     .panel-top-component-line {
-      max-height: 50%;
-      display: table-row;
+      height: 50%;
+      display: table;
 
       > div {
         display: table-cell;

@@ -75,6 +75,7 @@ export default class AppStore {
   get features(): Array<Object> {
     const extent = window['stores'].map.extent
     const filters = window['stores'].filter.filters
+    const filterMode = window['stores'].filter.mode
 
     const temporalCertainty = feature => {
       const dateMin = featureProp(feature, 'dateMin')
@@ -94,26 +95,40 @@ export default class AppStore {
       return ratio
     }
 
-    const attributtionalSelection = feature => {
-      return filters.every(filter => {
-        const fValue = feature.props[filter.column.id]
-        return filter.values.includes(fValue)
-      })
+    // displayed / hide / highlight
+    const attributtionalSelectionMode = feature => {
+      if (filters.length === 0) {
+        return 'display'
+      } else {
+        const inFilters = filters.every(filter => {
+          const fValue = feature.props[filter.column.id]
+          return filter.values.includes(fValue)
+        })
+
+        if (inFilters) {
+          return filterMode === 'display'
+            ? 'displayed'
+            : 'highlighted'
+        } else {
+          return filterMode === 'display' ? 'hidden' : 'displayed'
+        }
+      }
     }
 
-    return window['stores'].data.features
+    const features = window['stores'].data.features
       .map(feature => {
         feature.selection = {
           temporal: temporalCertainty(feature),
-          attributional:
-            filters.length !== 0
-              ? attributtionalSelection(feature)
-              : false,
+          attributional: attributtionalSelectionMode(feature),
           spatial: Base.pointInBounds(feature.geo, extent)
         }
         return feature
       })
       .sort(this.sortMethod)
+
+    return features.filter(
+      f => f.selection.attributional !== 'hidden'
+    )
   }
 
   @computed

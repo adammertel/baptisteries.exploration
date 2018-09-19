@@ -71,7 +71,7 @@ class TimeBarComponent extends React.Component<Props> {
 
               return (
                 <Group key={fi + '_group'}>
-                  {feature.attributional && (
+                  {feature.attributional === 'highlighted' && (
                     <Rect
                       key={fi + '_attribute'}
                       x={x}
@@ -133,7 +133,7 @@ class TimeBarComponent extends React.Component<Props> {
 
               return (
                 <Group key={fi + '_group'}>
-                  {feature.attributional && (
+                  {feature.attributional === 'highlighted' && (
                     <Circle
                       key={fi + '_attribute'}
                       x={x}

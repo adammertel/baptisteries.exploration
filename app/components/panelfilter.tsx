@@ -35,6 +35,10 @@ export default class PanelFilterComponent extends React.Component<
     }
   }
 
+  handleValueClicked(filter, value): void {
+    this.props.store.toggleValue(value, filter.id)
+  }
+
   render() {
     const position = this.props.position
     return (
@@ -68,12 +72,11 @@ export default class PanelFilterComponent extends React.Component<
         <div className="active-filters">Active Filters</div>
         {this.props.store.filters.map(filter => {
           const column = filter.column
-          console.log(this.state.open)
+
           const dropClass =
-            'dropdown ' +
+            'dropdown is-up ' +
             (this.state.open === filter.id ? 'is-active' : '')
 
-          console.log('dropClass', dropClass)
           return (
             <div key={filter.id}>
               <div className="filter-name">{filter.column.label}</div>
@@ -90,7 +93,7 @@ export default class PanelFilterComponent extends React.Component<
                     aria-haspopup="true"
                     aria-controls="dropdown-menu"
                   >
-                    <span>Dropdown button</span>
+                    <span>{column.label}</span>
                     <span className="icon is-small">
                       <i
                         className="fas fa-angle-down"
@@ -100,16 +103,25 @@ export default class PanelFilterComponent extends React.Component<
                   </button>
                 </div>
                 <div
-                  className="dropdown-menu"
+                  className="dropdown-menu dropdown-content"
                   id="dropdown-menu"
                   role="menu"
                 >
                   {column.values.map(value => {
                     return (
-                      <div className="dropdown-content">
-                        <div className="dropdown-item">
-                          <p>{value}</p>
-                        </div>
+                      <div key={value} className="">
+                        <label className="checkbox">
+                          <input
+                            onChange={this.handleValueClicked.bind(
+                              this,
+                              filter,
+                              value
+                            )}
+                            type="checkbox"
+                            checked={filter.values.includes(value)}
+                          />
+                          {value}
+                        </label>
                       </div>
                     )
                   })}

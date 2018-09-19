@@ -39,6 +39,7 @@ export default class AppStore {
   @computed
   get features(): Array<Object> {
     const extent = window['stores'].map.extent
+    const filters = window['stores'].filter.filters
 
     const temporalCertainty = feature => {
       const dateMin = featureProp(feature, 'dateMin')
@@ -58,11 +59,18 @@ export default class AppStore {
       return ratio
     }
 
+    const attributtionalSelection = feature => {
+      return filters.every(filter => {
+        const fValue = feature.props[filter.column.id]
+        return filter.values.includes(fValue)
+      })
+    }
+
     return window['stores'].data.features
       .map(feature => {
         feature.selection = {
           temporal: temporalCertainty(feature),
-          attributional: true,
+          attributional: attributtionalSelection(feature),
           spatial: Base.pointInBounds(feature.geo, extent)
         }
         return feature

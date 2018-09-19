@@ -9,7 +9,9 @@
   "scripts": {
     "clean-build": "rm -f -r -d build",
     "start": "parcel app/index.html --open --out-dir build",
-    "build": "yarn run clean-build && parcel build app/index.html --out-dir build"
+    "build": "yarn run clean-build && parcel build app/index.html --out-dir build",
+    "deploy": "rsync -avz build/ hde@hde.geogr.muni.cz:/var/www/virthtml/hde/baptisteries-exploration",
+    "build-deploy": "npm run build && npm run deploy"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 import Colors from './../helpers/colors'
-import { Stage, Layer, Rect, Line, Circle } from 'react-konva'
+import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva'
 import Konva from 'konva'
 
 type Props = {
@@ -70,35 +70,49 @@ class TimeBarComponent extends React.Component<Props> {
               const inMap = feature.spatial
 
               return (
-                <Rect
-                  key={fi}
-                  x={x}
-                  y={feature.y}
-                  width={barWidth}
-                  height={feature.h}
-                  stroke={inMap ? Colors.temporal : ''}
-                  strokeWidth={inMap ? 1 : 0}
-                  fillLinearGradientStartPoint={
-                    gradient && {
-                      x: 0,
-                      y: 0
+                <Group key={fi + '_group'}>
+                  {feature.attributional && (
+                    <Rect
+                      key={fi + '_attribute'}
+                      x={x}
+                      y={feature.y}
+                      width={barWidth}
+                      height={feature.h}
+                      stroke={Colors.attribute}
+                      strokeWidth={5}
+                      fill=""
+                    />
+                  )}
+                  <Rect
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    width={barWidth}
+                    height={feature.h}
+                    stroke={inMap ? Colors.temporal : ''}
+                    strokeWidth={inMap ? 1 : 0}
+                    fillLinearGradientStartPoint={
+                      gradient && {
+                        x: 0,
+                        y: 0
+                      }
                     }
-                  }
-                  fillLinearGradientEndPoint={{
-                    x: feature.h,
-                    y: feature.h
-                  }}
-                  fillLinearGradientColorStops={
-                    gradient &&
-                    Base.konvaStripes(
-                      feature.fill,
-                      feature.h,
-                      5,
-                      gradientRatio
-                    )
-                  }
-                  fill={gradient ? '' : feature.fill}
-                />
+                    fillLinearGradientEndPoint={{
+                      x: feature.h,
+                      y: feature.h
+                    }}
+                    fillLinearGradientColorStops={
+                      gradient &&
+                      Base.konvaStripes(
+                        feature.fill,
+                        feature.h,
+                        5,
+                        gradientRatio
+                      )
+                    }
+                    fill={gradient ? '' : feature.fill}
+                  />
+                </Group>
               )
             })}
           </Layer>
@@ -118,34 +132,46 @@ class TimeBarComponent extends React.Component<Props> {
               const inMap = feature.spatial
 
               return (
-                <Circle
-                  key={fi}
-                  x={x}
-                  y={feature.y}
-                  radius={barWidth / 2}
-                  fill={gradient ? '' : feature.fill}
-                  fillLinearGradientStartPoint={
-                    gradient && {
-                      x: -barWidth / 2,
-                      y: -barWidth / 2
+                <Group key={fi + '_group'}>
+                  {feature.attributional && (
+                    <Circle
+                      key={fi + '_attribute'}
+                      x={x}
+                      y={feature.y}
+                      radius={barWidth}
+                      fill={Colors.attribute}
+                      stroke=""
+                    />
+                  )}
+                  <Circle
+                    key={fi}
+                    x={x}
+                    y={feature.y}
+                    radius={barWidth / 2}
+                    fill={gradient ? '' : feature.fill}
+                    fillLinearGradientStartPoint={
+                      gradient && {
+                        x: -barWidth / 2,
+                        y: -barWidth / 2
+                      }
                     }
-                  }
-                  fillLinearGradientEndPoint={{
-                    x: barWidth / 2,
-                    y: barWidth / 2
-                  }}
-                  fillLinearGradientColorStops={
-                    gradient &&
-                    Base.konvaStripes(
-                      feature.fill,
-                      barWidth * 2,
-                      3,
-                      gradientRatio
-                    )
-                  }
-                  strokeWidth={inMap ? 1 : 0}
-                  stroke={inMap ? Colors.temporal : ''}
-                />
+                    fillLinearGradientEndPoint={{
+                      x: barWidth / 2,
+                      y: barWidth / 2
+                    }}
+                    fillLinearGradientColorStops={
+                      gradient &&
+                      Base.konvaStripes(
+                        feature.fill,
+                        barWidth * 2,
+                        3,
+                        gradientRatio
+                      )
+                    }
+                    strokeWidth={inMap ? 1 : 0}
+                    stroke={inMap ? Colors.temporal : ''}
+                  />
+                </Group>
               )
             })}
           </Layer>

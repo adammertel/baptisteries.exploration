@@ -36,7 +36,6 @@ export default class PanelFilterComponent extends React.Component<
   }
 
   handleValueClicked(filter, value, e): void {
-    e.preventDefault()
     this.props.store.toggleValue(value, filter.id)
   }
 
@@ -135,11 +134,6 @@ export default class PanelFilterComponent extends React.Component<
                           className="checkbox"
                         >
                           <input
-                            onClick={this.handleValueClicked.bind(
-                              this,
-                              filter,
-                              value
-                            )}
                             type="checkbox"
                             checked={filter.values.includes(value)}
                           />

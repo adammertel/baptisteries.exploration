@@ -112,7 +112,8 @@ export default class PanelContainer extends React.Component<Props> {
         h: barH,
         existence: feature.props.certainty_existence,
         fill: timeColor(feature.selection.temporal),
-        spatial: feature.selection.spatial
+        spatial: feature.selection.spatial,
+        attributional: feature.selection.attributional
       }
     })
   }

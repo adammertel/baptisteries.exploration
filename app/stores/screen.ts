@@ -42,7 +42,7 @@ export default class ScreenStore {
         this.setScreenHeight(e)
         this.setScreenWidth(e)
         this._resizing = false
-      }, 1000)
+      }, 2000)
     }
   }
 }

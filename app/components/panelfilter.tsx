@@ -55,100 +55,106 @@ export default class PanelFilterComponent extends React.Component<
           height: position.h
         }}
       >
-        <div className="heading">Filters </div>
-        <div className="new-filter">
-          <div className="select is-small">
-            <select
-              value={this.state.newFilterId}
-              onChange={this.handleNewFilterChange.bind(this)}
-            >
-              <option>Select attribute to filter</option>
-              {this.props.store.columnsNotUsed.map(column => {
-                return (
-                  <option value={column.id} key={column.id}>
-                    {column.label}
-                  </option>
-                )
-              })}
-            </select>
+        <div className="first-line panel-top-component-line">
+          <div className="heading">Filters </div>
+          <div className="new-filter">
+            <div className="select is-small">
+              <select
+                value={this.state.newFilterId}
+                onChange={this.handleNewFilterChange.bind(this)}
+              >
+                <option>Select attribute to filter</option>
+                {this.props.store.columnsNotUsed.map(column => {
+                  return (
+                    <option value={column.id} key={column.id}>
+                      {column.label}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
           </div>
         </div>
-        {this.props.store.filters.length !== 0 && (
-          <div className="active-filters heading">Active Filters</div>
-        )}
+        <div className="first-line panel-top-component-line">
+          {this.props.store.filters.length !== 0 && (
+            <div className="active-filters heading">
+              Active Filters
+            </div>
+          )}
 
-        {this.props.store.filters.map(filter => {
-          const column = filter.column
+          {this.props.store.filters.map(filter => {
+            const column = filter.column
 
-          const dropClass =
-            'dropdown is-up buttons has-addons ' +
-            (this.state.open === filter.id ? 'is-active' : '')
+            const dropClass =
+              'dropdown is-up buttons has-addons ' +
+              (this.state.open === filter.id ? 'is-active' : '')
 
-          return (
-            <div key={filter.id} className="filter-column">
-              <div className={dropClass}>
-                <div className="dropdown-trigger">
-                  <button
-                    className="is-small button"
-                    aria-haspopup="true"
-                    aria-controls="dropdown-menu"
-                    onClick={this.handleOpenDropdown.bind(
-                      this,
-                      filter.id
-                    )}
-                  >
-                    <span>{column.label}</span>
-                    <span className="icon is-small">
-                      <i
-                        className="fa fa-angle-down"
-                        aria-hidden="true"
-                      />
+            return (
+              <div key={filter.id} className="filter-column">
+                <div className={dropClass}>
+                  <div className="dropdown-trigger">
+                    <button
+                      className="is-small button"
+                      aria-haspopup="true"
+                      aria-controls="dropdown-menu"
+                      onClick={this.handleOpenDropdown.bind(
+                        this,
+                        filter.id
+                      )}
+                    >
+                      <span>{column.label}</span>
+                      <span className="icon is-small">
+                        <i
+                          className="fa fa-angle-down"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </button>
+                    <span
+                      onClick={this.handleRemoveFilter.bind(
+                        this,
+                        filter
+                      )}
+                      className="button is-small is-danger"
+                    >
+                      <span className="icon is-small">
+                        <i className="fas fa-trash-alt" />
+                      </span>
                     </span>
-                  </button>
-                  <span
-                    onClick={this.handleRemoveFilter.bind(
-                      this,
-                      filter
-                    )}
-                    className="button is-small is-danger"
+                  </div>
+                  <div
+                    className="dropdown-menu dropdown-content"
+                    id="dropdown-menu"
+                    role="menu"
                   >
-                    <span className="icon is-small">
-                      <i className="fas fa-trash-alt" />
-                    </span>
-                  </span>
-                </div>
-                <div
-                  className="dropdown-menu dropdown-content"
-                  id="dropdown-menu"
-                  role="menu"
-                >
-                  {column.values.map((value, vi) => {
-                    return (
-                      <div key={value} className="line">
-                        <label
-                          onClick={this.handleValueClicked.bind(
-                            this,
-                            filter,
-                            value
-                          )}
-                          className="checkbox"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={filter.values.includes(value)}
-                          />
-                          <span className="line-label">
-                            {value} ({column.frequencies[vi]})
-                          </span>
-                        </label>
-                      </div>
-                    )
-                  })}
+                    {column.values.map((value, vi) => {
+                      return (
+                        <div key={value} className="line">
+                          <label
+                            onClick={this.handleValueClicked.bind(
+                              this,
+                              filter,
+                              value
+                            )}
+                            className="checkbox"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={filter.values.includes(value)}
+                            />
+                            <span className="line-label">
+                              {value} ({column.frequencies[vi]})
+                            </span>
+                          </label>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        </div>
       </div>
     )
   }

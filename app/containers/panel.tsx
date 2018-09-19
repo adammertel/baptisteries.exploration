@@ -41,10 +41,10 @@ export default class PanelContainer extends React.Component<Props> {
     const h = screenH / 2 - margins * 2
     const w = screenW - margins * 2
 
-    const settingsHeight = 50
+    const settingsHeight = 100
     const timelineHeight = 75
 
-    const histogramWidth = 300
+    const histogramWidth = 0
     const timeSelectWidth = 70
     const timeLegendWidth = 30
     const settingsWidth = 200
@@ -182,7 +182,10 @@ export default class PanelContainer extends React.Component<Props> {
           position={positions.filter}
           store={filterStore}
         />
-        <hr className="panel-line" />
+        <hr
+          className="panel-line"
+          style={{ top: positions.settings.h }}
+        />
         <TimeBarComponent
           position={positions.timeBars}
           bars={timeBars}

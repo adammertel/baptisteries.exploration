@@ -91,7 +91,6 @@ $color-marker-icon-radius: 1px;
 .panel-container {
   .panel-line {
     position: absolute;
-    top: 50px;
     left: 0;
     width: 100%;
     height: 1px;
@@ -105,15 +104,24 @@ $color-marker-icon-radius: 1px;
   }
   .panel-top-component {
     padding: 10;
+    display: table;
+
+    .panel-top-component-line {
+      max-height: 50%;
+      display: table-row;
+
+      > div {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
 
     .heading {
-      margin: auto;
       padding-left: 10px;
       padding-right: 5px;
     }
 
     &.panelfilter-wrapper {
-      display: flex;
       div {
       }
       .filter-column {

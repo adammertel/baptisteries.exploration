@@ -146,9 +146,14 @@ export default class PanelContainer extends React.Component<Props> {
     return maxDate - Math.round(onePxYears * (y - this._middleTM))
   }
 
+  filterableColumns(): Array<Object> {
+    return this.props.stores.filter.columns()
+  }
+
   render() {
     const screenStore = this.props.stores.screen
     const appStore = this.props.stores.app
+    const filterStore = this.props.stores.filter
 
     /*
     console.log(
@@ -168,7 +173,11 @@ export default class PanelContainer extends React.Component<Props> {
     return (
       <div className="container panel-container">
         <PanelSettingsComponent position={positions.settings} />
-        <PanelFilterComponent position={positions.filter} />
+        <PanelFilterComponent
+          columns={this.filterableColumns()}
+          position={positions.filter}
+          store={filterStore}
+        />
         <hr className="panel-line" />
         <TimeBarComponent
           position={positions.timeBars}

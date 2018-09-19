@@ -20,7 +20,7 @@ export default class PanelSettingsComponent extends React.Component<
     const position = this.props.position
     return (
       <div
-        className="panelfilter-wrapper"
+        className="panelfilter-wrapper panel-component panel-top-component"
         style={{
           position: 'absolute',
           top: position.y,

@@ -49,11 +49,15 @@ export default class AppStore {
     return this._columns
   }
 
+  columnById(columnId): Object | false {
+    return this._columns.find(c => c.id === columnId)
+  }
+
   @computed
   get columnsNotUsed(): Array<Object> {
     const filters = this.filters
     return this._columns.filter(
-      c => !filters.find(f => f.column === c.id)
+      c => !filters.find(f => f.column.id === c.id)
     )
   }
 
@@ -67,19 +71,19 @@ export default class AppStore {
   }
 
   @action
-  addNew(column): number {
+  addNew(columnId): number {
     this._newId = this._newId + 1
     const newFilters = this.filters.slice()
-    if (!newFilters.find(f => f.column === column)) {
+    if (!newFilters.find(f => f.column.id === columnId)) {
       const newFilter = {
         id: this._newId,
-        column: column,
+        column: this.columnById(columnId),
         values: []
       }
+      console.log('newFilter', newFilter)
+      newFilters.push(newFilter)
+      this._filters.set(newFilters)
     }
-    console.log('newFilter', newFilter)
-    newFilters.push(newFilter)
-    this._filters.set(newFilters)
     return this._newId
   }
 

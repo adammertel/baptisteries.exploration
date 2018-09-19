@@ -89,6 +89,18 @@ export default class AppStore {
   }
 
   @action
+  remove(filterId): void {
+    console.log('removing', filterId)
+    const newFilters = this.filters
+      .slice()
+      .filter(f => f.id !== filterId)
+
+    if (this.filters.length !== newFilters) {
+      this._filters.set(newFilters)
+    }
+  }
+
+  @action
   addValue(value, id): void {
     const newFilters = this.filters.slice()
     const filter = newFilters.find(f => f.id === id)

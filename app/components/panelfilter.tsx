@@ -40,6 +40,10 @@ export default class PanelFilterComponent extends React.Component<
     this.props.store.toggleValue(value, filter.id)
   }
 
+  handleRemoveFilter(filter): void {
+    this.props.store.remove(filter.id)
+  }
+
   render() {
     const position = this.props.position
     return (
@@ -82,7 +86,7 @@ export default class PanelFilterComponent extends React.Component<
             (this.state.open === filter.id ? 'is-active' : '')
 
           return (
-            <div key={filter.id}>
+            <div key={filter.id} className="filter-column">
               <div className={dropClass}>
                 <div className="dropdown-trigger">
                   <button
@@ -102,7 +106,13 @@ export default class PanelFilterComponent extends React.Component<
                       />
                     </span>
                   </button>
-                  <span className="button is-small is-danger">
+                  <span
+                    onClick={this.handleRemoveFilter.bind(
+                      this,
+                      filter
+                    )}
+                    className="button is-small is-danger"
+                  >
                     <span className="icon is-small">
                       <i className="fas fa-trash-alt" />
                     </span>
@@ -125,6 +135,11 @@ export default class PanelFilterComponent extends React.Component<
                           className="checkbox"
                         >
                           <input
+                            onClick={this.handleValueClicked.bind(
+                              this,
+                              filter,
+                              value
+                            )}
                             type="checkbox"
                             checked={filter.values.includes(value)}
                           />

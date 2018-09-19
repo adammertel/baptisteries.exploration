@@ -7,22 +7,31 @@ A brief documentation about visualisation methods and interaction possibilities 
 Besides the geographic position signs on the map denote the following properties of baptisteries:  
 
 - *spatial uncertainty* (unclear coordinates) is visualised as a halo around the sign
+![](imgs/mao-halo.png)
 - *time selection* is visualised as a colour shade on the scale from turquoise to gray, turquoise meaning the baptistery certainly falls in the selected time interval, the more gray the farther from the time interval
 - *certainty of the object being a baptistery* is visualised by various hatching density
 
+![](imgs/map-shade.png)
+
 Furthermore, signs are clustered to avoid visual clutter where signs are in conflict. The cluster is assigned the average of member's properties and is visualised as such. The number of members is also displayed. The level of clustering depends on the zoom level, you can also view the group members by clicking on the cluster.
+
+![](imgs/map-ring.png)
 
 # Visualisation in the timeline
 
 Baptisteries are also displayed as bars on the timeline, the following properties are visualised the same way as on the map:
 
-- *time selection* 
-- *certainty of the object being a baptistery* 
+- *time selection* as color
+- *certainty of the object being a baptistery* as hatching 
+
+![](imgs/timeline-hatchure.png)
 
 In addition to that:
 
 - *date uncertainty* is displayed and the vertical length of the bar in the timeline
 - *existence in the current map view* is visualised as a transparent background block
+
+![](imgs/timeline-block.png)
 
 # Timeline ordering
 
@@ -38,3 +47,5 @@ The UI allows filtering by additional parameters associated with baptisteries. T
 
 - selected elements are either highlighted by yellow outline both in map and in the timeline 
 - or the non-matching baptisteries are removed from both views
+
+![](imgs/line-additional-highlight.png)

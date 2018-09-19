@@ -24,16 +24,14 @@ export default class AppStore {
 
     this._columns = [
       {
-        id: 'ciborium',
-        label: 'ciborium'
-      },
-      {
         id: 'piscina_shape',
-        label: 'piscina shape'
+        label: 'piscina shape',
+        values: []
       },
       {
         id: 'shape',
-        label: 'building shape'
+        label: 'building shape',
+        values: []
       }
     ]
 
@@ -63,9 +61,9 @@ export default class AppStore {
 
   // initialise filters
   initFilters(): void {
-    this._columns.forEach(attr => {
-      attr.values = Base.unique(
-        this._dataStore.features.map(f => f.props[attr.id])
+    this._columns.forEach(column => {
+      column.values = Base.unique(
+        this._dataStore.features.map(f => f.props[column.id])
       )
     })
   }
@@ -75,14 +73,17 @@ export default class AppStore {
     this._newId = this._newId + 1
     const newFilters = this.filters.slice()
     if (!newFilters.find(f => f.column.id === columnId)) {
-      const newFilter = {
-        id: this._newId,
-        column: this.columnById(columnId),
-        values: []
+      const column = this.columnById(columnId)
+      if (column) {
+        const newFilter = {
+          id: this._newId,
+          column: column,
+          values: column['values'].splice()
+        }
+        console.log('newFilter', newFilter)
+        newFilters.push(newFilter)
+        this._filters.set(newFilters)
       }
-      console.log('newFilter', newFilter)
-      newFilters.push(newFilter)
-      this._filters.set(newFilters)
     }
     return this._newId
   }
@@ -93,6 +94,27 @@ export default class AppStore {
     const filter = newFilters.find(f => f.id === id)
     if (filter) {
       if (!filter.values.includes(value)) {
+        filter.values.push(value)
+      }
+      this._filters.set(newFilters)
+    }
+  }
+
+  @action
+  toggleValue(value, id): void {
+    const newFilters = this.filters.slice()
+    const filter = newFilters.find(f => f.id === id)
+    if (filter) {
+      // removing value
+      if (filter.values.includes(value)) {
+        const index = filter.values.indexOf(value)
+        if (index > -1) {
+          filter.values.splice(index, 1)
+        }
+      }
+
+      // adding value
+      else {
         filter.values.push(value)
       }
       this._filters.set(newFilters)

@@ -121,6 +121,13 @@ $color-marker-icon-radius: 1px;
       padding-right: 5px;
     }
 
+    &.panelsetting-wrapper {
+      display: flex;
+      .settings-block {
+        display: flex;
+      }
+    }
+
     &.panelfilter-wrapper {
       div {
       }

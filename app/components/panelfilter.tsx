@@ -62,7 +62,7 @@ export default class PanelFilterComponent extends React.Component<
         <div className="first-line panel-top-component-line">
           <div className="heading">New Filter </div>
           <div className="new-filter">
-            <div className="select is-small">
+            <div className="select is-small is-secondary">
               <select
                 value={this.state.newFilterId}
                 onChange={this.handleNewFilterChange.bind(this)}
@@ -80,7 +80,7 @@ export default class PanelFilterComponent extends React.Component<
           </div>
           <div className="heading">Display Mode </div>
           <div className="mode-filter">
-            <div className="select is-small">
+            <div className="select is-small is-secondary">
               <select
                 value={this.props.store.mode}
                 onChange={this.handleModeChange.bind(this)}
@@ -115,7 +115,7 @@ export default class PanelFilterComponent extends React.Component<
                 <div className={dropClass}>
                   <div className="dropdown-trigger">
                     <button
-                      className="is-small button"
+                      className="is-small button  is-secondary"
                       aria-haspopup="true"
                       aria-controls="dropdown-menu"
                       onClick={this.handleOpenDropdown.bind(
@@ -136,7 +136,7 @@ export default class PanelFilterComponent extends React.Component<
                         this,
                         filter
                       )}
-                      className="button is-small is-danger"
+                      className="button is-small is-secondary"
                     >
                       <span className="icon is-small">
                         <i className="fas fa-trash-alt" />

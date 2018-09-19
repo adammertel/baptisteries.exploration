@@ -228,7 +228,7 @@ export default class MapComponent extends React.Component<Props> {
         <AttributionControl position="bottomleft" />
         <TileLayer
           url="http://a.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png"
-          attribution="awmc"
+          attribution="<a href='http://awmc.unc.edu/wordpress/'>awmc</a>"
           className="map-base-layer-awmc"
         />
         <Pane>

@@ -1,12 +1,12 @@
 import { satisfies } from 'semver'
 
 var Colors = {
-  active: 'black',
+  active: 'rgba(255, 126, 107, 1)',
   passive: 'darkgrey',
-  temporal: 'red',
+  temporal: 'rgba(8, 126, 139, 1)',
   spatial: 'darkcyan',
   attribute: 'gold',
-  unselected: 'lightgrey'
+  unselected: '#e6f2f3'
 }
 
 export default Colors

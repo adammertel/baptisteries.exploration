@@ -65,7 +65,14 @@ export default class AppStore {
       column.values = Base.unique(
         this._dataStore.features.map(f => f.props[column.id])
       )
+      column.frequencies = column.values.map(value => {
+        return this._dataStore.features.filter(
+          f => f.props[column.id] === value
+        ).length
+      })
     })
+
+    console.log(this._columns)
   }
 
   @action

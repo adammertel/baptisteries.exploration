@@ -100,7 +100,7 @@ export default class MapComponent extends React.Component<Props> {
 
     const ids = markers.map(m => m.options.data.props.id)
 
-    const markerOuterSize = single ? 40 : 60
+    const markerOuterSize = single ? 40 : 70
     const markerInnerSize = single ? 20 : 30
     const markerMargin = (markerOuterSize - markerInnerSize) / 2
 
@@ -160,6 +160,7 @@ export default class MapComponent extends React.Component<Props> {
     const spaceRadiusDelta = markerOuterSize - markerInnerSize
     const spaceUncertaintyRadius =
       markerInnerSize +
+      attBorderW +
       spaceRadiusDelta * ((spatialCertaintiesAvg - 1) / 2)
 
     const spaceUncertaintyMargin =

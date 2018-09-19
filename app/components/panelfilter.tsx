@@ -122,7 +122,7 @@ export default class PanelFilterComponent extends React.Component<
                   id="dropdown-menu"
                   role="menu"
                 >
-                  {column.values.map(value => {
+                  {column.values.map((value, vi) => {
                     return (
                       <div key={value} className="line">
                         <label
@@ -137,7 +137,9 @@ export default class PanelFilterComponent extends React.Component<
                             type="checkbox"
                             checked={filter.values.includes(value)}
                           />
-                          <span className="line-label">{value}</span>
+                          <span className="line-label">
+                            {value} ({column.frequencies[vi]})
+                          </span>
                         </label>
                       </div>
                     )

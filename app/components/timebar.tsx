@@ -63,6 +63,7 @@ class TimeBarComponent extends React.Component<Props> {
               opacity={0.2}
             />
           </Layer>
+
           <Layer key="bars-rectangles">
             {bars.filter(t => !t.circle).map((feature, fi) => {
               const x =
@@ -180,6 +181,30 @@ class TimeBarComponent extends React.Component<Props> {
                 </Group>
               )
             })}
+          </Layer>
+          <Layer key="selected-times">
+            <Line
+              key="max"
+              points={[
+                0,
+                this.props.selectedMinDateY,
+                position.w,
+                this.props.selectedMinDateY
+              ]}
+              stroke={Colors.active}
+              strokeWidth={2}
+            />
+            <Line
+              key="min"
+              points={[
+                0,
+                this.props.selectedMaxDateY,
+                position.w,
+                this.props.selectedMaxDateY
+              ]}
+              stroke={Colors.active}
+              strokeWidth={2}
+            />
           </Layer>
         </Stage>
       </div>

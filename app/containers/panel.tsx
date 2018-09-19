@@ -171,6 +171,15 @@ export default class PanelContainer extends React.Component<Props> {
     const timeTicks = this.timeTicks(positions.timeSelect.h)
     const timeBars = this.timeBars(positions.timeBars.h)
 
+    const selectedMaxDateY = this.dateToY(
+      positions.timeSelect.h,
+      appStore.dateSelection[1]
+    )
+    const selectedMinDateY = this.dateToY(
+      positions.timeSelect.h,
+      appStore.dateSelection[0]
+    )
+
     return (
       <div className="container panel-container">
         <PanelSettingsComponent
@@ -191,6 +200,8 @@ export default class PanelContainer extends React.Component<Props> {
           bars={timeBars}
           ticks={timeTicks}
           margin={this._middleTM}
+          selectedMinDateY={selectedMinDateY}
+          selectedMaxDateY={selectedMaxDateY}
         />
         <TimeLegendComponent
           position={positions.timeLegend}
@@ -199,10 +210,6 @@ export default class PanelContainer extends React.Component<Props> {
         />
         <TimeSelectComponent
           margin={this._middleTM}
-          minY={this.dateToY(
-            positions.timeSelect.h,
-            appStore.dateSelection[0]
-          )}
           minDateY={this.dateToY(
             positions.timeSelect.h,
             Config.dates.min
@@ -211,14 +218,8 @@ export default class PanelContainer extends React.Component<Props> {
             positions.timeSelect.h,
             Config.dates.max
           )}
-          selectedMinDateY={this.dateToY(
-            positions.timeSelect.h,
-            appStore.dateSelection[0]
-          )}
-          selectedMaxDateY={this.dateToY(
-            positions.timeSelect.h,
-            appStore.dateSelection[1]
-          )}
+          selectedMinDateY={selectedMinDateY}
+          selectedMaxDateY={selectedMaxDateY}
           minDate={appStore.dateSelection[0]}
           maxDate={appStore.dateSelection[1]}
           position={positions.timeSelect}

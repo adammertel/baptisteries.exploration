@@ -38,15 +38,31 @@ export default class WelcomeModal extends React.Component<Props> {
             </header>
             <div className="card-content">
               <div className="content">
-                Random app welcome text
-                <p>
-                  {' '}
-                  we have <a href="#">manual</a>{' '}
-                </p>
-                <p>
-                  {' '}
-                  and here is the code <a href="#">github</a>{' '}
-                </p>
+                This app is designed as{' '}
+                <a href="https://en.wikipedia.org/wiki/Exploratory_data_analysis">
+                  ES(T)DA
+                </a>{' '}
+                tool for the exploration of the dataset of early
+                Christian{' '}
+                <a href="https://en.wikipedia.org/wiki/Baptistery">
+                  Baptisteries
+                </a>{' '}
+                derived from printed catalogue of Ristow (Ristow S.
+                Frühchristliche Baptisterien. 1998.)
+                <ul>
+                  <li>
+                    a short{' '}
+                    <a href="https://github.com/adammertel/baptisteries.exploration">
+                      manual
+                    </a>
+                  </li>
+                  <li>
+                    code is located at the{' '}
+                    <a href="https://github.com/adammertel/baptisteries.exploration#">
+                      github repository
+                    </a>{' '}
+                  </li>
+                </ul>
               </div>
             </div>
             <footer className="card-footer">

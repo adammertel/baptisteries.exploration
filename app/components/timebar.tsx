@@ -56,8 +56,8 @@ class TimeBarComponent extends React.Component<Props> {
           <Layer key="in-map-area">
             <Rect
               x={0}
-              y={0}
-              height={position.h}
+              y={this.props.margin}
+              height={position.h - 2 * this.props.margin}
               width={bars.filter(f => f.spatial).length * barSpace}
               fill={Colors.temporal}
               opacity={0.2}

@@ -133,7 +133,7 @@ export default class MapComponent extends React.Component<Props> {
       '" class="marker-icon marker-icon-fill" style="' +
       stripes +
       ';color: ' +
-      color +
+      Colors.temporal +
       innerStyle +
       '" >' +
       (single ? '' : markers.length) +

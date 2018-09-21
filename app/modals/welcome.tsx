@@ -15,7 +15,7 @@ export default class WelcomeModal extends React.Component<Props> {
   constructor(props: any) {
     super(props)
     this.state = {
-      open: true
+      open: false
     }
   }
 

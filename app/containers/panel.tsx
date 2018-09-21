@@ -21,7 +21,7 @@ export default class PanelContainer extends React.Component<Props> {
 
   constructor(props: any) {
     super(props)
-    this._middleTM = 10
+    this._middleTM = 20
   }
 
   handleTimeSelectDragMin(e) {
@@ -42,7 +42,7 @@ export default class PanelContainer extends React.Component<Props> {
     const w = screenW - margins * 2
 
     const settingsHeight = 100
-    const timelineHeight = 0
+    const timelineHeight = 100
 
     const histogramWidth = 0
     const timeSelectWidth = 70

@@ -41,9 +41,9 @@ class TimeSelect extends React.Component<Props> {
             <Rect
               key="background"
               width={pipeW}
-              y={0}
+              y={this.props.margin}
               x={marginLeft}
-              height={position.h}
+              height={position.h - 2 * this.props.margin}
               stroke={Colors.passive}
             />
             <Rect
@@ -66,7 +66,8 @@ class TimeSelect extends React.Component<Props> {
               onDragEnd={this.props.onDragMax}
               dragBoundFunc={pos => {
                 const maxY = this.props.selectedMinDateY
-                const minY = this.props.margin + handlerH / 2
+                const minY = this.props.margin
+                console.log(minY)
                 const newY =
                   pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
 
@@ -86,10 +87,7 @@ class TimeSelect extends React.Component<Props> {
               draggable={true}
               onDragEnd={this.props.onDragMin}
               dragBoundFunc={pos => {
-                const maxY =
-                  this.props.position.h -
-                  handlerH / 2 -
-                  this.props.margin
+                const maxY = this.props.position.h - this.props.margin
                 const minY = this.props.selectedMaxDateY
                 const newY =
                   pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y

@@ -150,6 +150,20 @@ export default class AppStore {
   }
 
   @action
+  incrementMinDateSelection(by: number): void {
+    const dateSelection = this.dateSelection.slice()
+    dateSelection[0] = dateSelection[0] + by
+    this._dateSelection.set(dateSelection)
+  }
+
+  @action
+  incrementMaxDateSelection(by: number): void {
+    const dateSelection = this.dateSelection.slice()
+    dateSelection[1] = dateSelection[1] + by
+    this._dateSelection.set(dateSelection)
+  }
+
+  @action
   changeMaxDateSelection(newMaxDate: number): void {
     const newDateSelection = this.dateSelection.slice()
     newDateSelection[1] = newMaxDate

@@ -36,6 +36,16 @@ export default class PanelContainer extends React.Component<Props> {
     this.props.stores.app.changeMaxDateSelection(newDate)
   }
 
+  handleIncrementMin(by: number) {
+    console.log('min', by)
+    this.props.stores.app.incrementMinDateSelection(by)
+  }
+
+  handleIncrementMax(by: number) {
+    console.log(by)
+    this.props.stores.app.incrementMaxDateSelection(by)
+  }
+
   calculatePositions(screenH, screenW) {
     const margins = 10
     const h = screenH / 2 - margins * 2
@@ -225,6 +235,8 @@ export default class PanelContainer extends React.Component<Props> {
           position={positions.timeSelect}
           onDragMin={this.handleTimeSelectDragMin.bind(this)}
           onDragMax={this.handleTimeSelectDragMax.bind(this)}
+          incrementMin={this.handleIncrementMin.bind(this)}
+          incrementMax={this.handleIncrementMax.bind(this)}
         />
       </div>
     )

@@ -112,6 +112,7 @@ class TimeSelect extends React.Component<Props> {
                 }}
               />
             </Group>
+
             <Group x={minTextX} y={minTextY} key="min-date">
               <Text
                 key="min-date-label"
@@ -129,6 +130,7 @@ class TimeSelect extends React.Component<Props> {
                   offsetX={-3 * triangleR}
                   offsetY={0}
                   rotation={60}
+                  onClick={this.props.incrementMin.bind(this, -1)}
                 />
               )}
               <RegularPolygon
@@ -138,8 +140,10 @@ class TimeSelect extends React.Component<Props> {
                 fill={Colors.active}
                 offsetX={-1.5 * triangleR}
                 offsetY={triangleR}
+                onClick={this.props.incrementMin.bind(this, 1)}
               />
             </Group>
+
             <Group x={maxTextX} y={maxTextY} key="max-date">
               <Text
                 key="max-date-label"
@@ -149,15 +153,16 @@ class TimeSelect extends React.Component<Props> {
                 text={this.props.maxDate}
               />
               {this.props.maxDateY !== selectedMaxDateY && (
-              <RegularPolygon
-                key="plus"
-                sides={3}
-                radius={triangleR}
-                fill={Colors.active}
-                offsetX={-1.5 * triangleR}
-                offsetY={triangleR}
-              />
-              }
+                <RegularPolygon
+                  key="plus"
+                  sides={3}
+                  radius={triangleR}
+                  fill={Colors.active}
+                  offsetX={-1.5 * triangleR}
+                  offsetY={triangleR}
+                  onClick={this.props.incrementMax.bind(this, 1)}
+                />
+              )}
               <RegularPolygon
                 key="minus"
                 sides={3}
@@ -166,6 +171,7 @@ class TimeSelect extends React.Component<Props> {
                 offsetX={-3 * triangleR}
                 offsetY={0}
                 rotation={60}
+                onClick={this.props.incrementMax.bind(this, -1)}
               />
             </Group>
           </Layer>

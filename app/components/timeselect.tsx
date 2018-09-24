@@ -2,6 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 import Colors from './../helpers/colors'
+import Config from './../helpers/config'
 
 import {
   Stage,
@@ -123,7 +124,7 @@ class TimeSelect extends React.Component<Props> {
                 align="center"
                 text={this.props.minDate}
               />
-              {this.props.minDateY !== selectedMinDateY && (
+              {this.props.minDate !== Config.dates.min && (
                 <RegularPolygon
                   key="minus"
                   sides={3}
@@ -135,15 +136,17 @@ class TimeSelect extends React.Component<Props> {
                   onClick={this.props.incrementMin.bind(this, -1)}
                 />
               )}
-              <RegularPolygon
-                key="plus"
-                sides={3}
-                radius={triangleR}
-                fill={Colors.active}
-                offsetX={-1.5 * triangleR}
-                offsetY={triangleR}
-                onClick={this.props.incrementMin.bind(this, 1)}
-              />
+              {this.props.minDate + 1 !== this.props.maxDate && (
+                <RegularPolygon
+                  key="plus"
+                  sides={3}
+                  radius={triangleR}
+                  fill={Colors.active}
+                  offsetX={-1.5 * triangleR}
+                  offsetY={triangleR}
+                  onClick={this.props.incrementMin.bind(this, 1)}
+                />
+              )}
             </Group>
 
             <Group x={maxTextX} y={maxTextY} key="max-date">
@@ -154,7 +157,7 @@ class TimeSelect extends React.Component<Props> {
                 align="center"
                 text={this.props.maxDate}
               />
-              {this.props.maxDateY !== selectedMaxDateY && (
+              {this.props.maxDate !== Config.dates.max && (
                 <RegularPolygon
                   key="plus"
                   sides={3}
@@ -165,16 +168,18 @@ class TimeSelect extends React.Component<Props> {
                   onClick={this.props.incrementMax.bind(this, 1)}
                 />
               )}
-              <RegularPolygon
-                key="minus"
-                sides={3}
-                radius={triangleR}
-                fill={Colors.active}
-                offsetX={-3 * triangleR}
-                offsetY={0}
-                rotation={60}
-                onClick={this.props.incrementMax.bind(this, -1)}
-              />
+              {this.props.maxDate - 1 !== this.props.minDate && (
+                <RegularPolygon
+                  key="minus"
+                  sides={3}
+                  radius={triangleR}
+                  fill={Colors.active}
+                  offsetX={-3 * triangleR}
+                  offsetY={0}
+                  rotation={60}
+                  onClick={this.props.incrementMax.bind(this, -1)}
+                />
+              )}
             </Group>
           </Layer>
         </Stage>

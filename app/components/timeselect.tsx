@@ -58,6 +58,7 @@ class TimeSelect extends React.Component<Props> {
                 y={this.props.margin}
                 height={position.h - 2 * this.props.margin}
                 stroke={Colors.passive}
+                onClick={this.props.rangeClicked}
               />
               <Rect
                 key="date-range"
@@ -66,6 +67,7 @@ class TimeSelect extends React.Component<Props> {
                 y={selectedMaxDateY}
                 stroke={Colors.passive}
                 fill={Colors.passive}
+                onClick={this.props.rangeClicked}
               />
             </Group>
             <Group key="handlers" x={handlerX}>

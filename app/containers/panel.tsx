@@ -36,6 +36,12 @@ export default class PanelContainer extends React.Component<Props> {
     this.props.stores.app.changeMaxDateSelection(newDate)
   }
 
+  handleRangeClick(e: Event) {
+    const y = e.evt.layerY
+    const clickedDate = this.yToDate(this.positions.timeSelect.h, y)
+    this.props.stores.app.changeDateByClick(clickedDate)
+  }
+
   handleIncrementMin(by: number) {
     console.log('min', by)
     this.props.stores.app.incrementMinDateSelection(by)
@@ -235,6 +241,7 @@ export default class PanelContainer extends React.Component<Props> {
           position={positions.timeSelect}
           onDragMin={this.handleTimeSelectDragMin.bind(this)}
           onDragMax={this.handleTimeSelectDragMax.bind(this)}
+          rangeClicked={this.handleRangeClick.bind(this)}
           incrementMin={this.handleIncrementMin.bind(this)}
           incrementMax={this.handleIncrementMax.bind(this)}
         />

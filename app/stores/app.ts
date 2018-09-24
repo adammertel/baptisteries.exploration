@@ -169,4 +169,18 @@ export default class AppStore {
     newDateSelection[1] = newMaxDate
     this._dateSelection.set(newDateSelection)
   }
+
+  @action
+  changeDateByClick(newDate: number): void {
+    const newDateSelection = this.dateSelection.slice()
+    const minDiff = Math.abs(newDateSelection[0] - newDate)
+    const maxDiff = Math.abs(newDateSelection[1] - newDate)
+
+    if (minDiff < maxDiff) {
+      newDateSelection[0] = newDate
+    } else {
+      newDateSelection[1] = newDate
+    }
+    this._dateSelection.set(newDateSelection)
+  }
 }

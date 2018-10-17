@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import TimeBarComponent from './../components/timebar'
 import TimeSelectComponent from './../components/timeselect'
 import TimeLegendComponent from './../components/timelegend'
-import PanelFilterComponent from './../components/panelfilter'
+import TimelineComponent from './../components/timeline'
 import PanelSettingsComponent from './../components/panelsettings'
 import Config from './../helpers/config'
 import { featureProp, timeColor } from './../helpers/feature'
@@ -38,6 +38,11 @@ export default class TimePanelContainer extends React.Component<
     const newY = e.target.attrs.y
     const newDate = this.yToDate(this.positions.timeSelect.h, newY)
     this.props.stores.app.changeMaxDateSelection(newDate)
+  }
+
+  _handleTimelineDrag(e) {
+    const newX = e.target.attrs.x
+    console.log('timeline dragged', newX)
   }
 
   handleRangeClick(e: Event) {
@@ -108,6 +113,28 @@ export default class TimePanelContainer extends React.Component<
         y: settingsHeight + middleHeight
       }
     }
+  }
+
+  timelineBars(h, w) {
+    const store = this.props.stores.app
+    const features = store.features
+    const barW = w / features.length
+
+    return features.map((feature, fi) => {
+      const dateMin = featureProp(feature, 'dateMin')
+      const dateMax = featureProp(feature, 'dateMax')
+      const yMax = this.dateToY(h, dateMax)
+      const yMin = this.dateToY(h, dateMin)
+      const barH = yMin - yMax
+
+      return {
+        circle: dateMax - dateMin < Config.dates.barCircleTreshold,
+        y: yMax,
+        x: fi * barW,
+        h: barH,
+        w: barW
+      }
+    })
   }
 
   timeBars(h) {
@@ -240,6 +267,18 @@ export default class TimePanelContainer extends React.Component<
           rangeClicked={this.handleRangeClick.bind(this)}
           incrementMin={this.handleIncrementMin.bind(this)}
           incrementMax={this.handleIncrementMax.bind(this)}
+        />
+        <TimelineComponent
+          bars={this.timelineBars(
+            positions.timeline.h,
+            positions.timeline.w
+          )}
+          onDrag={this._handleTimelineDrag.bind(this)}
+          selection={{
+            x: 50,
+            w: 100
+          }}
+          position={positions.timeline}
         />
       </div>
     )

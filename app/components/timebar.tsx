@@ -1,9 +1,7 @@
 import React from 'react'
-import { observer } from 'mobx-react'
 import Base from './../helpers/base'
 import Colors from './../helpers/colors'
 import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva'
-import Konva from 'konva'
 
 type Props = {
   position: Object

@@ -9,6 +9,7 @@ import Config from './../helpers/config'
 import { featureProp, timeColor } from './../helpers/feature'
 import Base from './../helpers/base'
 import { SizeModel } from './../helpers/models'
+import sizes from './../helpers/sizes'
 
 type Props = {
   stores: Array<Object>
@@ -22,10 +23,15 @@ export default class TimePanelContainer extends React.Component<
   props
   positions
   _middleTM // margin of y for the middle components
+  state
+  setState
 
   constructor(props: any) {
     super(props)
     this._middleTM = 20
+    this.state = {
+      selectionX: 0
+    }
   }
 
   handleTimeSelectDragMin(e) {
@@ -42,10 +48,11 @@ export default class TimePanelContainer extends React.Component<
 
   _handleTimelineDrag(e) {
     const newX = e.target.attrs.x
+    this.setState({ selectionX: newX })
     console.log('timeline dragged', newX)
   }
 
-  handleRangeClick(e: Event) {
+  handleRangeClick(e) {
     const y = e.evt.layerY
     const clickedDate = this.yToDate(this.positions.timeSelect.h, y)
     this.props.stores.app.changeDateByClick(clickedDate)
@@ -115,11 +122,21 @@ export default class TimePanelContainer extends React.Component<
     }
   }
 
+  _selectionPosition(timelineW, timeBarsW) {
+    const barsNo = timeBarsW / sizes.timeBarSpace
+    const features = this.props.stores.app.features
+    const timelineBarW = timelineW / features.length
+
+    return {
+      w: timelineBarW * barsNo,
+      x: this.state.selectionX
+    }
+  }
+
   timelineBars(h, w) {
     const store = this.props.stores.app
     const features = store.features
     const barW = w / features.length
-
     return features.map((feature, fi) => {
       const dateMin = featureProp(feature, 'dateMin')
       const dateMax = featureProp(feature, 'dateMax')
@@ -274,10 +291,10 @@ export default class TimePanelContainer extends React.Component<
             positions.timeline.w
           )}
           onDrag={this._handleTimelineDrag.bind(this)}
-          selection={{
-            x: 50,
-            w: 100
-          }}
+          selection={this._selectionPosition(
+            positions.timeline.w,
+            positions.timeBars.w
+          )}
           position={positions.timeline}
         />
       </div>

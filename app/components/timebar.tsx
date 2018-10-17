@@ -2,6 +2,7 @@ import React from 'react'
 import Base from './../helpers/base'
 import Colors from './../helpers/colors'
 import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva'
+import sizes from './../helpers/sizes'
 
 type Props = {
   position: Object
@@ -18,12 +19,10 @@ class TimeBarComponent extends React.Component<Props> {
   render() {
     const position = this.props.position
 
-    const barWidth = 6
-    const barStroke = 8
-    const barHl = 10
-    const barMargin = 2
-    const barSpace = barStroke + barMargin
+    const barSize = sizes.values.time.bars
+    const barWidth = barSize.width
 
+    const barSpace = sizes.timeBarSpace
     const bars = this.props.bars
 
     return (

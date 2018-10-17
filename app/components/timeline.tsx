@@ -33,7 +33,7 @@ class TimeLineComponent extends React.Component<Props> {
             <Rect
               key="selection-rectangle"
               y={0}
-              x={this.props.selection.y}
+              x={this.props.selection.x}
               width={this.props.selection.w}
               height={position.h}
               fill={'yellow'}

@@ -1,5 +1,3 @@
-import { satisfies } from 'semver'
-
 var Colors = {
   active: 'rgb(255,59,31)',
   passive: 'darkgrey',

@@ -2,6 +2,7 @@ import { observable, action, computed, toJS } from 'mobx'
 import Base from './../helpers/base'
 import Config from './../helpers/config'
 import { SizeModel } from './../helpers/models'
+import sizes from './../helpers/sizes'
 
 export default class ScreenStore {
   _width
@@ -41,7 +42,7 @@ export default class ScreenStore {
   get _timePanelSizes(): SizeModel {
     return {
       width: this._mapTimeWidth + 'px',
-      height: Config.panels.timeHeight + 'px',
+      height: sizes.values.panel.timeHeight + 'px',
       left: '0px',
       top: this._mapHeight + 'px'
     }
@@ -50,7 +51,7 @@ export default class ScreenStore {
   @computed
   get _attributePanelSizes(): SizeModel {
     return {
-      width: Config.panels.attributeWidth + 'px',
+      width: sizes.values.panel.attributeWidth + 'px',
       height: '100%',
       left: this._mapTimeWidth + 'px',
       top: '0px'
@@ -69,12 +70,12 @@ export default class ScreenStore {
 
   @computed
   get _mapHeight(): Number {
-    return this.height - Config.panels.timeHeight
+    return this.height - sizes.values.panel.timeHeight
   }
 
   @computed
   get _mapTimeWidth(): Number {
-    return this.width - Config.panels.attributeWidth
+    return this.width - sizes.values.panel.attributeWidth
   }
 
   getScreenSizes(e: Event | null): void {

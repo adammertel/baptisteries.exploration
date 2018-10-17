@@ -23,7 +23,9 @@ export default class TimePanelContainer extends React.Component<
   render() {
     return (
       <div
-        style={Base.applySizeStyle(this.props.sizes, {})}
+        style={Base.applySizeStyle(this.props.sizes, {
+          backgroundColor: 'grey'
+        })}
         className="container panel-container-attributes"
       >
         Attribute

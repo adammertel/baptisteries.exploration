@@ -58,13 +58,13 @@ export default class TimePanelContainer extends React.Component<
 
   calculatePositions(screenH, screenW) {
     const margins = 10
-    const h = screenH / 2 - margins * 2
+    const h = screenH - margins * 2
     const w = screenW - margins * 2
 
-    const settingsHeight = 100
+    const settingsHeight = 80
     const timelineHeight = 100
 
-    const histogramWidth = 0
+    const histogramWidth = 200
     const timeSelectWidth = 100
     const timeLegendWidth = 30
     const settingsWidth = 200
@@ -74,13 +74,7 @@ export default class TimePanelContainer extends React.Component<
       settings: {
         h: settingsHeight,
         w: settingsWidth,
-        x: w - settingsWidth,
-        y: 0
-      },
-      filter: {
-        h: settingsHeight,
-        w: w - settingsWidth,
-        x: 0,
+        x: margins,
         y: 0
       },
       historgram: {
@@ -184,8 +178,8 @@ export default class TimePanelContainer extends React.Component<
     */
 
     const positions = (this.positions = this.calculatePositions(
-      screenStore.height,
-      screenStore.width
+      parseInt(this.props.sizes.height, 10),
+      parseInt(this.props.sizes.width, 10)
     ))
 
     const timeTicks = this.timeTicks(positions.timeSelect.h)
@@ -208,11 +202,6 @@ export default class TimePanelContainer extends React.Component<
         <PanelSettingsComponent
           store={appStore}
           position={positions.settings}
-        />
-        <PanelFilterComponent
-          columns={this.filterableColumns()}
-          position={positions.filter}
-          store={filterStore}
         />
         <hr
           className="panel-line"

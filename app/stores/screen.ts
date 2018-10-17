@@ -18,12 +18,12 @@ export default class ScreenStore {
   }
 
   @computed
-  get width(): Number {
+  get width(): number {
     return toJS(this._width)
   }
 
   @computed
-  get height(): Number {
+  get height(): number {
     return toJS(this._height)
   }
 
@@ -69,12 +69,12 @@ export default class ScreenStore {
 
   @computed
   get _mapHeight(): Number {
-    return Base.screenHeight() - Config.panels.timeHeight
+    return this.height - Config.panels.timeHeight
   }
 
   @computed
   get _mapTimeWidth(): Number {
-    return Base.screenWidth() - Config.panels.attributeWidth
+    return this.width - Config.panels.attributeWidth
   }
 
   getScreenSizes(e: Event | null): void {

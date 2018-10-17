@@ -80,7 +80,7 @@ $color-marker-icon-radius: 1px;
   }
 }
 
-.panel-container {
+.panel-container-time {
   .panel-line {
     position: absolute;
     left: 0;
@@ -113,14 +113,14 @@ $color-marker-icon-radius: 1px;
     }
 
     .heading {
-      padding-left: 10px;
+      padding-left: 0;
       padding-right: 5px;
     }
 
     &.panelsetting-wrapper {
-      display: flex;
+      display: block;
       .settings-block {
-        display: flex;
+        display: block;
       }
     }
 

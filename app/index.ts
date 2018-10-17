@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import AppContainer from './containers/app'
 import Base from './helpers/base'
-import Config from './helpers/config'
 
 /* loading styles */
 import './main.scss'

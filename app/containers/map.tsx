@@ -4,9 +4,11 @@ import Base from './../helpers/base'
 import MapComponent from './../components/map'
 import { timeColor } from './../helpers/feature'
 import { Marker } from 'react-leaflet'
+import { SizeModel } from './../helpers/models'
 
 type Props = {
   stores: Array<Object>
+  sizes: SizeModel
 }
 
 @observer
@@ -51,7 +53,10 @@ export default class MapContainer extends React.Component<Props> {
     const features = this.props.stores.app.features
 
     return (
-      <div className="container map-container">
+      <div
+        style={Base.applySizeStyle(this.props.sizes, {})}
+        className="container map-container"
+      >
         <MapComponent
           handleViewportChange={this.handleViewportChange.bind(this)}
           extent={mapStore.extent}

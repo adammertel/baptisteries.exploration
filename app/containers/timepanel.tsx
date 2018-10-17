@@ -8,9 +8,11 @@ import PanelSettingsComponent from './../components/panelsettings'
 import Config from './../helpers/config'
 import { featureProp, timeColor } from './../helpers/feature'
 import Base from './../helpers/base'
+import { SizeModel } from './../helpers/models'
 
 type Props = {
   stores: Array<Object>
+  sizes: SizeModel
 }
 
 @observer
@@ -199,7 +201,10 @@ export default class TimePanelContainer extends React.Component<
     )
 
     return (
-      <div className="container panel-container-time">
+      <div
+        style={Base.applySizeStyle(this.props.sizes, {})}
+        className="container panel-container-time"
+      >
         <PanelSettingsComponent
           store={appStore}
           position={positions.settings}

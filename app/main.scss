@@ -21,7 +21,7 @@ html {
   overflow: hidden;
 }
 
-.app-container {
+.container-wrapper {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -31,24 +31,18 @@ html {
 
 .container {
   position: absolute;
-  width: 100%;
-  min-width: 100%;
-}
+  &.panel-container-time {
+  }
+  &.panel-container-attributes {
+  }
+  &.map-container {
+    .map-component {
+      width: 100%;
+      height: 100%;
 
-.panel-container {
-  bottom: 0;
-  top: 50%;
-}
-
-.map-container {
-  bottom: 50%;
-  top: 0;
-  .map-component {
-    width: 100%;
-    height: 100%;
-
-    .map-base-layer-awmc {
-      filter: grayscale(90%) sepia(50%) brightness(105%);
+      .map-base-layer-awmc {
+        filter: grayscale(90%) sepia(50%) brightness(105%);
+      }
     }
   }
 }

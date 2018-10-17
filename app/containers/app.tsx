@@ -4,6 +4,7 @@ import MapContainer from './map'
 import TimePanelContainer from './timepanel'
 import AttributePanelContainer from './attributepanel'
 import WelcomeModal from './../modals/welcome'
+import Base from './../helpers/base'
 
 type Props = {
   stores: Array<Object>
@@ -17,11 +18,21 @@ export default class AppContainer extends React.Component<any, any> {
   }
 
   public render() {
+    const screenStore = this.props.stores.screen
     return (
       <div className="container-wrapper">
-        <TimePanelContainer stores={this.props.stores} />
-        <AttributePanelContainer stores={this.props.stores} />
-        <MapContainer stores={this.props.stores} />
+        <TimePanelContainer
+          stores={this.props.stores}
+          sizes={screenStore._timePanelSizes}
+        />
+        <AttributePanelContainer
+          stores={this.props.stores}
+          sizes={screenStore._attributePanelSizes}
+        />
+        <MapContainer
+          stores={this.props.stores}
+          sizes={screenStore._mapPanelSizes}
+        />
         <WelcomeModal />
       </div>
     )

@@ -1,4 +1,6 @@
 import L from 'leaflet'
+import { SizeModel } from './models'
+
 var Base = {
   sum: (a: number, b: number): number => a + b,
 
@@ -71,6 +73,10 @@ var Base = {
       extent[0][0] < y &&
       extent[1][0] > y
     )
+  },
+
+  applySizeStyle(sizes: SizeModel, otherStyles: {}) {
+    return { ...sizes, ...otherStyles }
   },
 
   cssStripes: (color, w, ratio) => {

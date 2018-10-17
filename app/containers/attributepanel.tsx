@@ -1,16 +1,11 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import TimeBarComponent from './../components/timebar'
-import TimeSelectComponent from './../components/timeselect'
-import TimeLegendComponent from './../components/timelegend'
-import PanelFilterComponent from './../components/panelfilter'
-import PanelSettingsComponent from './../components/panelsettings'
-import Config from './../helpers/config'
-import { featureProp, timeColor } from './../helpers/feature'
+import { SizeModel } from './../helpers/models'
 import Base from './../helpers/base'
 
 type Props = {
   stores: Array<Object>
+  sizes: SizeModel
 }
 
 @observer
@@ -27,7 +22,10 @@ export default class TimePanelContainer extends React.Component<
 
   render() {
     return (
-      <div className="container panel-container-attributes">
+      <div
+        style={Base.applySizeStyle(this.props.sizes, {})}
+        className="container panel-container-attributes"
+      >
         Attribute
       </div>
     )

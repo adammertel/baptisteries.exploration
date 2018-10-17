@@ -10,6 +10,10 @@ var Config = {
   },
   map: {
     clusterRadius: 60
+  },
+  panels: {
+    attributeWidth: 400,
+    timeHeight: 500
   }
 }
 

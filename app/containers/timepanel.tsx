@@ -23,7 +23,10 @@ export default class TimePanelContainer extends React.Component<
   Props
 > {
   props
+  width
+  height
   positions
+  selectors
   _middleTM // margin of y for the middle components
   state
   setState
@@ -70,73 +73,79 @@ export default class TimePanelContainer extends React.Component<
     this.props.stores.app.incrementMaxDateSelection(by)
   }
 
-  calculatePositions(screenH, screenW) {
-    const margins = 10
-    const h = screenH - margins * 2
-    const w = screenW - margins * 2
+  _calculatePositions() {
+    const margins = sizes.values.time.margins
+    const h = this.height - margins * 2
+    const w = this.width - margins * 2
 
-    const settingsHeight = 80
-    const timelineHeight = 100
+    const lineHeightTop = sizes.values.time.lines.topHeight
+    const lineHeightMiddle = sizes.values.time.lines.middleHeight
+    const lineHeightBottom = sizes.values.time.lines.bottomHeight
 
-    const histogramWidth = 200
-    const timeSelectWidth = 100
-    const timeLegendWidth = 30
-    const settingsWidth = 200
-    const middleHeight = h - settingsHeight - timelineHeight
+    const componentWidths = sizes.values.time.components
+    const histogramWidth = componentWidths.histogramWidth
+    const selectorWidth = componentWidths.selectorWidth
+    const legendWidth = componentWidths.legendWidth
+    const barchartWidth =
+      w - (histogramWidth + selectorWidth + legendWidth)
 
     return {
       settings: {
-        h: settingsHeight,
-        w: settingsWidth,
+        h: lineHeightTop,
+        w: w,
         x: margins,
-        y: 0
+        y: margins
       },
       historgram: {
-        h: middleHeight,
+        h: lineHeightMiddle,
         w: histogramWidth,
-        x: 0,
-        y: settingsHeight
+        x: margins,
+        y: lineHeightTop
       },
-      timeSelect: {
-        h: middleHeight,
-        w: timeSelectWidth,
+      selector: {
+        h: lineHeightMiddle,
+        w: selectorWidth,
         x: histogramWidth,
-        y: settingsHeight
+        y: lineHeightTop
       },
-      timeLegend: {
-        h: middleHeight,
-        w: timeLegendWidth,
-        x: histogramWidth + timeSelectWidth,
-        y: settingsHeight
+      legend: {
+        h: lineHeightMiddle,
+        w: legendWidth,
+        x: histogramWidth + selectorWidth,
+        y: lineHeightTop
       },
-      timeBars: {
-        h: middleHeight,
-        w: w - histogramWidth - timeSelectWidth - timeLegendWidth,
-        x: histogramWidth + timeSelectWidth + timeLegendWidth,
-        y: settingsHeight
+      barchart: {
+        h: lineHeightMiddle,
+        w: barchartWidth,
+        x: histogramWidth + selectorWidth + legendWidth,
+        y: lineHeightTop
       },
-      timeline: {
-        h: timelineHeight,
+      profile: {
+        h: lineHeightBottom,
         w: w,
-        x: 0,
-        y: settingsHeight + middleHeight
+        x: margins,
+        y: lineHeightTop + lineHeightMiddle
       }
     }
   }
 
-  _selectionPosition(timelineW, timeBarsW) {
-    const noFeatures = this.props.stores.app.features.length
-    const barsNo = timeBarsW / sizes.timeBarSpace
-    const timelineBarW = timelineW / noFeatures
+  _calculateSelectors() {
+    const barchartW = this.positions.barchart.w
+    const profileW = this.positions.profile.w
+    const barSpace = sizes.values.time.bars.space
 
-    const wAllFeaturesBar = noFeatures * sizes.timeBarSpace
+    const noFeatures = this.props.stores.app.features.length
+    const barsNo = barchartW / barSpace
+    const profileBarW = profileW / noFeatures
+
+    const wAllFeaturesBar = noFeatures * barSpace
 
     return {
-      timeline: {
-        w: timelineBarW * barsNo,
-        x: this.state.selectionX * timelineW
+      profile: {
+        w: profileBarW * barsNo,
+        x: this.state.selectionX * profileW
       },
-      bars: {
+      barchart: {
         x: this.state.selectionX * wAllFeaturesBar
       }
     }
@@ -223,32 +232,21 @@ export default class TimePanelContainer extends React.Component<
     const appStore = this.props.stores.app
     const filterStore = this.props.stores.filter
 
-    /*
-    console.log(
-      'spatial',
-      appStore.features.filter(f => f.selection.spatial)
-    )
-    */
+    this.width = parseInt(this.props.sizes.width, 10)
+    this.height = parseInt(this.props.sizes.height, 10)
+    this.positions = this._calculatePositions()
 
-    const positions = (this.positions = this.calculatePositions(
-      parseInt(this.props.sizes.height, 10),
-      parseInt(this.props.sizes.width, 10)
-    ))
+    this.selectors = this._calculateSelectors()
 
-    const selectionPosition = this._selectionPosition(
-      positions.timeline.w,
-      positions.timeBars.w
-    )
-
-    const timeTicks = this.timeTicks(positions.timeSelect.h)
-    const timeBars = this.timeBars(positions.timeBars.h)
+    const timeTicks = this.timeTicks(this.positions.selector.h)
+    const timeBars = this.timeBars(this.positions.barchart.h)
 
     const selectedMaxDateY = this.dateToY(
-      positions.timeSelect.h,
+      this.positions.selector.h,
       appStore.dateSelection[1]
     )
     const selectedMinDateY = this.dateToY(
-      positions.timeSelect.h,
+      this.positions.selector.h,
       appStore.dateSelection[0]
     )
 
@@ -259,41 +257,41 @@ export default class TimePanelContainer extends React.Component<
       >
         <TimeSettingsComponent
           store={appStore}
-          position={positions.settings}
+          position={this.positions.settings}
         />
         <hr
           className="panel-line"
-          style={{ top: positions.settings.h }}
+          style={{ top: this.positions.settings.h }}
         />
         <TimeBarchartComponent
-          position={positions.timeBars}
+          position={this.positions.barchart}
           bars={timeBars}
           ticks={timeTicks}
           margin={this._middleTM}
-          offset={selectionPosition.bars.x}
+          offset={this.selectors.barchart.x}
           selectedMinDateY={selectedMinDateY}
           selectedMaxDateY={selectedMaxDateY}
         />
         <TimeLegendComponent
-          position={positions.timeLegend}
+          position={this.positions.legend}
           margin={this._middleTM}
           ticks={timeTicks}
         />
         <TimeSelectorComponent
           margin={this._middleTM}
           minDateY={this.dateToY(
-            positions.timeSelect.h,
+            this.positions.selector.h,
             Config.dates.min
           )}
           maxDateY={this.dateToY(
-            positions.timeSelect.h,
+            this.positions.selector.h,
             Config.dates.max
           )}
           selectedMinDateY={selectedMinDateY}
           selectedMaxDateY={selectedMaxDateY}
           minDate={appStore.dateSelection[0]}
           maxDate={appStore.dateSelection[1]}
-          position={positions.timeSelect}
+          position={this.positions.selector}
           onDragMin={this.handleTimeSelectDragMin.bind(this)}
           onDragMax={this.handleTimeSelectDragMax.bind(this)}
           rangeClicked={this.handleRangeClick.bind(this)}
@@ -302,12 +300,12 @@ export default class TimePanelContainer extends React.Component<
         />
         <TimeProfileComponent
           bars={this.timelineBars(
-            positions.timeline.h,
-            positions.timeline.w
+            this.positions.profile.h,
+            this.positions.profile.w
           )}
           onDrag={this._handleTimelineDrag.bind(this)}
-          selection={selectionPosition.timeline}
-          position={positions.timeline}
+          selection={this.selectors.profile}
+          position={this.positions.profile}
         />
       </div>
     )

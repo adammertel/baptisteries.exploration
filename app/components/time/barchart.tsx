@@ -26,7 +26,7 @@ export default class TimeBarchartComponent extends React.Component<
     const barSize = sizes.values.time.bars
     const barWidth = barSize.width
 
-    const barSpace = sizes.timeBarSpace
+    const barSpace = sizes.values.time.bars.space
     const bars = this.props.bars
 
     const offSet = this.props.offset

@@ -1,6 +1,5 @@
 import { observable, action, computed, toJS } from 'mobx'
 import Base from './../helpers/base'
-import Config from './../helpers/config'
 import { SizeModel } from './../helpers/models'
 import sizes from './../helpers/sizes'
 
@@ -14,7 +13,12 @@ export default class ScreenStore {
     this._height = observable.box(0)
     this._resizing = false
 
-    window.addEventListener('resize', this.getScreenSizes.bind(this))
+    window.addEventListener(
+      'resize',
+      Base.debounce(() => {
+        this.getScreenSizes()
+      })
+    )
   }
 
   @computed
@@ -28,12 +32,8 @@ export default class ScreenStore {
   }
 
   @action
-  setScreenHeight(): void {
+  setScreenSizes(): void {
     this._height.set(Base.screenHeight())
-  }
-
-  @action
-  setScreenWidth(): void {
     this._width.set(Base.screenWidth())
   }
 
@@ -78,13 +78,7 @@ export default class ScreenStore {
   }
 
   getScreenSizes(): void {
-    if (!this._resizing) {
-      this._resizing = true
-      setTimeout(() => {
-        this.setScreenHeight()
-        this.setScreenWidth()
-        this._resizing = false
-      }, 2000)
-    }
+    console.log('****getting screen size')
+    this.setScreenSizes()
   }
 }

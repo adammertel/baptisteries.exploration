@@ -48,7 +48,7 @@ export default class MapContainer extends React.Component<Props> {
   }
 
   render() {
-    console.log('--map container')
+    console.log('map')
     const mapStore = this.props.stores.map
     const features = this.props.stores.app.features
 

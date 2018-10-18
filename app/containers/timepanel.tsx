@@ -250,6 +250,7 @@ export default class TimePanelContainer extends React.Component<
       appStore.dateSelection[0]
     )
 
+    console.log('time')
     return (
       <div
         style={Base.applySizeStyle(this.props.sizes, {})}

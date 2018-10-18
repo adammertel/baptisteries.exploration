@@ -20,7 +20,6 @@ export default class TimeProfileComponent extends React.Component<
   render() {
     const position = this.props.position
 
-    console.log(this.props.bars)
     return (
       <div
         className="panel-time-profile-wrapper panel-time-component panel-time-middle-component"

@@ -30,10 +30,10 @@ var stores = (window['stores'] = {
 if (document.body) {
   document.body.innerHTML = ''
 
+  stores.screen.getScreenSizes()
   ReactDOM.render(
     React.createElement(AppContainer, {
-      stores: stores,
-      appStore: stores.app
+      stores: stores
     }),
     document.body.appendChild(document.createElement('div'))
   )

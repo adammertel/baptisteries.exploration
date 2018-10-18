@@ -215,7 +215,6 @@ export default class MapComponent extends React.Component<Props> {
   }
 
   render() {
-    console.log('--map component')
     return (
       <Map
         onViewportChanged={this.handleMapMoved.bind(this)}

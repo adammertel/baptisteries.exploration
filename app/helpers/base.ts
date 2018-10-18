@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import { SizeModel } from './models'
 
+var timer
 var Base = {
   sum: (a: number, b: number): number => a + b,
 
@@ -23,6 +24,13 @@ var Base = {
       }
     }
     xhr.send()
+  },
+
+  debounce: func => {
+    return function(event) {
+      if (timer) clearTimeout(timer)
+      timer = setTimeout(func, 100, event)
+    }
   },
 
   screenWidth: () =>

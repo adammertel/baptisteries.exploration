@@ -34,9 +34,9 @@ class Sizes {
       this.values.panel.timeHeight -
       (this.values.time.lines.topHeight +
         this.values.time.lines.bottomHeight)
-  }
-  get timeBarSpace() {
-    return this.values.time.bars.stroke + this.values.time.bars.margin
+
+    this.values.time.bars.space =
+      this.values.time.bars.stroke + this.values.time.bars.margin
   }
 }
 

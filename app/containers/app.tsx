@@ -1,5 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
+
 import MapContainer from './map'
 import TimePanelContainer from './timepanel'
 import AttributePanelContainer from './attributepanel'
@@ -17,11 +19,8 @@ export default class AppContainer extends React.Component<any, any> {
     super(props)
   }
 
-  componentDidMount() {
-    this.props.stores.screen.getScreenSizes()
-  }
-
   public render() {
+    console.log('app')
     const screenStore = this.props.stores.screen
     return (
       <div className="container-wrapper">
@@ -38,6 +37,7 @@ export default class AppContainer extends React.Component<any, any> {
           sizes={screenStore._mapPanelSizes}
         />
         <WelcomeModal />
+        <DevTools />
       </div>
     )
   }

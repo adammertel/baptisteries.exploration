@@ -60,6 +60,7 @@ export default class MapContainer extends React.Component<Props> {
         <MapComponent
           handleViewportChange={this.handleViewportChange.bind(this)}
           extent={mapStore.extent}
+          sizes={this.props.sizes}
           zoom={mapStore.zoom}
           center={mapStore.center}
           points={this.points(features)}

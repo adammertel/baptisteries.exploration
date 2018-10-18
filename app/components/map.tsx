@@ -23,12 +23,14 @@ import 'leaflet.markercluster'
 
 import 'leaflet.markercluster.placementstrategies'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
+import { SizeModel } from './../helpers/models'
 
 type Props = {
   center: Array<Number>
   zoom: Number
   features: Array<Object>
   handleViewportChange: Function
+  sizes: SizeModel
 }
 
 @observer
@@ -60,7 +62,7 @@ export default class MapComponent extends React.Component<Props> {
     }
   }
 
-  clusterMakerIcon(cluster) {
+  clusterMarkerIcon(cluster) {
     const markers = cluster.getAllChildMarkers()
     const single = markers.length === 1
 
@@ -210,6 +212,7 @@ export default class MapComponent extends React.Component<Props> {
     ) {
       this.markerClusterGroup.refreshClusters()
     }
+    this.mapEl.invalidateSize()
   }
 
   render() {
@@ -219,6 +222,7 @@ export default class MapComponent extends React.Component<Props> {
         onViewportChanged={this.handleMapMoved.bind(this)}
         ref="map"
         className="map-component"
+        style={Base.applySizeStyle(this.props.sizes, {})}
         attributionControl={false}
         zoom={this.props.zoom}
         center={this.props.center}
@@ -248,7 +252,7 @@ export default class MapComponent extends React.Component<Props> {
             maxClusterRadius={Config.map.clusterRadius}
             removeOutsideVisibleBounds={true}
             elementsPlacementStrategy="clock-concentric"
-            iconCreateFunction={this.clusterMakerIcon}
+            iconCreateFunction={this.clusterMarkerIcon}
             animate={false}
             singleMarkerMode={true}
             spiderLegPolylineOptions={{ weight: 0 }}

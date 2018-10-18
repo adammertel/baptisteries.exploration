@@ -14,7 +14,6 @@ export default class ScreenStore {
     this._height = observable.box(0)
     this._resizing = false
 
-    this.getScreenSizes(null)
     window.addEventListener('resize', this.getScreenSizes.bind(this))
   }
 
@@ -29,12 +28,12 @@ export default class ScreenStore {
   }
 
   @action
-  setScreenHeight(e: Event | null): void {
+  setScreenHeight(): void {
     this._height.set(Base.screenHeight())
   }
 
   @action
-  setScreenWidth(e: Event | null): void {
+  setScreenWidth(): void {
     this._width.set(Base.screenWidth())
   }
 
@@ -78,12 +77,12 @@ export default class ScreenStore {
     return this.width - sizes.values.panel.attributeWidth
   }
 
-  getScreenSizes(e: Event | null): void {
+  getScreenSizes(): void {
     if (!this._resizing) {
       this._resizing = true
       setTimeout(() => {
-        this.setScreenHeight(e)
-        this.setScreenWidth(e)
+        this.setScreenHeight()
+        this.setScreenWidth()
         this._resizing = false
       }, 2000)
     }

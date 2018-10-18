@@ -17,6 +17,10 @@ export default class AppContainer extends React.Component<any, any> {
     super(props)
   }
 
+  componentDidMount() {
+    this.props.stores.screen.getScreenSizes()
+  }
+
   public render() {
     const screenStore = this.props.stores.screen
     return (

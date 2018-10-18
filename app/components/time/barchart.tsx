@@ -1,8 +1,9 @@
 import React from 'react'
-import Base from './../helpers/base'
-import Colors from './../helpers/colors'
 import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva'
-import sizes from './../helpers/sizes'
+
+import Base from './../../helpers/base'
+import Colors from './../../helpers/colors'
+import sizes from './../../helpers/sizes'
 
 type Props = {
   position: Object
@@ -11,7 +12,9 @@ type Props = {
   offset: number
 }
 
-class TimeBarComponent extends React.Component<Props> {
+export default class TimeBarchartComponent extends React.Component<
+  Props
+> {
   props
   constructor(props: any) {
     super(props)
@@ -30,7 +33,7 @@ class TimeBarComponent extends React.Component<Props> {
 
     return (
       <div
-        className="timebar-wrapper panel-component panel-middle-component"
+        className="panel-time-barchart-wrapper panel-time-component panel-time-middle-component"
         style={{
           top: position.y,
           left: position.x
@@ -217,5 +220,3 @@ class TimeBarComponent extends React.Component<Props> {
     )
   }
 }
-
-export default TimeBarComponent

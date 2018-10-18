@@ -1,10 +1,8 @@
 import React from 'react'
-import { observer } from 'mobx-react'
-import Base from './../helpers/base'
-import Colors from './../helpers/colors'
-
 import { Stage, Layer, Text } from 'react-konva'
-import Konva from 'konva'
+
+import Base from './../../helpers/base'
+import Colors from './../../helpers/colors'
 
 type Props = {
   position: Object
@@ -23,7 +21,7 @@ export default class TimeLegendComponent extends React.Component<
     const fontSize = 10
     return (
       <div
-        className="timebar-wrapper panel-component panel-middle-component"
+        className="panel-time-legend-wrapper panel-time-component panel-time-middle-component"
         style={{
           top: position.y,
           left: position.x

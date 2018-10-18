@@ -1,10 +1,12 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import TimeBarComponent from './../components/timebar'
-import TimeSelectComponent from './../components/timeselect'
-import TimeLegendComponent from './../components/timelegend'
-import TimelineComponent from './../components/timeline'
-import PanelSettingsComponent from './../components/panelsettings'
+
+import TimeBarchartComponent from './../components/time/barchart'
+import TimeLegendComponent from './../components/time/legend'
+import TimeProfileComponent from './../components/time/profile'
+import TimeSelectorComponent from './../components/time/selector'
+import TimeSettingsComponent from './../components/time/settings'
+
 import Config from './../helpers/config'
 import { featureProp, timeColor } from './../helpers/feature'
 import Base from './../helpers/base'
@@ -255,7 +257,7 @@ export default class TimePanelContainer extends React.Component<
         style={Base.applySizeStyle(this.props.sizes, {})}
         className="container panel-container-time"
       >
-        <PanelSettingsComponent
+        <TimeSettingsComponent
           store={appStore}
           position={positions.settings}
         />
@@ -263,7 +265,7 @@ export default class TimePanelContainer extends React.Component<
           className="panel-line"
           style={{ top: positions.settings.h }}
         />
-        <TimeBarComponent
+        <TimeBarchartComponent
           position={positions.timeBars}
           bars={timeBars}
           ticks={timeTicks}
@@ -277,7 +279,7 @@ export default class TimePanelContainer extends React.Component<
           margin={this._middleTM}
           ticks={timeTicks}
         />
-        <TimeSelectComponent
+        <TimeSelectorComponent
           margin={this._middleTM}
           minDateY={this.dateToY(
             positions.timeSelect.h,
@@ -298,7 +300,7 @@ export default class TimePanelContainer extends React.Component<
           incrementMin={this.handleIncrementMin.bind(this)}
           incrementMax={this.handleIncrementMax.bind(this)}
         />
-        <TimelineComponent
+        <TimeProfileComponent
           bars={this.timelineBars(
             positions.timeline.h,
             positions.timeline.w

@@ -1,9 +1,4 @@
 import React from 'react'
-import { observer } from 'mobx-react'
-import Base from './../helpers/base'
-import Colors from './../helpers/colors'
-import Config from './../helpers/config'
-
 import {
   Stage,
   Layer,
@@ -12,7 +7,9 @@ import {
   Group,
   RegularPolygon
 } from 'react-konva'
-import Konva from 'konva'
+
+import Colors from './../../helpers/colors'
+import Config from './../../helpers/config'
 
 type Props = {
   position: Object
@@ -20,7 +17,9 @@ type Props = {
   selectedMaxDateY: number
 }
 
-class TimeSelect extends React.Component<Props> {
+export default class TimeSelectorComponent extends React.Component<
+  Props
+> {
   props
   constructor(props: any) {
     super(props)
@@ -44,7 +43,7 @@ class TimeSelect extends React.Component<Props> {
 
     return (
       <div
-        className="timeselect-wrapper panel-component panel-middle-component"
+        className="panel-time-selector-wrapper panel-time-component panel-time-middle-component"
         style={{
           top: position.y,
           left: position.x
@@ -187,5 +186,3 @@ class TimeSelect extends React.Component<Props> {
     )
   }
 }
-
-export default TimeSelect

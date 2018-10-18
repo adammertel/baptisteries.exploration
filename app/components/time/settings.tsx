@@ -1,13 +1,13 @@
 import React from 'react'
-import { observer } from 'mobx-react'
-import Base from './../helpers/base'
-import Colors from './../helpers/colors'
+
+import Base from './../../helpers/base'
+import Colors from './../../helpers/colors'
 
 type Props = {
   position: Object
 }
 
-export default class PanelSettingsComponent extends React.Component<
+export default class TimeSettingsComponent extends React.Component<
   Props
 > {
   props
@@ -25,7 +25,7 @@ export default class PanelSettingsComponent extends React.Component<
     const position = this.props.position
     return (
       <div
-        className="panelsetting-wrapper panel-component panel-top-component"
+        className="panel-time-settings-wrapper panel-time-component panel-time-top-component"
         style={{
           position: 'absolute',
           top: position.y,

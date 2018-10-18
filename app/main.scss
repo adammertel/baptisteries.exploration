@@ -88,13 +88,13 @@ $color-marker-icon-radius: 1px;
     height: 1px;
     margin: 0;
   }
-  .panel-component {
+  .panel-time-component {
     position: absolute;
   }
-  .panel-middle-component {
+  .panel-time-middle-component {
     padding: 10;
   }
-  .panel-top-component {
+  .panel-time-top-component {
     padding: 10;
     display: table;
 
@@ -117,7 +117,7 @@ $color-marker-icon-radius: 1px;
       padding-right: 5px;
     }
 
-    &.panelsetting-wrapper {
+    &.panel-time-settings-wrapper {
       display: block;
       .settings-block {
         display: block;

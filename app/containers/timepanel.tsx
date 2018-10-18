@@ -48,7 +48,7 @@ export default class TimePanelContainer extends React.Component<
 
   _handleTimelineDrag(e) {
     const newX = e.target.attrs.x
-    this.setState({ selectionX: newX })
+    this.setState({ selectionX: newX / this.positions.timeline.w })
     console.log('timeline dragged', newX)
   }
 
@@ -123,13 +123,20 @@ export default class TimePanelContainer extends React.Component<
   }
 
   _selectionPosition(timelineW, timeBarsW) {
+    const noFeatures = this.props.stores.app.features.length
     const barsNo = timeBarsW / sizes.timeBarSpace
-    const features = this.props.stores.app.features
-    const timelineBarW = timelineW / features.length
+    const timelineBarW = timelineW / noFeatures
+
+    const wAllFeaturesBar = noFeatures * sizes.timeBarSpace
 
     return {
-      w: timelineBarW * barsNo,
-      x: this.state.selectionX
+      timeline: {
+        w: timelineBarW * barsNo,
+        x: this.state.selectionX * timelineW
+      },
+      bars: {
+        x: this.state.selectionX * wAllFeaturesBar
+      }
     }
   }
 
@@ -226,6 +233,11 @@ export default class TimePanelContainer extends React.Component<
       parseInt(this.props.sizes.width, 10)
     ))
 
+    const selectionPosition = this._selectionPosition(
+      positions.timeline.w,
+      positions.timeBars.w
+    )
+
     const timeTicks = this.timeTicks(positions.timeSelect.h)
     const timeBars = this.timeBars(positions.timeBars.h)
 
@@ -256,12 +268,7 @@ export default class TimePanelContainer extends React.Component<
           bars={timeBars}
           ticks={timeTicks}
           margin={this._middleTM}
-          offset={
-            this._selectionPosition(
-              positions.timeline.w,
-              positions.timeBars.w
-            ).x
-          }
+          offset={selectionPosition.bars.x}
           selectedMinDateY={selectedMinDateY}
           selectedMaxDateY={selectedMaxDateY}
         />
@@ -297,10 +304,7 @@ export default class TimePanelContainer extends React.Component<
             positions.timeline.w
           )}
           onDrag={this._handleTimelineDrag.bind(this)}
-          selection={this._selectionPosition(
-            positions.timeline.w,
-            positions.timeBars.w
-          )}
+          selection={selectionPosition.timeline}
           position={positions.timeline}
         />
       </div>

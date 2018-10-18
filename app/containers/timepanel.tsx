@@ -256,6 +256,12 @@ export default class TimePanelContainer extends React.Component<
           bars={timeBars}
           ticks={timeTicks}
           margin={this._middleTM}
+          offset={
+            this._selectionPosition(
+              positions.timeline.w,
+              positions.timeBars.w
+            ).x
+          }
           selectedMinDateY={selectedMinDateY}
           selectedMaxDateY={selectedMaxDateY}
         />

@@ -8,6 +8,7 @@ type Props = {
   position: Object
   bars: Array<Object>
   ticks: Array<Object>
+  offset: number
 }
 
 class TimeBarComponent extends React.Component<Props> {
@@ -25,6 +26,8 @@ class TimeBarComponent extends React.Component<Props> {
     const barSpace = sizes.timeBarSpace
     const bars = this.props.bars
 
+    const offSet = this.props.offset
+
     return (
       <div
         className="timebar-wrapper panel-component panel-middle-component"
@@ -33,11 +36,15 @@ class TimeBarComponent extends React.Component<Props> {
           left: position.x
         }}
       >
-        <Stage width={position.w} height={position.h}>
+        <Stage
+          width={position.w}
+          height={position.h}
+          offsetX={offSet}
+        >
           <Layer key="ticks-lines">
             {this.props.ticks.map((tick, ti) => {
-              const x1 = 0
-              const x2 = position.w
+              const x1 = offSet
+              const x2 = offSet + position.w
               const y = tick.y
 
               return (
@@ -183,9 +190,9 @@ class TimeBarComponent extends React.Component<Props> {
             <Line
               key="max"
               points={[
-                0,
+                offSet + 0,
                 this.props.selectedMinDateY,
-                position.w,
+                offSet + position.w,
                 this.props.selectedMinDateY
               ]}
               stroke={Colors.active}
@@ -195,9 +202,9 @@ class TimeBarComponent extends React.Component<Props> {
             <Line
               key="min"
               points={[
-                0,
+                offSet + 0,
                 this.props.selectedMaxDateY,
-                position.w,
+                offSet + position.w,
                 this.props.selectedMaxDateY
               ]}
               stroke={Colors.active}

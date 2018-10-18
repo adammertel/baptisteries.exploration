@@ -30,7 +30,6 @@ type Props = {
   zoom: Number
   features: Array<Object>
   handleViewportChange: Function
-  sizes: SizeModel
 }
 
 @observer
@@ -222,7 +221,6 @@ export default class MapComponent extends React.Component<Props> {
         onViewportChanged={this.handleMapMoved.bind(this)}
         ref="map"
         className="map-component"
-        style={Base.applySizeStyle(this.props.sizes, {})}
         attributionControl={false}
         zoom={this.props.zoom}
         center={this.props.center}

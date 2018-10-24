@@ -27,6 +27,8 @@ export default class TimePanelContainer extends React.Component<
   height
   positions
   selectors
+  inMapArea
+  timeBars
   _middleTM // margin of y for the middle components
   state
   setState
@@ -53,7 +55,7 @@ export default class TimePanelContainer extends React.Component<
 
   _handleTimelineDrag(e) {
     const newX = e.target.attrs.x
-    this.setState({ selectionX: newX / this.positions.timeline.w })
+    this.setState({ selectionX: newX / this.positions.profile.w })
     console.log('timeline dragged', newX)
   }
 
@@ -151,10 +153,28 @@ export default class TimePanelContainer extends React.Component<
     }
   }
 
+  _calculateInMapArea() {
+    const features = this.props.stores.app.features
+    const noFeatures = features.length
+    const inMapFeatures = features.filter(f => f.selection.spatial)
+      .length
+
+    const profileW = this.positions.profile.w
+
+    const barChartBarW = sizes.values.time.bars.space
+    const profileBarW = profileW / noFeatures
+
+    return {
+      profile: profileBarW * inMapFeatures,
+      barchart: barChartBarW * inMapFeatures
+    }
+  }
+
   timelineBars(h, w) {
     const store = this.props.stores.app
     const features = store.features
     const barW = w / features.length
+
     return features.map((feature, fi) => {
       const dateMin = featureProp(feature, 'dateMin')
       const dateMax = featureProp(feature, 'dateMax')
@@ -172,7 +192,8 @@ export default class TimePanelContainer extends React.Component<
     })
   }
 
-  timeBars(h) {
+  _calculateBars() {
+    const h = this.positions.barchart.h
     const store = this.props.stores.app
     return store.features.map((feature, fi) => {
       const dateMin = featureProp(feature, 'dateMin')
@@ -239,7 +260,9 @@ export default class TimePanelContainer extends React.Component<
     this.selectors = this._calculateSelectors()
 
     const timeTicks = this.timeTicks(this.positions.selector.h)
-    const timeBars = this.timeBars(this.positions.barchart.h)
+    this.timeBars = this._calculateBars()
+
+    this.inMapArea = this._calculateInMapArea()
 
     const selectedMaxDateY = this.dateToY(
       this.positions.selector.h,
@@ -266,12 +289,13 @@ export default class TimePanelContainer extends React.Component<
         />
         <TimeBarchartComponent
           position={this.positions.barchart}
-          bars={timeBars}
+          bars={this.timeBars}
           ticks={timeTicks}
           margin={this._middleTM}
           offset={this.selectors.barchart.x}
           selectedMinDateY={selectedMinDateY}
           selectedMaxDateY={selectedMaxDateY}
+          inMapArea={this.inMapArea.barchart}
         />
         <TimeLegendComponent
           position={this.positions.legend}
@@ -300,6 +324,7 @@ export default class TimePanelContainer extends React.Component<
           incrementMax={this.handleIncrementMax.bind(this)}
         />
         <TimeProfileComponent
+          inMapArea={this.inMapArea.profile}
           bars={this.timelineBars(
             this.positions.profile.h,
             this.positions.profile.w

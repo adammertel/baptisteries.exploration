@@ -3,6 +3,8 @@ import { observer } from 'mobx-react'
 import { SizeModel } from './../helpers/models'
 import Base from './../helpers/base'
 
+import AttributeSettingsComponent from './../components/attribute/settings'
+
 type Props = {
   stores: Array<Object>
   sizes: SizeModel
@@ -14,13 +16,14 @@ export default class TimePanelContainer extends React.Component<
 > {
   props
   positions
-  _middleTM // margin of y for the middle components
 
   constructor(props: any) {
     super(props)
   }
 
   render() {
+    const appStore = this.props.stores.app
+
     return (
       <div
         style={Base.applySizeStyle(this.props.sizes, {
@@ -28,6 +31,7 @@ export default class TimePanelContainer extends React.Component<
         })}
         className="container panel-container-attributes"
       >
+        <AttributeSettingsComponent store={appStore} />
         Attribute
       </div>
     )

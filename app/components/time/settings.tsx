@@ -25,16 +25,20 @@ export default class TimeSettingsComponent extends React.Component<
     const position = this.props.position
     return (
       <div
-        className="panel-time-settings-wrapper panel-time-component panel-time-top-component"
+        className="panel-time-settings-wrapper columns panel-time-component panel-time-top-component"
         style={{
           position: 'absolute',
           top: position.y,
           left: position.x,
-          height: position.h
+          height: position.h,
+          width: '100%'
         }}
       >
-        <div className="settings-block">
-          <div className="heading">Timeline ordering</div>
+        <div className="column settings-block">
+          <h3 className="title is-3"> TIMELINE </h3>
+        </div>
+        <div className="column settings-block right">
+          <div className="text-normal">Timeline ordering</div>
           <div className="new-filter">
             <div className="select is-small">
               <select

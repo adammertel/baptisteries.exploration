@@ -80,6 +80,10 @@ $color-marker-icon-radius: 1px;
   }
 }
 
+.panel-container-attributes {
+  padding: 10;
+}
+
 .panel-container-time {
   .panel-line {
     position: absolute;
@@ -96,14 +100,11 @@ $color-marker-icon-radius: 1px;
   }
   .panel-time-top-component {
     padding: 10;
-    display: table;
 
     .panel-top-component-line {
       height: 50%;
-      display: table;
 
       > div {
-        display: table-cell;
         vertical-align: middle;
       }
     }
@@ -118,9 +119,11 @@ $color-marker-icon-radius: 1px;
     }
 
     &.panel-time-settings-wrapper {
-      display: block;
       .settings-block {
-        display: block;
+        text-align: left;
+        &.right {
+          text-align: right;
+        }
       }
     }
 

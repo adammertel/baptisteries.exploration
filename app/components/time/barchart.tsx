@@ -65,7 +65,7 @@ export default class TimeBarchartComponent extends React.Component<
               x={0}
               y={this.props.margin}
               height={position.h - 2 * this.props.margin}
-              width={bars.filter(f => f.spatial).length * barSpace}
+              width={this.props.inMapArea}
               fill={Colors.temporal}
               opacity={0.2}
             />

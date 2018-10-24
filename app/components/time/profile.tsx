@@ -29,6 +29,16 @@ export default class TimeProfileComponent extends React.Component<
         }}
       >
         <Stage width={position.w} height={position.h}>
+          <Layer key="in-map-area">
+            <Rect
+              x={0}
+              y={this.props.margin}
+              height={position.h}
+              width={this.props.inMapArea}
+              fill={Colors.temporal}
+              opacity={0.2}
+            />
+          </Layer>
           <Layer key="ticks-lines">
             <Rect
               key="selection-rectangle"
@@ -36,6 +46,7 @@ export default class TimeProfileComponent extends React.Component<
               x={this.props.selection.x}
               width={this.props.selection.w}
               height={position.h}
+              opacity={0.5}
               fill={'yellow'}
               draggable={true}
               onDragEnd={this.props.onDrag}

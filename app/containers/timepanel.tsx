@@ -43,13 +43,13 @@ export default class TimePanelContainer extends React.Component<
 
   handleTimeSelectDragMin(e) {
     const newY = e.target.attrs.y
-    const newDate = this.yToDate(this.positions.timeSelect.h, newY)
+    const newDate = this.yToDate(this.positions.selector.h, newY)
     this.props.stores.app.changeMinDateSelection(newDate)
   }
 
   handleTimeSelectDragMax(e) {
     const newY = e.target.attrs.y
-    const newDate = this.yToDate(this.positions.timeSelect.h, newY)
+    const newDate = this.yToDate(this.positions.selector.h, newY)
     this.props.stores.app.changeMaxDateSelection(newDate)
   }
 
@@ -61,7 +61,7 @@ export default class TimePanelContainer extends React.Component<
 
   handleRangeClick(e) {
     const y = e.evt.layerY
-    const clickedDate = this.yToDate(this.positions.timeSelect.h, y)
+    const clickedDate = this.yToDate(this.positions.selector.h, y)
     this.props.stores.app.changeDateByClick(clickedDate)
   }
 
@@ -74,7 +74,7 @@ export default class TimePanelContainer extends React.Component<
   handleIncrementMax(by: number) {
     const appStore = this.props.stores.app
     const maxDate = appStore.dateSelection[1]
-    this.props.stores.app.changeMinDateSelection(maxDate + by)
+    this.props.stores.app.changeMaxDateSelection(maxDate + by)
   }
 
   _calculatePositions() {

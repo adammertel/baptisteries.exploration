@@ -66,13 +66,15 @@ export default class TimePanelContainer extends React.Component<
   }
 
   handleIncrementMin(by: number) {
-    console.log('min', by)
-    this.props.stores.app.incrementMinDateSelection(by)
+    const appStore = this.props.stores.app
+    const minDate = appStore.dateSelection[0]
+    this.props.stores.app.changeMinDateSelection(minDate + by)
   }
 
   handleIncrementMax(by: number) {
-    console.log(by)
-    this.props.stores.app.incrementMaxDateSelection(by)
+    const appStore = this.props.stores.app
+    const maxDate = appStore.dateSelection[1]
+    this.props.stores.app.changeMinDateSelection(maxDate + by)
   }
 
   _calculatePositions() {

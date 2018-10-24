@@ -146,7 +146,9 @@ export default class AppStore {
   changeMinDateSelection(newMinDate: number): void {
     const newDateSelection = this.dateSelection
     newDateSelection[0] = newMinDate
-    this._dateSelection.set(newDateSelection)
+    this._dateSelection.set(
+      this.validateTimeSelection(newDateSelection)
+    )
   }
 
   @action
@@ -154,22 +156,6 @@ export default class AppStore {
     const dateSelection = this.dateSelection
     dateSelection[0] = dateSelection[0] + by
     this._dateSelection.set(this.validateTimeSelection(dateSelection))
-  }
-
-  @action
-  incrementMaxDateSelection(by: number): void {
-    const dateSelection = this.dateSelection
-    dateSelection[1] = dateSelection[1] + by
-    this._dateSelection.set(this.validateTimeSelection(dateSelection))
-  }
-
-  @action
-  changeMaxDateSelection(newMaxDate: number): void {
-    const newDateSelection = this.dateSelection
-    newDateSelection[1] = newMaxDate
-    this._dateSelection.set(
-      this.validateTimeSelection(newDateSelection)
-    )
   }
 
   @action

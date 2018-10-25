@@ -10,6 +10,8 @@ import {
 import Base from './../helpers/base'
 import Config from './../helpers/config'
 
+import { SelectionModel } from './../helpers/models'
+
 export default class SelectionStore {
   _dataStore
   _stored
@@ -18,17 +20,27 @@ export default class SelectionStore {
   constructor(dataStore) {
     this._dataStore = dataStore
     this._stored = observable.box([])
-    this._active = observable.box({})
+    this._active = observable.box({
+      space: {},
+      time: {},
+      attributes: {}
+    })
   }
 
   @computed
-  active() {
+  get active(): SelectionModel {
     return toJS(this._active)
   }
 
   @computed
-  stored(): { space; time; attributes; meta }[] {
+  get stored(): SelectionModel[] {
     return toJS(this._stored)
+  }
+
+  @action
+  updateSpace(newExtent) {
+    const newActive = this.active
+    newActive.space = newExtent
   }
 
   @action

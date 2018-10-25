@@ -30,6 +30,7 @@ export default class AttributeSettingsComponent extends React.Component<
         <h3 className="title is-3">ATTRIBUTES</h3>
         <div className="new-filter">
           <div className="select is-small" />
+          <select />
         </div>
       </div>
     )

@@ -5,10 +5,12 @@ export default class MapStore {
   _center
   _zoom
   _extent
-  constructor() {
+  dataStore
+  constructor(dataStore) {
     this._center = observable.box([36.8, 10.1])
     this._zoom = observable.box(6)
     this._extent = observable.box([[10, 10], [20, 20]])
+    this.dataStore = dataStore
   }
 
   @computed
@@ -35,5 +37,6 @@ export default class MapStore {
     this._center.set(newCenter)
     this._zoom.set(newZoom)
     this._extent.set(newExtent)
+    window['stores'].selection.updateSpace(newExtent)
   }
 }

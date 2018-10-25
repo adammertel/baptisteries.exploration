@@ -4,3 +4,10 @@ export class SizeModel {
   left: string
   top: string
 }
+
+export class SelectionModel {
+  time: {}
+  space: {}
+  attributes: {}
+  meta: {} | null
+}

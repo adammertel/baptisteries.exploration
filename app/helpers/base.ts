@@ -56,6 +56,8 @@ var Base = {
     return a.filter(a1 => b.includes(a1))
   },
 
+  cloneArray: a => JSON.parse(JSON.stringify(a)),
+
   average: a => {
     var total = 0
     for (var i = 0; i < a.length; i++) {

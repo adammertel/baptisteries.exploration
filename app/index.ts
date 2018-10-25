@@ -15,14 +15,16 @@ import DataStore from './stores/data'
 import MapStore from './stores/map'
 import ScreenStore from './stores/screen'
 import FilterStore from './stores/filter'
+import SelectionStore from './stores/selection'
 
 console.log(data)
 const dataStore = new DataStore(data)
 
 var stores = (window['stores'] = {
   app: new AppStore(dataStore),
+  selection: new SelectionStore(dataStore),
   filter: new FilterStore(dataStore),
-  map: new MapStore(),
+  map: new MapStore(dataStore),
   data: dataStore,
   screen: new ScreenStore()
 })

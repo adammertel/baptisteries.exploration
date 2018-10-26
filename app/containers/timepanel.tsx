@@ -190,8 +190,7 @@ export default class TimePanelContainer extends React.Component<Props> {
 
   _calculateBars() {
     const h = this.positions.barchart.h;
-    const store = this.props.stores.app;
-    return store.features.map((feature, fi) => {
+    return this.features.map((feature, fi) => {
       const dateMin = featureProp(feature, "dateMin");
       const dateMax = featureProp(feature, "dateMax");
       const yMax = this.dateToY(h, dateMax);

@@ -1,4 +1,4 @@
-import React from 'react'
+  import React from 'react'
 import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva'
 
 import Base from './../../helpers/base'
@@ -85,7 +85,7 @@ export default class TimeBarchartComponent extends React.Component<
               }
 
               const gradient = gradientRatio !== 1
-              const inMap = feature.spatial
+              const inMap = feature.space
 
               return (
                 <Group key={fi + '_group'}>

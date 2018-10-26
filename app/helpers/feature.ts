@@ -34,7 +34,10 @@ var featureSelectionTime = (feature, selection) => {
   // console.log(intersection.length, duration.length, ratio)
   return ratio;
 };
-var featureSelectionSpace = (feature, selection) => 1;
+
+var featureSelectionSpace = (feature, selection) => {
+  return Base.pointInBounds(feature.geo, selection.space) ? 1 : 0;
+};
 var featureSelectionAttributes = (feature, selection) => 1;
 
 var timeScale = chroma.scale([Colors.unselected, Colors.temporal]);

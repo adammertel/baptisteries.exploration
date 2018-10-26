@@ -1,10 +1,10 @@
-import React from 'react'
-import { observer } from 'mobx-react'
-import Base from './../helpers/base'
-import Config from './../helpers/config'
-import Colors from './../helpers/colors'
-import { timeColor, markerBorderColor } from './../helpers/feature'
-import L from 'leaflet'
+import React from "react";
+import { observer } from "mobx-react";
+import Base from "./../helpers/base";
+import Config from "./../helpers/config";
+import Colors from "./../helpers/colors";
+import { timeColor, markerBorderColor } from "./../helpers/feature";
+import L from "leaflet";
 import {
   Map,
   LayerGroup,
@@ -18,127 +18,121 @@ import {
   Marker,
   Popup,
   Tooltip
-} from 'react-leaflet'
-import 'leaflet.markercluster'
+} from "react-leaflet";
+import "leaflet.markercluster";
 
-import 'leaflet.markercluster.placementstrategies'
-import MarkerClusterGroup from 'react-leaflet-markercluster'
-import { SizeModel } from './../helpers/models'
+import "leaflet.markercluster.placementstrategies";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import { SizeModel } from "./../helpers/models";
 
 type Props = {
-  center: Array<Number>
-  zoom: Number
-  features: Array<Object>
-  handleViewportChange: Function
-}
+  center: Array<Number>;
+  zoom: Number;
+  features: Array<Object>;
+  handleViewportChange: Function;
+};
 
 @observer
 export default class MapComponent extends React.Component<Props> {
-  props
-  mapEl
-  markerClusterGroup
-  refs
+  props;
+  mapEl;
+  markerClusterGroup;
+  refs;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
-    this.mapEl = this.refs['map'].leafletElement
+    this.mapEl = this.refs["map"].leafletElement;
     this.props.handleViewportChange(
       this.props.center,
       this.props.zoom,
       this.mapEl.getBounds()
-    )
+    );
   }
 
   handleMapMoved(e) {
     if (this.mapEl) {
-      this.props.handleViewportChange(
-        e.center,
-        e.zoom,
-        this.mapEl.getBounds()
-      )
+      this.props.handleViewportChange(e.center, e.zoom, this.mapEl.getBounds());
     }
   }
 
   clusterMarkerIcon(cluster) {
-    const markers = cluster.getAllChildMarkers()
-    const single = markers.length === 1
+    const markers = cluster.getAllChildMarkers();
+    const single = markers.length === 1;
 
     const timeSelections = markers.map(
-      marker => marker.options.data.selection.temporal
-    )
+      marker => marker.options.data.selection.time
+    );
 
     const attSelections = markers.map(
-      marker => marker.options.data.selection.attributional
-    )
+      marker => marker.options.data.selection.attributes
+    );
 
     const spatialCertainties = markers.map(
       marker => marker.options.data.props.certainty_location
-    )
+    );
     const existenceCertainties = markers.map(
       marker => marker.options.data.props.certainty_existence
-    )
+    );
 
-    const timeSelectionAvg = Base.average(timeSelections)
-    const spatialCertaintiesAvg = Base.average(spatialCertainties)
-    const existenceCertaintiesAvg = Base.average(existenceCertainties)
-    const attSelectionHl = attSelections.some(
-      a => a === 'highlighted'
-    )
+    const timeSelectionAvg = Base.average(timeSelections);
+    const spatialCertaintiesAvg = Base.average(spatialCertainties);
+    const existenceCertaintiesAvg = Base.average(existenceCertainties);
+    const attSelectionHl = attSelections.some(a => a === "highlighted");
 
-    const color = markerBorderColor(Base.average(timeSelections))
+    const color = markerBorderColor(Base.average(timeSelections));
 
     const existenceCertaintyRatio =
-      0.3 + (1 - (existenceCertaintiesAvg - 1) / 2) * 0.7
+      0.3 + (1 - (existenceCertaintiesAvg - 1) / 2) * 0.7;
 
     const stripes =
       existenceCertaintyRatio === 1
-        ? 'background-color: ' + color
+        ? "background-color: " + color
         : Base.cssStripes(
             timeColor(timeSelectionAvg),
             5,
             existenceCertaintyRatio
-          )
+          );
 
-    const ids = markers.map(m => m.options.data.props.id)
+    const ids = markers.map(m => m.options.data.props.id);
 
-    const markerOuterSize = single ? 40 : 70
-    const markerInnerSize = single ? 20 : 30
-    const markerMargin = (markerOuterSize - markerInnerSize) / 2
+    const markerOuterSize = single ? 40 : 70;
+    const markerInnerSize = single ? 20 : 30;
+    const markerMargin = (markerOuterSize - markerInnerSize) / 2;
 
     const innerStyle =
-      ';width:' +
+      ";width:" +
       markerInnerSize +
-      ';height:' +
+      ";height:" +
       markerInnerSize +
-      ';margin-top:' +
+      ";margin-top:" +
       markerMargin +
-      ';margin-left:' +
-      markerMargin
+      ";margin-left:" +
+      markerMargin;
 
-    const attBorderW = 4
+    const attBorderW = 4;
     const attStyle =
-      ';width:' +
+      ";width:" +
       (markerInnerSize + attBorderW) +
-      ';height:' +
+      ";height:" +
       (markerInnerSize + attBorderW) +
-      ';margin-top:' +
+      ";margin-top:" +
       (markerMargin - attBorderW / 2) +
-      ';margin-left:' +
-      (markerMargin - attBorderW / 2)
+      ";margin-left:" +
+      (markerMargin - attBorderW / 2);
 
     const fillMarker =
       '<div key="fill_' +
       ids +
       '" class="marker-icon marker-icon-fill" style="' +
       stripes +
-      ';color: ' +
+      ";color: " +
       Colors.temporal +
       innerStyle +
       '" >' +
-      (single ? '' : markers.length) +
-      '</div>'
+      (single ? "" : markers.length) +
+      "</div>";
 
     const strokeMarker =
       '<div key="stroke_' +
@@ -147,45 +141,43 @@ export default class MapComponent extends React.Component<Props> {
       color +
       innerStyle +
       '" >' +
-      '</div>'
+      "</div>";
 
     const attStrokeMarker =
       '<div key="attribute_' +
       ids +
       '" class="marker-icon marker-icon-stroke marker-icon-attribute" style="border: ' +
       attBorderW +
-      'px solid ' +
+      "px solid " +
       Colors.attribute +
       attStyle +
       '" >' +
-      '</div>'
+      "</div>";
 
-    const spaceRadiusDelta = markerOuterSize - markerInnerSize
+    const spaceRadiusDelta = markerOuterSize - markerInnerSize;
     const spaceUncertaintyRadius =
       markerInnerSize +
       attBorderW +
-      spaceRadiusDelta * ((spatialCertaintiesAvg - 1) / 2)
+      spaceRadiusDelta * ((spatialCertaintiesAvg - 1) / 2);
 
     const spaceUncertaintyMargin =
-      (spaceRadiusDelta -
-        (spaceUncertaintyRadius - markerInnerSize)) /
-      2
+      (spaceRadiusDelta - (spaceUncertaintyRadius - markerInnerSize)) / 2;
 
     const spaceUncertaintyCircle =
       '<div key="space_uncertainty_' +
       ids +
       '" class="marker-icon marker-icon-certainty-circle" style="background-color: ' +
       color +
-      '; width: ' +
+      "; width: " +
       spaceUncertaintyRadius +
-      'px; height: ' +
+      "px; height: " +
       spaceUncertaintyRadius +
-      'px; margin: ' +
+      "px; margin: " +
       spaceUncertaintyMargin +
-      'px 0px 0px ' +
+      "px 0px 0px " +
       spaceUncertaintyMargin +
       'px" >' +
-      '</div>'
+      "</div>";
 
     return L.divIcon({
       html:
@@ -193,25 +185,21 @@ export default class MapComponent extends React.Component<Props> {
         ids +
         '">' +
         spaceUncertaintyCircle +
-        (attSelectionHl ? attStrokeMarker : '') +
+        (attSelectionHl ? attStrokeMarker : "") +
         fillMarker +
         strokeMarker +
-        '</div>',
+        "</div>",
       className:
-        'map-marker ' +
-        (single ? 'map-marker-single' : 'map-marker-cluster'),
+        "map-marker " + (single ? "map-marker-single" : "map-marker-cluster"),
       iconSize: L.point(markerOuterSize, markerOuterSize)
-    })
+    });
   }
 
   componentDidUpdate() {
-    if (
-      this.markerClusterGroup &&
-      this.markerClusterGroup.refreshClusters
-    ) {
-      this.markerClusterGroup.refreshClusters()
+    if (this.markerClusterGroup && this.markerClusterGroup.refreshClusters) {
+      this.markerClusterGroup.refreshClusters();
     }
-    this.mapEl.invalidateSize()
+    this.mapEl.invalidateSize();
   }
 
   render() {
@@ -239,10 +227,10 @@ export default class MapComponent extends React.Component<Props> {
             clockHelpingCircleOptions={{
               weight: 0.7,
               opacity: 1,
-              color: 'black',
+              color: "black",
               fillOpacity: 0,
-              dashArray: '10 5',
-              transform: 'translateY(-10px)'
+              dashArray: "10 5",
+              transform: "translateY(-10px)"
             }}
             spiderfyDistanceSurplus={35}
             zoomToBoundsOnClick={true}
@@ -255,8 +243,7 @@ export default class MapComponent extends React.Component<Props> {
             spiderLegPolylineOptions={{ weight: 0 }}
             ref={markerClusterGroup => {
               if (markerClusterGroup) {
-                this.markerClusterGroup =
-                  markerClusterGroup.leafletElement
+                this.markerClusterGroup = markerClusterGroup.leafletElement;
               }
             }}
           >
@@ -264,6 +251,6 @@ export default class MapComponent extends React.Component<Props> {
           </MarkerClusterGroup>
         </Pane>
       </Map>
-    )
+    );
   }
 }

@@ -1,97 +1,96 @@
-import React from 'react'
-import { observer } from 'mobx-react'
+import React from "react";
+import { observer } from "mobx-react";
 
-import TimeBarchartComponent from './../components/time/barchart'
-import TimeLegendComponent from './../components/time/legend'
-import TimeProfileComponent from './../components/time/profile'
-import TimeSelectorComponent from './../components/time/selector'
-import TimeSettingsComponent from './../components/time/settings'
+import TimeBarchartComponent from "./../components/time/barchart";
+import TimeLegendComponent from "./../components/time/legend";
+import TimeProfileComponent from "./../components/time/profile";
+import TimeSelectorComponent from "./../components/time/selector";
+import TimeSettingsComponent from "./../components/time/settings";
 
-import Config from './../helpers/config'
-import { featureProp, timeColor } from './../helpers/feature'
-import Base from './../helpers/base'
-import { SizeModel } from './../helpers/models'
-import sizes from './../helpers/sizes'
+import Config from "./../helpers/config";
+import { featureProp, timeColor } from "./../helpers/feature";
+import Base from "./../helpers/base";
+import { SizeModel } from "./../helpers/models";
+import sizes from "./../helpers/sizes";
 
 type Props = {
-  stores: Array<Object>
-  sizes: SizeModel
-}
+  stores: Array<Object>;
+  sizes: SizeModel;
+};
 
 @observer
-export default class TimePanelContainer extends React.Component<
-  Props
-> {
-  props
-  width
-  height
-  positions
-  selectors
-  inMapArea
-  timeBars
-  _middleTM // margin of y for the middle components
-  state
-  setState
+export default class TimePanelContainer extends React.Component<Props> {
+  props;
+  width;
+  height;
+  positions;
+  features;
+  noFeatures;
+  selectors;
+  inMapArea;
+  timeBars;
+  _middleTM; // margin of y for the middle components
+  state;
+  setState;
 
   constructor(props: any) {
-    super(props)
-    this._middleTM = 20
+    super(props);
+    this._middleTM = 20;
     this.state = {
       selectionX: 0
-    }
+    };
   }
 
   handleTimeSelectDragMin(e) {
-    const newY = e.target.attrs.y
-    const newDate = this.yToDate(this.positions.selector.h, newY)
-    this.props.stores.app.changeMinDateSelection(newDate)
+    const newY = e.target.attrs.y;
+    const newDate = this.yToDate(this.positions.selector.h, newY);
+    this.props.stores.app.changeMinDateSelection(newDate);
   }
 
   handleTimeSelectDragMax(e) {
-    const newY = e.target.attrs.y
-    const newDate = this.yToDate(this.positions.selector.h, newY)
-    this.props.stores.app.changeMaxDateSelection(newDate)
+    const newY = e.target.attrs.y;
+    const newDate = this.yToDate(this.positions.selector.h, newY);
+    this.props.stores.app.changeMaxDateSelection(newDate);
   }
 
   _handleTimelineDrag(e) {
-    const newX = e.target.attrs.x
-    this.setState({ selectionX: newX / this.positions.profile.w })
-    console.log('timeline dragged', newX)
+    const newX = e.target.attrs.x;
+    this.setState({ selectionX: newX / this.positions.profile.w });
+    console.log("timeline dragged", newX);
   }
 
   handleRangeClick(e) {
-    const y = e.evt.layerY
-    const clickedDate = this.yToDate(this.positions.selector.h, y)
-    this.props.stores.app.changeDateByClick(clickedDate)
+    const y = e.evt.layerY;
+    const clickedDate = this.yToDate(this.positions.selector.h, y);
+    this.props.stores.app.changeDateByClick(clickedDate);
   }
 
   handleIncrementMin(by: number) {
-    const appStore = this.props.stores.app
-    const minDate = appStore.dateSelection[0]
-    this.props.stores.app.changeMinDateSelection(minDate + by)
+    const appStore = this.props.stores.app;
+    const minDate = appStore.dateSelection[0];
+    this.props.stores.app.changeMinDateSelection(minDate + by);
   }
 
   handleIncrementMax(by: number) {
-    const appStore = this.props.stores.app
-    const maxDate = appStore.dateSelection[1]
-    this.props.stores.app.changeMaxDateSelection(maxDate + by)
+    const appStore = this.props.stores.app;
+    const maxDate = appStore.dateSelection[1];
+    this.props.stores.app.changeMaxDateSelection(maxDate + by);
   }
 
   _calculatePositions() {
-    const margins = sizes.values.time.margins
-    const h = this.height - margins * 2
-    const w = this.width - margins * 2
+    const margins = sizes.values.time.margins;
+    const h = this.height - margins * 2;
+    const w = this.width - margins * 2;
 
-    const lineHeightTop = sizes.values.time.lines.topHeight
-    const lineHeightMiddle = sizes.values.time.lines.middleHeight
-    const lineHeightBottom = sizes.values.time.lines.bottomHeight
+    const lineHeightTop = sizes.values.time.lines.topHeight;
+    const lineHeightMiddle = sizes.values.time.lines.middleHeight;
+    const lineHeightBottom = sizes.values.time.lines.bottomHeight;
 
-    const componentWidths = sizes.values.time.components
-    const histogramWidth = componentWidths.histogramWidth
-    const selectorWidth = componentWidths.selectorWidth
-    const legendWidth = componentWidths.legendWidth
-    const barchartWidth =
-      w - (histogramWidth + selectorWidth + legendWidth)
+    const componentWidths = sizes.values.time.components;
+    const histogramWidth = componentWidths.histogramWidth;
+    const selectorWidth = componentWidths.selectorWidth;
+    const legendWidth = componentWidths.legendWidth;
+    const barchartWidth = w - (histogramWidth + selectorWidth + legendWidth);
 
     return {
       settings: {
@@ -130,19 +129,18 @@ export default class TimePanelContainer extends React.Component<
         x: margins,
         y: lineHeightTop + lineHeightMiddle
       }
-    }
+    };
   }
 
   _calculateSelectors() {
-    const barchartW = this.positions.barchart.w
-    const profileW = this.positions.profile.w
-    const barSpace = sizes.values.time.bars.space
+    const barchartW = this.positions.barchart.w;
+    const profileW = this.positions.profile.w;
+    const barSpace = sizes.values.time.bars.space;
 
-    const noFeatures = this.props.stores.app.features.length
-    const barsNo = barchartW / barSpace
-    const profileBarW = profileW / noFeatures
+    const barsNo = barchartW / barSpace;
+    const profileBarW = profileW / this.noFeatures;
 
-    const wAllFeaturesBar = noFeatures * barSpace
+    const wAllFeaturesBar = this.noFeatures * barSpace;
 
     return {
       profile: {
@@ -152,37 +150,33 @@ export default class TimePanelContainer extends React.Component<
       barchart: {
         x: this.state.selectionX * wAllFeaturesBar
       }
-    }
+    };
   }
 
   _calculateInMapArea() {
-    const features = this.props.stores.app.features
-    const noFeatures = features.length
-    const inMapFeatures = features.filter(f => f.selection.spatial)
-      .length
+    const inMapFeatures = this.features.filter(f => f.selection.space).length;
 
-    const profileW = this.positions.profile.w
+    const profileW = this.positions.profile.w;
 
-    const barChartBarW = sizes.values.time.bars.space
-    const profileBarW = profileW / noFeatures
+    const barChartBarW = sizes.values.time.bars.space;
+    const profileBarW = profileW / this.noFeatures;
 
     return {
       profile: profileBarW * inMapFeatures,
       barchart: barChartBarW * inMapFeatures
-    }
+    };
   }
 
   timelineBars(h, w) {
-    const store = this.props.stores.app
-    const features = store.features
-    const barW = w / features.length
+    const store = this.props.stores.app;
+    const barW = w / this.features.length;
 
-    return features.map((feature, fi) => {
-      const dateMin = featureProp(feature, 'dateMin')
-      const dateMax = featureProp(feature, 'dateMax')
-      const yMax = this.dateToY(h, dateMax)
-      const yMin = this.dateToY(h, dateMin)
-      const barH = yMin - yMax
+    return this.features.map((feature, fi) => {
+      const dateMin = featureProp(feature, "dateMin");
+      const dateMax = featureProp(feature, "dateMax");
+      const yMax = this.dateToY(h, dateMax);
+      const yMin = this.dateToY(h, dateMin);
+      const barH = yMin - yMax;
 
       return {
         circle: dateMax - dateMin < Config.dates.barCircleTreshold,
@@ -190,19 +184,19 @@ export default class TimePanelContainer extends React.Component<
         x: fi * barW,
         h: barH,
         w: barW
-      }
-    })
+      };
+    });
   }
 
   _calculateBars() {
-    const h = this.positions.barchart.h
-    const store = this.props.stores.app
+    const h = this.positions.barchart.h;
+    const store = this.props.stores.app;
     return store.features.map((feature, fi) => {
-      const dateMin = featureProp(feature, 'dateMin')
-      const dateMax = featureProp(feature, 'dateMax')
-      const yMax = this.dateToY(h, dateMax)
-      const yMin = this.dateToY(h, dateMin)
-      const barH = yMin - yMax
+      const dateMin = featureProp(feature, "dateMin");
+      const dateMax = featureProp(feature, "dateMax");
+      const yMax = this.dateToY(h, dateMax);
+      const yMin = this.dateToY(h, dateMin);
+      const barH = yMin - yMax;
 
       return {
         circle: dateMax - dateMin < Config.dates.barCircleTreshold,
@@ -210,72 +204,76 @@ export default class TimePanelContainer extends React.Component<
         x: fi,
         h: barH,
         existence: feature.props.certainty_existence,
-        fill: timeColor(feature.selection.temporal),
+        fill: timeColor(feature.selection.time),
         spatial: feature.selection.spatial,
-        attributional: feature.selection.attributional
-      }
-    })
+        attributional: feature.selection.attributes
+      };
+    });
   }
 
   timeTicks(h: number) {
-    const minDate = Config.dates.min
-    const maxDate = Config.dates.max
+    const minDate = Config.dates.min;
+    const maxDate = Config.dates.max;
     return Base.intRangeArray(minDate - 1, maxDate + 1)
       .filter(i => !(i % 100))
       .map(i => ({
         y: this.dateToY(h, i),
         date: i
-      }))
+      }));
   }
 
   /* returns the y coordinate for the given date */
   dateToY(h: number, date: number) {
-    const hm = h - 2 * this._middleTM
-    const minDate = Config.dates.min
-    const maxDate = Config.dates.max
-    const oneYearPxs = hm / (maxDate - minDate)
-    return Math.round(oneYearPxs * (maxDate - date)) + this._middleTM
+    const hm = h - 2 * this._middleTM;
+    const minDate = Config.dates.min;
+    const maxDate = Config.dates.max;
+    const oneYearPxs = hm / (maxDate - minDate);
+    return Math.round(oneYearPxs * (maxDate - date)) + this._middleTM;
   }
 
   /* returns the date for the given y */
   yToDate(h: number, y: number) {
-    const hm = h - 2 * this._middleTM
-    const minDate = Config.dates.min
-    const maxDate = Config.dates.max
-    const onePxYears = (maxDate - minDate) / hm
-    return maxDate - Math.round(onePxYears * (y - this._middleTM))
+    const hm = h - 2 * this._middleTM;
+    const minDate = Config.dates.min;
+    const maxDate = Config.dates.max;
+    const onePxYears = (maxDate - minDate) / hm;
+    return maxDate - Math.round(onePxYears * (y - this._middleTM));
   }
 
   filterableColumns(): Array<Object> {
-    return this.props.stores.filter.columns()
+    return this.props.stores.filter.columns();
   }
 
   render() {
-    const screenStore = this.props.stores.screen
-    const appStore = this.props.stores.app
-    const filterStore = this.props.stores.filter
+    const appStore = this.props.stores.app;
+    const screenStore = this.props.stores.screen;
+    const filterStore = this.props.stores.filter;
 
-    this.width = parseInt(this.props.sizes.width, 10)
-    this.height = parseInt(this.props.sizes.height, 10)
-    this.positions = this._calculatePositions()
+    this.features = appStore.activeFeatures;
+    this.noFeatures = this.features.length;
 
-    this.selectors = this._calculateSelectors()
+    this.width = parseInt(this.props.sizes.width, 10);
+    this.height = parseInt(this.props.sizes.height, 10);
+    this.positions = this._calculatePositions();
 
-    const timeTicks = this.timeTicks(this.positions.selector.h)
-    this.timeBars = this._calculateBars()
+    this.selectors = this._calculateSelectors();
 
-    this.inMapArea = this._calculateInMapArea()
+    const timeTicks = this.timeTicks(this.positions.selector.h);
+    this.timeBars = this._calculateBars();
+
+    this.inMapArea = this._calculateInMapArea();
 
     const selectedMaxDateY = this.dateToY(
       this.positions.selector.h,
       appStore.dateSelection[1]
-    )
+    );
+
     const selectedMinDateY = this.dateToY(
       this.positions.selector.h,
       appStore.dateSelection[0]
-    )
+    );
 
-    console.log('time')
+    console.log("time");
     return (
       <div
         style={Base.applySizeStyle(this.props.sizes, {})}
@@ -285,10 +283,7 @@ export default class TimePanelContainer extends React.Component<
           store={appStore}
           position={this.positions.settings}
         />
-        <hr
-          className="panel-line"
-          style={{ top: this.positions.settings.h }}
-        />
+        <hr className="panel-line" style={{ top: this.positions.settings.h }} />
         <TimeBarchartComponent
           position={this.positions.barchart}
           bars={this.timeBars}
@@ -306,14 +301,8 @@ export default class TimePanelContainer extends React.Component<
         />
         <TimeSelectorComponent
           margin={this._middleTM}
-          minDateY={this.dateToY(
-            this.positions.selector.h,
-            Config.dates.min
-          )}
-          maxDateY={this.dateToY(
-            this.positions.selector.h,
-            Config.dates.max
-          )}
+          minDateY={this.dateToY(this.positions.selector.h, Config.dates.min)}
+          maxDateY={this.dateToY(this.positions.selector.h, Config.dates.max)}
           selectedMinDateY={selectedMinDateY}
           selectedMaxDateY={selectedMaxDateY}
           minDate={appStore.dateSelection[0]}
@@ -336,6 +325,6 @@ export default class TimePanelContainer extends React.Component<
           position={this.positions.profile}
         />
       </div>
-    )
+    );
   }
 }

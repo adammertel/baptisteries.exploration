@@ -29,7 +29,7 @@ export default class AppContainer extends React.Component<any, any> {
     return (
       <div className="container-wrapper">
         <Hero stores={this.props.stores} />
-        <div class="columns">
+        <div className="columns">
           <div className="column is-one-quarter">
             <Card
               sizes={screenStore._timePanelSizes}

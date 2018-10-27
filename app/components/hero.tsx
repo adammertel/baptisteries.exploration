@@ -19,11 +19,8 @@ class Hero extends React.Component {
 
         <div id="" className="navbar-menu">
           <div className="navbar-start">
-            <a className="navbar-item" href="https://bulma.io/">
-              ARGO
-            </a>
-            <a className="navbar-item" href="https://bulma.io/">
-              Historical Data Exploration Tool
+            <a className="navbar-item">
+              <strong>Argo Explorer</strong> - Historical Data Exploration Tool
             </a>
           </div>
 

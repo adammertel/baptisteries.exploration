@@ -42,9 +42,9 @@ export default class AppContainer extends React.Component<any, any> {
             }}
           >
             <div className="column is-one-quarter">
-              <div className="column is-full">
+              <div className="column half-sized is-full">
                 <Card
-                  sizes={screenStore._timePanelSizes}
+                  cardHeight={'calc(50% - 30px)'}
                   tabs={[
                     {
                       id: '1',
@@ -55,15 +55,20 @@ export default class AppContainer extends React.Component<any, any> {
                   ]}
                 />
               </div>
-              <div className="column is-full">
+              <div className="column half-sized is-full">
                 <Card
-                  sizes={screenStore._timePanelSizes}
+                  cardHeight={'calc(50% - 30px)'}
                   tabs={[
                     {
                       id: '1',
                       label: 'Inspect',
                       icon: 'search',
-                      content: <div />,
+                      content: (
+                        <div>
+                          dashdioashidsaiodh
+                          asodhasiodjasiohdioashdioasdpiashdpashdpashp
+                        </div>
+                      ),
                     },
                   ]}
                 />
@@ -71,7 +76,7 @@ export default class AppContainer extends React.Component<any, any> {
             </div>
             <div className="column is-three-quarter">
               <Card
-                sizes={screenStore._timePanelSizes}
+                cardHeight={'calc(100% - 30px)'}
                 tabs={[
                   {
                     id: '1',
@@ -98,7 +103,7 @@ export default class AppContainer extends React.Component<any, any> {
           >
             <div className="column is-two-third">
               <Card
-                sizes={screenStore._timePanelSizes}
+                cardHeight={'calc(100% - 30px)'}
                 tabs={[
                   {
                     id: '1',
@@ -117,7 +122,7 @@ export default class AppContainer extends React.Component<any, any> {
 
             <div className="column is-one-third">
               <Card
-                sizes={screenStore._timePanelSizes}
+                cardHeight={'calc(100% - 30px)'}
                 tabs={[
                   {
                     id: '1',

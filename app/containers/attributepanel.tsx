@@ -23,10 +23,7 @@ export default class TimePanelContainer extends React.Component<Props> {
     const appStore = this.props.stores.app;
 
     return (
-      <div
-        style={Base.applySizeStyle(this.props.sizes, {})}
-        className="container panel-container-attributes"
-      >
+      <div className="container panel-container-attributes">
         <AttributeSettingsComponent store={appStore} />
         Attribute
       </div>

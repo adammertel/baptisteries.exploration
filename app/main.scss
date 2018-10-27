@@ -21,6 +21,15 @@ html {
   overflow: hidden;
 }
 
+.section {
+  height: 100%;
+}
+
+.card {
+  margin-left: 1px;
+  overflow: hidden;
+}
+
 .container-wrapper {
   position: absolute;
   top: 0;
@@ -30,7 +39,7 @@ html {
 }
 
 .container {
-  position: absolute;
+  width: 100%;
   &.panel-container-time {
   }
   &.panel-container-attributes {
@@ -162,4 +171,7 @@ $color-marker-icon-radius: 1px;
 
 .column {
   padding: 0;
+  .half-sized {
+    height: 50%;
+  }
 }

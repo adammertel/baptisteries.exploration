@@ -1,10 +1,10 @@
-import React from "react";
-import { observer } from "mobx-react";
-import Base from "./../helpers/base";
-import MapComponent from "./../components/map";
-import { timeColor } from "./../helpers/feature";
-import { Marker } from "react-leaflet";
-import { SizeModel } from "./../helpers/models";
+import React from 'react';
+import { observer } from 'mobx-react';
+import Base from './../helpers/base';
+import MapComponent from './../components/map';
+import { timeColor } from './../helpers/feature';
+import { Marker } from 'react-leaflet';
+import { SizeModel } from './../helpers/models';
 
 type Props = {
   stores: Array<Object>;
@@ -24,12 +24,12 @@ export default class MapContainer extends React.Component<Props> {
     const ne = newBounds.getNorthEast();
     this.props.stores.map.mapMoved(newCenter, newZoom, [
       [sw.lat, sw.lng],
-      [ne.lat, ne.lng]
+      [ne.lat, ne.lng],
     ]);
   }
 
   points(features) {
-    console.log("drawing points");
+    console.log('drawing points');
     return features.filter(f => f.selection.space).map((feature, ri) => {
       return (
         <Marker
@@ -46,15 +46,12 @@ export default class MapContainer extends React.Component<Props> {
   }
 
   render() {
-    console.log("map");
+    console.log('map');
     const mapStore = this.props.stores.map;
     const features = this.props.stores.app.activeFeatures;
 
     return (
-      <div
-        style={Base.applySizeStyle(this.props.sizes, {})}
-        className="container map-container"
-      >
+      <div className="container map-container">
         <MapComponent
           handleViewportChange={this.handleViewportChange.bind(this)}
           extent={mapStore.extent}

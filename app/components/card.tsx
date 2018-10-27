@@ -73,11 +73,8 @@ class Card extends React.Component<Props, State> {
             })}
           </ul>
         </div>
-        <div className="card">
-          <header className="card-header" />
-          <div className="card-content" style={{}}>
-            <div className="content">{this.activeTabContent()}</div>
-          </div>
+        <div className="card" style={{ height: this.props.cardHeight }}>
+          {this.activeTabContent()}
         </div>
       </div>
     );

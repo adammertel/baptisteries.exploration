@@ -11,10 +11,7 @@ import Card from './../components/card';
 import Hero from './../components/hero';
 
 import 'font-awesome/scss/font-awesome.scss';
-
-type Props = {
-  stores: Array<Object>;
-};
+import { isAbsolute } from 'path';
 
 @observer
 export default class AppContainer extends React.Component<any, any> {
@@ -24,86 +21,118 @@ export default class AppContainer extends React.Component<any, any> {
   }
 
   public render() {
-    console.log('app');
+    const screenHeight = Base.screenHeight();
+    const heroHeight = 50;
+    const heights = {
+      hero: heroHeight,
+      firstLine: (screenHeight - heroHeight) / 2,
+      secondLine: (screenHeight - heroHeight) / 2,
+    };
     const screenStore = this.props.stores.screen;
     return (
       <div className="container-wrapper">
-        <Hero stores={this.props.stores} />
-        <div className="columns">
-          <div className="column is-one-quarter">
-            <Card
-              sizes={screenStore._timePanelSizes}
-              tabs={[
-                {
-                  id: '1',
-                  label: 'Settings',
-                  icon: 'filter',
-                  content: (
-                    <AttributePanelContainer
-                      stores={this.props.stores}
-                      sizes={screenStore._attributePanelSizes}
-                    />
-                  ),
-                },
-              ]}
-            />
+        <Hero stores={this.props.stores} height={heights.hero} />
+        <div style={{ padding: '1rem' }}>
+          <div
+            className="columns"
+            style={{
+              position: 'relative',
+              height: heights.firstLine,
+              width: '100%',
+            }}
+          >
+            <div className="column is-one-quarter">
+              <div className="column is-full">
+                <Card
+                  sizes={screenStore._timePanelSizes}
+                  tabs={[
+                    {
+                      id: '1',
+                      label: 'Settings',
+                      icon: 'filter',
+                      content: <div />,
+                    },
+                  ]}
+                />
+              </div>
+              <div className="column is-full">
+                <Card
+                  sizes={screenStore._timePanelSizes}
+                  tabs={[
+                    {
+                      id: '1',
+                      label: 'Inspect',
+                      icon: 'search',
+                      content: <div />,
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+            <div className="column is-three-quarter">
+              <Card
+                sizes={screenStore._timePanelSizes}
+                tabs={[
+                  {
+                    id: '1',
+                    label: 'Map',
+                    icon: 'globe',
+                    content: (
+                      <MapContainer
+                        stores={this.props.stores}
+                        sizes={screenStore._mapPanelSizes}
+                      />
+                    ),
+                  },
+                ]}
+              />
+            </div>
           </div>
-          <div className="column is-three-quarter">
-            <Card
-              sizes={screenStore._timePanelSizes}
-              tabs={[
-                {
-                  id: '1',
-                  label: 'Map',
-                  icon: 'filter',
-                  content: (
-                    <MapContainer
-                      stores={this.props.stores}
-                      sizes={screenStore._mapPanelSizes}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </div>
-        </div>
-        <div className="columns">
-          <div className="column is-two-third">
-            <Card
-              sizes={screenStore._timePanelSizes}
-              tabs={[
-                {
-                  id: '1',
-                  label: 'Time',
-                  icon: 'calendar-o',
-                  content: (
-                    <TimePanelContainer
-                      sizes={screenStore._timePanelSizes}
-                      stores={this.props.stores}
-                    />
-                  ),
-                },
-              ]}
-            />
-          </div>
+          <div
+            className="columns"
+            style={{
+              position: 'relative',
+              height: heights.secondLine,
+              width: '100%',
+            }}
+          >
+            <div className="column is-two-third">
+              <Card
+                sizes={screenStore._timePanelSizes}
+                tabs={[
+                  {
+                    id: '1',
+                    label: 'Time',
+                    icon: 'calendar-o',
+                    content: (
+                      <TimePanelContainer
+                        sizes={screenStore._timePanelSizes}
+                        stores={this.props.stores}
+                      />
+                    ),
+                  },
+                ]}
+              />
+            </div>
 
-          <div className="column is-one-third">
-            <Card
-              sizes={screenStore._timePanelSizes}
-              tabs={[
-                {
-                  id: '1',
-                  label: 'Attributes',
-                  icon: 'filter',
-                  content: (
-                    <AttributePanelContainer
-                      stores={this.props.stores}
-                      sizes={screenStore._attributePanelSizes}
-                    />
-                  ),
-                },
-              ]}
-            />
+            <div className="column is-one-third">
+              <Card
+                sizes={screenStore._timePanelSizes}
+                tabs={[
+                  {
+                    id: '1',
+                    label: 'Attributes',
+                    icon: 'filter',
+                    content: (
+                      <AttributePanelContainer
+                        stores={this.props.stores}
+                        sizes={screenStore._attributePanelSizes}
+                      />
+                    ),
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
 

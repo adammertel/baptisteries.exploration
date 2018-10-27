@@ -1,28 +1,26 @@
-import React from 'react'
+import React from 'react';
 
-import Base from './../../helpers/base'
-import Colors from './../../helpers/colors'
+import Base from './../../helpers/base';
+import Colors from './../../helpers/colors';
 
 type Props = {
-  position: Object
-}
+  position: Object;
+};
 
-export default class TimeSettingsComponent extends React.Component<
-  Props
-> {
-  props
-  state
+export default class TimeSettingsComponent extends React.Component<Props> {
+  props;
+  state;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   handleOrdedChange(e) {
-    console.log('order changing', e.target.value)
-    this.props.store.changeSortProp(e.target.value)
+    console.log('order changing', e.target.value);
+    this.props.store.changeSortProp(e.target.value);
   }
 
   render() {
-    const position = this.props.position
+    const position = this.props.position;
     return (
       <div
         className="panel-time-settings-wrapper columns panel-time-component panel-time-top-component"
@@ -31,12 +29,9 @@ export default class TimeSettingsComponent extends React.Component<
           top: position.y,
           left: position.x,
           height: position.h,
-          width: '100%'
+          width: '100%',
         }}
       >
-        <div className="column settings-block">
-          <h3 className="title is-3"> TIMELINE </h3>
-        </div>
         <div className="column settings-block right">
           <div className="text-normal">Timeline ordering</div>
           <div className="new-filter">
@@ -50,13 +45,13 @@ export default class TimeSettingsComponent extends React.Component<
                     <option value={orderAtt.id} key={orderAtt.id}>
                       {orderAtt.label}
                     </option>
-                  )
+                  );
                 })}
               </select>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import logo from './../ext/logo.png';
 
 class Hero extends React.Component {
+  props;
   constructor(props) {
     super(props);
   }
@@ -13,8 +14,16 @@ class Hero extends React.Component {
 
   render() {
     return (
-      <nav className="navbar is-primary" id="hero">
-        <div className="navbar-brand" style={{ padding: 10 }}>
+      <nav
+        style={{
+          padding: 10,
+          height: this.props.height,
+          minHeight: this.props.height,
+        }}
+        className="navbar is-primary"
+        id="hero"
+      >
+        <div className="navbar-brand">
           <img src={logo} style={{ width: 'auto', height: '30px' }} />
         </div>
 

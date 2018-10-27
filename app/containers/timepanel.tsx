@@ -1,17 +1,17 @@
-import React from "react";
-import { observer } from "mobx-react";
+import React from 'react';
+import { observer } from 'mobx-react';
 
-import TimeBarchartComponent from "./../components/time/barchart";
-import TimeLegendComponent from "./../components/time/legend";
-import TimeProfileComponent from "./../components/time/profile";
-import TimeSelectorComponent from "./../components/time/selector";
-import TimeSettingsComponent from "./../components/time/settings";
+import TimeBarchartComponent from './../components/time/barchart';
+import TimeLegendComponent from './../components/time/legend';
+import TimeProfileComponent from './../components/time/profile';
+import TimeSelectorComponent from './../components/time/selector';
+import TimeSettingsComponent from './../components/time/settings';
 
-import Config from "./../helpers/config";
-import { featureProp, timeColor } from "./../helpers/feature";
-import Base from "./../helpers/base";
-import { SizeModel } from "./../helpers/models";
-import sizes from "./../helpers/sizes";
+import Config from './../helpers/config';
+import { featureProp, timeColor } from './../helpers/feature';
+import Base from './../helpers/base';
+import { SizeModel } from './../helpers/models';
+import sizes from './../helpers/sizes';
 
 type Props = {
   stores: Array<Object>;
@@ -37,7 +37,7 @@ export default class TimePanelContainer extends React.Component<Props> {
     super(props);
     this._middleTM = 20;
     this.state = {
-      selectionX: 0
+      selectionX: 0,
     };
   }
 
@@ -56,7 +56,7 @@ export default class TimePanelContainer extends React.Component<Props> {
   _handleTimelineDrag(e) {
     const newX = e.target.attrs.x;
     this.setState({ selectionX: newX / this.positions.profile.w });
-    console.log("timeline dragged", newX);
+    console.log('timeline dragged', newX);
   }
 
   handleRangeClick(e) {
@@ -97,38 +97,38 @@ export default class TimePanelContainer extends React.Component<Props> {
         h: lineHeightTop,
         w: w,
         x: margins,
-        y: margins
+        y: margins,
       },
       historgram: {
         h: lineHeightMiddle,
         w: histogramWidth,
         x: margins,
-        y: lineHeightTop
+        y: lineHeightTop,
       },
       selector: {
         h: lineHeightMiddle,
         w: selectorWidth,
         x: histogramWidth,
-        y: lineHeightTop
+        y: lineHeightTop,
       },
       legend: {
         h: lineHeightMiddle,
         w: legendWidth,
         x: histogramWidth + selectorWidth,
-        y: lineHeightTop
+        y: lineHeightTop,
       },
       barchart: {
         h: lineHeightMiddle,
         w: barchartWidth,
         x: histogramWidth + selectorWidth + legendWidth,
-        y: lineHeightTop
+        y: lineHeightTop,
       },
       profile: {
         h: lineHeightBottom,
         w: w,
         x: margins,
-        y: lineHeightTop + lineHeightMiddle
-      }
+        y: lineHeightTop + lineHeightMiddle,
+      },
     };
   }
 
@@ -145,11 +145,11 @@ export default class TimePanelContainer extends React.Component<Props> {
     return {
       profile: {
         w: profileBarW * barsNo,
-        x: this.state.selectionX * profileW
+        x: this.state.selectionX * profileW,
       },
       barchart: {
-        x: this.state.selectionX * wAllFeaturesBar
-      }
+        x: this.state.selectionX * wAllFeaturesBar,
+      },
     };
   }
 
@@ -163,7 +163,7 @@ export default class TimePanelContainer extends React.Component<Props> {
 
     return {
       profile: profileBarW * inMapFeatures,
-      barchart: barChartBarW * inMapFeatures
+      barchart: barChartBarW * inMapFeatures,
     };
   }
 
@@ -172,8 +172,8 @@ export default class TimePanelContainer extends React.Component<Props> {
     const barW = w / this.features.length;
 
     return this.features.map((feature, fi) => {
-      const dateMin = featureProp(feature, "dateMin");
-      const dateMax = featureProp(feature, "dateMax");
+      const dateMin = featureProp(feature, 'dateMin');
+      const dateMax = featureProp(feature, 'dateMax');
       const yMax = this.dateToY(h, dateMax);
       const yMin = this.dateToY(h, dateMin);
       const barH = yMin - yMax;
@@ -183,7 +183,7 @@ export default class TimePanelContainer extends React.Component<Props> {
         y: yMax,
         x: fi * barW,
         h: barH,
-        w: barW
+        w: barW,
       };
     });
   }
@@ -191,8 +191,8 @@ export default class TimePanelContainer extends React.Component<Props> {
   _calculateBars() {
     const h = this.positions.barchart.h;
     return this.features.map((feature, fi) => {
-      const dateMin = featureProp(feature, "dateMin");
-      const dateMax = featureProp(feature, "dateMax");
+      const dateMin = featureProp(feature, 'dateMin');
+      const dateMax = featureProp(feature, 'dateMax');
       const yMax = this.dateToY(h, dateMax);
       const yMin = this.dateToY(h, dateMin);
       const barH = yMin - yMax;
@@ -205,7 +205,7 @@ export default class TimePanelContainer extends React.Component<Props> {
         existence: feature.props.certainty_existence,
         fill: timeColor(feature.selection.time),
         spatial: feature.selection.spatial,
-        attributional: feature.selection.attributes
+        attributional: feature.selection.attributes,
       };
     });
   }
@@ -217,7 +217,7 @@ export default class TimePanelContainer extends React.Component<Props> {
       .filter(i => !(i % 100))
       .map(i => ({
         y: this.dateToY(h, i),
-        date: i
+        date: i,
       }));
   }
 
@@ -272,12 +272,9 @@ export default class TimePanelContainer extends React.Component<Props> {
       appStore.dateSelection[0]
     );
 
-    console.log("time");
+    console.log('time');
     return (
-      <div
-        style={Base.applySizeStyle(this.props.sizes, {})}
-        className="container panel-container-time"
-      >
+      <div style={{}} className="container panel-container-time">
         <TimeSettingsComponent
           store={appStore}
           position={this.positions.settings}

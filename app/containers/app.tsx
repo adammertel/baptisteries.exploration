@@ -1,44 +1,113 @@
-import React from 'react'
-import { observer } from 'mobx-react'
-import DevTools from 'mobx-react-devtools'
+import React from 'react';
+import { observer } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 
-import MapContainer from './map'
-import TimePanelContainer from './timepanel'
-import AttributePanelContainer from './attributepanel'
-import WelcomeModal from './../modals/welcome'
-import Base from './../helpers/base'
+import MapContainer from './map';
+import TimePanelContainer from './timepanel';
+import AttributePanelContainer from './attributepanel';
+import WelcomeModal from './../modals/welcome';
+import Base from './../helpers/base';
+import Card from './../components/card';
+
+import 'font-awesome/scss/font-awesome.scss';
 
 type Props = {
-  stores: Array<Object>
-}
+  stores: Array<Object>;
+};
 
 @observer
 export default class AppContainer extends React.Component<any, any> {
-  props
+  props;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   public render() {
-    console.log('app')
-    const screenStore = this.props.stores.screen
+    console.log('app');
+    const screenStore = this.props.stores.screen;
     return (
       <div className="container-wrapper">
-        <TimePanelContainer
-          stores={this.props.stores}
-          sizes={screenStore._timePanelSizes}
-        />
-        <AttributePanelContainer
-          stores={this.props.stores}
-          sizes={screenStore._attributePanelSizes}
-        />
-        <MapContainer
-          stores={this.props.stores}
-          sizes={screenStore._mapPanelSizes}
-        />
+        <div class="columns">
+          <div className="column is-one-quarter">
+            <Card
+              sizes={screenStore._timePanelSizes}
+              tabs={[
+                {
+                  id: '1',
+                  label: 'Settings',
+                  icon: 'filter',
+                  content: (
+                    <AttributePanelContainer
+                      stores={this.props.stores}
+                      sizes={screenStore._attributePanelSizes}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </div>
+          <div className="column is-three-quarter">
+            <Card
+              sizes={screenStore._timePanelSizes}
+              tabs={[
+                {
+                  id: '1',
+                  label: 'Map',
+                  icon: 'filter',
+                  content: (
+                    <MapContainer
+                      stores={this.props.stores}
+                      sizes={screenStore._mapPanelSizes}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column is-two-third">
+            <Card
+              sizes={screenStore._timePanelSizes}
+              tabs={[
+                {
+                  id: '1',
+                  label: 'Time',
+                  icon: 'calendar-o',
+                  content: (
+                    <TimePanelContainer
+                      sizes={screenStore._timePanelSizes}
+                      stores={this.props.stores}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </div>
+
+          <div className="column is-one-third">
+            <Card
+              sizes={screenStore._timePanelSizes}
+              tabs={[
+                {
+                  id: '1',
+                  label: 'Attributes',
+                  icon: 'filter',
+                  content: (
+                    <AttributePanelContainer
+                      stores={this.props.stores}
+                      sizes={screenStore._attributePanelSizes}
+                    />
+                  ),
+                },
+              ]}
+            />
+          </div>
+        </div>
+
         <WelcomeModal />
         <DevTools />
       </div>
-    )
+    );
   }
 }

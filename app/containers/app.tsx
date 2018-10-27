@@ -8,6 +8,7 @@ import AttributePanelContainer from './attributepanel';
 import WelcomeModal from './../modals/welcome';
 import Base from './../helpers/base';
 import Card from './../components/card';
+import Hero from './../components/hero';
 
 import 'font-awesome/scss/font-awesome.scss';
 
@@ -27,6 +28,7 @@ export default class AppContainer extends React.Component<any, any> {
     const screenStore = this.props.stores.screen;
     return (
       <div className="container-wrapper">
+        <Hero stores={this.props.stores} />
         <div class="columns">
           <div className="column is-one-quarter">
             <Card

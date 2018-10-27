@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import logo from './../ext/logo.png';
 
 class Hero extends React.Component {
   constructor(props) {
@@ -13,8 +14,8 @@ class Hero extends React.Component {
   render() {
     return (
       <nav className="navbar is-primary" id="hero">
-        <div className="navbar-brand">
-          <img src="./../src/assets/logo.png" />
+        <div className="navbar-brand" style={{ padding: 10 }}>
+          <img src={logo} style={{ width: 'auto', height: '30px' }} />
         </div>
 
         <div id="" className="navbar-menu">
@@ -30,9 +31,9 @@ class Hero extends React.Component {
                 <p className="control">
                   <a className="button is-primary">
                     <span className="icon">
-                      <i className="fa fa-user" />
+                      <i className="fa fa-cog" />
                     </span>
-                    <span>Login</span>
+                    <span>Settings</span>
                   </a>
                 </p>
               </div>

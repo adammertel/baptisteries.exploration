@@ -207,7 +207,7 @@ export default class MapComponent extends React.Component<Props> {
       <Map
         onViewportChanged={this.handleMapMoved.bind(this)}
         ref="map"
-        className="map-component"
+        className="component-map"
         attributionControl={false}
         zoom={this.props.zoom}
         center={this.props.center}

@@ -46,7 +46,7 @@ export default class AppContainer extends React.Component<any, any> {
             <div className="column is-one-quarter">
               <div className="column half-sized is-full">
                 <Card
-                  cardHeight={'calc(50% - 1rem)'}
+                  cardHeight={'calc(100% - 2rem)'}
                   tabs={[
                     {
                       id: '1',
@@ -59,7 +59,7 @@ export default class AppContainer extends React.Component<any, any> {
               </div>
               <div className="column half-sized is-full">
                 <Card
-                  cardHeight={'calc(50% - 1rem)'}
+                  cardHeight={'calc(100% - 1rem)'}
                   tabs={[
                     {
                       id: '1',

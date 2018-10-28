@@ -51,7 +51,7 @@ export default class MapContainer extends React.Component<Props> {
     const features = this.props.stores.app.activeFeatures;
 
     return (
-      <div className="container map-container">
+      <div className="container container-map">
         <MapComponent
           handleViewportChange={this.handleViewportChange.bind(this)}
           extent={mapStore.extent}

@@ -18,9 +18,8 @@ export default class InspectContainer extends React.Component<Props> {
   }
 
   _renderSingle(feature) {
-    console.log(feature);
     return (
-      <div className="inspect-single">
+      <div className="inspect-single inspect-content">
         <div className="line line-strong">{feature.props.name}</div>
         <div className="line">
           <span className="definition">time</span>
@@ -43,7 +42,15 @@ export default class InspectContainer extends React.Component<Props> {
   }
 
   _renderCluster(features) {
-    return <div className="inspect-cluster">cluster</div>;
+    console.log(features);
+    return (
+      <div className="inspect-cluster inspect-content">
+        <div className="line line-strong">
+          cluster with {features.length} elements
+        </div>
+        <div>{features.map(f => f.props.name).join(', ')}</div>
+      </div>
+    );
   }
 
   render() {

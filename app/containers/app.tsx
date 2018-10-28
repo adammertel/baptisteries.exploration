@@ -5,6 +5,7 @@ import DevTools from 'mobx-react-devtools';
 import MapContainer from './map';
 import TimePanelContainer from './timepanel';
 import AttributePanelContainer from './attributepanel';
+import InspectContainer from './inspect';
 import WelcomeModal from './../modals/welcome';
 import Base from './../helpers/base';
 import Card from './../components/card';
@@ -64,12 +65,7 @@ export default class AppContainer extends React.Component<any, any> {
                       id: '1',
                       label: 'Inspect',
                       icon: 'search',
-                      content: (
-                        <div>
-                          dashdioashidsaiodh
-                          asodhasiodjasiohdioashdioasdpiashdpashdpashp
-                        </div>
-                      ),
+                      content: <InspectContainer stores={this.props.stores} />,
                     },
                   ]}
                 />
@@ -83,12 +79,7 @@ export default class AppContainer extends React.Component<any, any> {
                     id: '1',
                     label: 'Map',
                     icon: 'globe',
-                    content: (
-                      <MapContainer
-                        stores={this.props.stores}
-                        sizes={screenStore._mapPanelSizes}
-                      />
-                    ),
+                    content: <MapContainer stores={this.props.stores} />,
                   },
                 ]}
               />
@@ -111,10 +102,7 @@ export default class AppContainer extends React.Component<any, any> {
                     label: 'Attributes',
                     icon: 'filter',
                     content: (
-                      <AttributePanelContainer
-                        stores={this.props.stores}
-                        sizes={screenStore._attributePanelSizes}
-                      />
+                      <AttributePanelContainer stores={this.props.stores} />
                     ),
                   },
                 ]}

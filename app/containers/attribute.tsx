@@ -4,6 +4,7 @@ import { SizeModel } from './../helpers/models';
 import Base from './../helpers/base';
 
 import AttributeSettingsComponent from './../components/attribute/settings';
+import AttributeFilterComponent from './../components/attribute/filter';
 
 type Props = {
   stores: Array<Object>;
@@ -11,7 +12,7 @@ type Props = {
 };
 
 @observer
-export default class TimeContainer extends React.Component<Props> {
+export default class AttributeContainer extends React.Component<Props> {
   props;
   positions;
 
@@ -25,6 +26,7 @@ export default class TimeContainer extends React.Component<Props> {
     return (
       <div className="container container-attributes">
         <AttributeSettingsComponent store={appStore} />
+        <AttributeFilterComponent stores={this.props.stores} />
         Attribute
       </div>
     );

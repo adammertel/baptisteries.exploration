@@ -80,8 +80,17 @@ export default class TimeBarchartComponent extends React.Component<Props> {
               const gradient = gradientRatio !== 1;
               const inMap = feature.space;
 
+              console.log(feature.id);
+
               return (
-                <Group key={fi + '_group'}>
+                <Group
+                  onMouseOver={() =>
+                    this.props.handleInspectMarkers(feature.id)
+                  }
+                  onMouseOut={this.props.handleCancelInspect}
+                  id={feature.id}
+                  key={fi + '_group'}
+                >
                   {feature.attributional === 'highlighted' && (
                     <Rect
                       key={fi + '_attribute'}

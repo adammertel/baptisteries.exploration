@@ -66,6 +66,14 @@ export default class TimeContainer extends React.Component<Props> {
     }
   }
 
+  handleCancelInspect() {
+    this.props.stores.app.changeInspectedIds([]);
+  }
+
+  handleInspectMarkers(id) {
+    this.props.stores.app.changeInspectedIds([id]);
+  }
+
   handleTimeSelectDragMin(e) {
     const newY = e.target.attrs.y;
     const newDate = this.yToDate(this.positions.selector.h, newY);
@@ -224,6 +232,7 @@ export default class TimeContainer extends React.Component<Props> {
 
       return {
         circle: dateMax - dateMin < Config.dates.barCircleTreshold,
+        id: feature.props.id,
         y: yMax,
         x: fi,
         h: barH,
@@ -274,6 +283,7 @@ export default class TimeContainer extends React.Component<Props> {
     const filterStore = this.props.stores.filter;
 
     this.features = appStore.activeFeatures;
+    console.log(this.features);
     this.noFeatures = this.features.length;
 
     this.width = this.state.width; //parseInt(this.props.sizes.width(), 10);
@@ -297,7 +307,6 @@ export default class TimeContainer extends React.Component<Props> {
       appStore.dateSelection[0]
     );
 
-    console.log('time');
     return (
       <div
         ref={this.wrapperEl}
@@ -320,6 +329,8 @@ export default class TimeContainer extends React.Component<Props> {
               selectedMinDateY={selectedMinDateY}
               selectedMaxDateY={selectedMaxDateY}
               inMapArea={this.inMapArea.barchart}
+              handleCancelInspect={this.handleCancelInspect.bind(this)}
+              handleInspectMarkers={this.handleInspectMarkers.bind(this)}
             />
             <TimeLegendComponent
               position={this.positions.legend}

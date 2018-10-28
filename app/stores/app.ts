@@ -4,17 +4,18 @@ import {
   action,
   computed,
   extendObservable,
-  toJS
-} from "mobx";
+  toJS,
+} from 'mobx';
 
-import Base from "./../helpers/base";
-import { featureProp, featureSelection } from "./../helpers/feature";
-import Config from "./../helpers/config";
+import Base from './../helpers/base';
+import { featureProp, featureSelection } from './../helpers/feature';
+import Config from './../helpers/config';
 
 export default class AppStore {
   _sortProp;
   _dateSelection;
   _dataStore;
+  _inspectedIds;
   timeBarOrdering;
 
   constructor(dataStore) {
@@ -22,33 +23,46 @@ export default class AppStore {
 
     this._dateSelection = observable.box([
       550, //Config.dates.min,
-      Config.dates.max
+      Config.dates.max,
     ]);
+    this._inspectedIds = observable.box([]);
 
     this.timeBarOrdering = [
       {
-        id: "time_certainty",
-        label: "time certainty",
+        id: 'time_certainty',
+        label: 'time certainty',
         fn: (f1, f2) => {
-          return f1.selection["temporal"] > f2.selection["temporal"] ? 1 : -1;
-        }
+          return f1.selection['temporal'] > f2.selection['temporal'] ? 1 : -1;
+        },
       },
       {
-        id: "after",
-        label: "ante quem",
+        id: 'after',
+        label: 'ante quem',
         fn: (f1, f2) => {
-          return f1.props["date_after"] > f2.props["date_after"] ? 1 : -1;
-        }
+          return f1.props['date_after'] > f2.props['date_after'] ? 1 : -1;
+        },
       },
       {
-        id: "before",
-        label: "post quem",
+        id: 'before',
+        label: 'post quem',
         fn: (f1, f2) => {
-          return f1.props["date_before"] > f2.props["date_before"];
-        }
-      }
+          return f1.props['date_before'] > f2.props['date_before'];
+        },
+      },
     ];
     this._sortProp = observable.box(this.timeBarOrdering[0]);
+  }
+
+  @computed
+  get inspectedIds(): Array<number> {
+    return toJS(this._inspectedIds).slice();
+  }
+
+  @computed
+  get inspectedFeatures(): Array<Object> {
+    const ids = this.inspectedIds;
+    const features = this._dataStore.features.filter(f => ids.includes(f.id));
+    return features;
   }
 
   @computed
@@ -69,8 +83,8 @@ export default class AppStore {
 
   @computed
   get activeFeatures(): Array<Object> {
-    const selection = window["stores"].selection.active;
-    return window["stores"].data.features.map(feature => {
+    const selection = window['stores'].selection.active;
+    return window['stores'].data.features.map(feature => {
       feature.selection = featureSelection(feature, selection);
       return feature;
     });
@@ -85,6 +99,11 @@ export default class AppStore {
       aRank += this.sortProp.fn(a, b);
       return aRank > bRank ? -1 : 1;
     };
+  }
+
+  @action
+  changeInspectedIds(newIds): void {
+    this._inspectedIds.set(newIds);
   }
 
   @action

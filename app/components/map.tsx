@@ -192,6 +192,7 @@ export default class MapComponent extends React.Component<Props> {
       className:
         'map-marker ' + (single ? 'map-marker-single' : 'map-marker-cluster'),
       iconSize: L.point(markerOuterSize, markerOuterSize),
+      ids: ids,
     });
   }
 
@@ -222,6 +223,8 @@ export default class MapComponent extends React.Component<Props> {
         />
         <Pane>
           <MarkerClusterGroup
+            onMouseOver={this.props.handleInspectMarkers}
+            onMouseOut={this.props.handleCancelInspect}
             showCoverageOnHover={false}
             firstCircleElements={6}
             clockHelpingCircleOptions={{

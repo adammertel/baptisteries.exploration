@@ -61,7 +61,9 @@ export default class AppStore {
   @computed
   get inspectedFeatures(): Array<Object> {
     const ids = this.inspectedIds;
-    const features = this._dataStore.features.filter(f => ids.includes(f.id));
+    const features = this._dataStore.features.filter(f =>
+      ids.includes(f.props.id)
+    );
     return features;
   }
 

@@ -28,8 +28,19 @@ export default class MapContainer extends React.Component<Props> {
     ]);
   }
 
+  handleCancelInspect(e) {
+    this.props.stores.app.changeInspectedIds([]);
+  }
+
+  handleInspectMarkers(e) {
+    const ids = e.layer.getAllChildMarkers
+      ? e.layer.getAllChildMarkers().map(m => m.options.data.props.id)
+      : [e.layer.options.data.props.id];
+
+    this.props.stores.app.changeInspectedIds(ids);
+  }
+
   points(features) {
-    console.log('drawing points');
     return features.filter(f => f.selection.space).map((feature, ri) => {
       return (
         <Marker
@@ -46,7 +57,6 @@ export default class MapContainer extends React.Component<Props> {
   }
 
   render() {
-    console.log('map');
     const mapStore = this.props.stores.map;
     const features = this.props.stores.app.activeFeatures;
 
@@ -59,6 +69,8 @@ export default class MapContainer extends React.Component<Props> {
           zoom={mapStore.zoom}
           center={mapStore.center}
           points={this.points(features)}
+          handleCancelInspect={this.handleCancelInspect.bind(this)}
+          handleInspectMarkers={this.handleInspectMarkers.bind(this)}
         />
       </div>
     );

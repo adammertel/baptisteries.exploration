@@ -279,10 +279,7 @@ export default class TimeContainer extends React.Component<Props> {
     this.width = this.state.width; //parseInt(this.props.sizes.width(), 10);
     this.height = this.state.height; //parseInt(this.props.sizes.height(), 10);
 
-    console.log(this.width, this.height);
     this.positions = this._calculatePositions();
-    console.log(this.positions);
-
     this.selectors = this._calculateSelectors();
 
     const timeTicks = this.timeTicks(this.positions.selector.h);

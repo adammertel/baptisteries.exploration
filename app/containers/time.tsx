@@ -19,7 +19,7 @@ type Props = {
 };
 
 @observer
-export default class TimePanelContainer extends React.Component<Props> {
+export default class TimeContainer extends React.Component<Props> {
   props;
   width;
   height;
@@ -305,18 +305,15 @@ export default class TimePanelContainer extends React.Component<Props> {
       <div
         ref={this.wrapperEl}
         style={{ height: '100%' }}
-        className="container panel-container-time"
+        className="container container-time"
       >
         {this.width && this.height ? (
-          <div className="panel-container-time-content">
+          <div className="container-time-content">
             <TimeSettingsComponent
               store={appStore}
               position={this.positions.settings}
             />
-            <hr
-              className="panel-line"
-              style={{ top: this.positions.settings.h }}
-            />
+            <hr className="line" style={{ top: this.positions.settings.h }} />
             <TimeBarchartComponent
               position={this.positions.barchart}
               bars={this.timeBars}

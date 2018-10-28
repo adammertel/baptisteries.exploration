@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
 import MapContainer from './map';
-import TimePanelContainer from './timepanel';
-import AttributePanelContainer from './attributepanel';
+import TimeContainer from './time';
+import AttributeContainer from './attribute';
 import InspectContainer from './inspect';
 import WelcomeModal from './../modals/welcome';
 import Base from './../helpers/base';
@@ -101,9 +101,7 @@ export default class AppContainer extends React.Component<any, any> {
                     id: '1',
                     label: 'Attributes',
                     icon: 'filter',
-                    content: (
-                      <AttributePanelContainer stores={this.props.stores} />
-                    ),
+                    content: <AttributeContainer stores={this.props.stores} />,
                   },
                 ]}
               />
@@ -117,7 +115,7 @@ export default class AppContainer extends React.Component<any, any> {
                     label: 'Time',
                     icon: 'calendar-o',
                     content: (
-                      <TimePanelContainer
+                      <TimeContainer
                         sizes={{
                           width: () => (Base.screenWidth() / 3) * 2,
                           height: () => Base.screenHeight() / 2,

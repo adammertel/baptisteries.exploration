@@ -1,54 +1,48 @@
-  import React from 'react'
-import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva'
+import React from 'react';
+import { Stage, Layer, Group, Rect, Line, Circle } from 'react-konva';
 
-import Base from './../../helpers/base'
-import Colors from './../../helpers/colors'
-import sizes from './../../helpers/sizes'
+import Base from './../../helpers/base';
+import Colors from './../../helpers/colors';
+import sizes from './../../helpers/sizes';
 
 type Props = {
-  position: Object
-  bars: Array<Object>
-  ticks: Array<Object>
-  offset: number
-}
+  position: Object;
+  bars: Array<Object>;
+  ticks: Array<Object>;
+  offset: number;
+};
 
-export default class TimeBarchartComponent extends React.Component<
-  Props
-> {
-  props
+export default class TimeBarchartComponent extends React.Component<Props> {
+  props;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   render() {
-    const position = this.props.position
+    const position = this.props.position;
 
-    const barSize = sizes.values.time.bars
-    const barWidth = barSize.width
+    const barSize = sizes.values.time.bars;
+    const barWidth = barSize.width;
 
-    const barSpace = sizes.values.time.bars.space
-    const bars = this.props.bars
+    const barSpace = sizes.values.time.bars.space;
+    const bars = this.props.bars;
 
-    const offSet = this.props.offset
+    const offSet = this.props.offset;
 
     return (
       <div
-        className="panel-time-barchart-wrapper panel-time-component panel-time-middle-component"
+        className="time-barchart-wrapper time-component time-middle-component"
         style={{
           top: position.y,
-          left: position.x
+          left: position.x,
         }}
       >
-        <Stage
-          width={position.w}
-          height={position.h}
-          offsetX={offSet}
-        >
+        <Stage width={position.w} height={position.h} offsetX={offSet}>
           <Layer key="ticks-lines">
             {this.props.ticks.map((tick, ti) => {
-              const x1 = offSet
-              const x2 = offSet + position.w
-              const y = tick.y
+              const x1 = offSet;
+              const x2 = offSet + position.w;
+              const y = tick.y;
 
               return (
                 <Line
@@ -57,7 +51,7 @@ export default class TimeBarchartComponent extends React.Component<
                   stroke={Colors.passive}
                   strokeWidth={0.5}
                 />
-              )
+              );
             })}
           </Layer>
           <Layer key="in-map-area">
@@ -73,19 +67,18 @@ export default class TimeBarchartComponent extends React.Component<
 
           <Layer key="bars-rectangles">
             {bars.filter(t => !t.circle).map((feature, fi) => {
-              const x =
-                barSpace / 2 - barWidth / 2 + feature.x * barSpace
+              const x = barSpace / 2 - barWidth / 2 + feature.x * barSpace;
 
               // existence certainty
-              let gradientRatio = 1
+              let gradientRatio = 1;
               if (feature.existence === 2) {
-                gradientRatio = 0.6
+                gradientRatio = 0.6;
               } else if (feature.existence === 3) {
-                gradientRatio = 0.3
+                gradientRatio = 0.3;
               }
 
-              const gradient = gradientRatio !== 1
-              const inMap = feature.space
+              const gradient = gradientRatio !== 1;
+              const inMap = feature.space;
 
               return (
                 <Group key={fi + '_group'}>
@@ -110,12 +103,12 @@ export default class TimeBarchartComponent extends React.Component<
                     fillLinearGradientStartPoint={
                       gradient && {
                         x: 0,
-                        y: 0
+                        y: 0,
                       }
                     }
                     fillLinearGradientEndPoint={{
                       x: feature.h,
-                      y: feature.h
+                      y: feature.h,
                     }}
                     fillLinearGradientColorStops={
                       gradient &&
@@ -129,23 +122,23 @@ export default class TimeBarchartComponent extends React.Component<
                     fill={gradient ? '' : feature.fill}
                   />
                 </Group>
-              )
+              );
             })}
           </Layer>
 
           <Layer key="bars-circles">
             {bars.filter(t => t.circle).map((feature, fi) => {
-              const x = barSpace - barWidth + feature.x * barSpace
+              const x = barSpace - barWidth + feature.x * barSpace;
 
-              let gradientRatio = 1
+              let gradientRatio = 1;
               if (feature.existence === 2) {
-                gradientRatio = 0.8
+                gradientRatio = 0.8;
               } else if (feature.existence === 3) {
-                gradientRatio = 0.6
+                gradientRatio = 0.6;
               }
 
-              const gradient = gradientRatio !== 1
-              const inMap = feature.spatial
+              const gradient = gradientRatio !== 1;
+              const inMap = feature.spatial;
 
               return (
                 <Group key={fi + '_group'}>
@@ -168,12 +161,12 @@ export default class TimeBarchartComponent extends React.Component<
                     fillLinearGradientStartPoint={
                       gradient && {
                         x: -barWidth / 2,
-                        y: -barWidth / 2
+                        y: -barWidth / 2,
                       }
                     }
                     fillLinearGradientEndPoint={{
                       x: barWidth / 2,
-                      y: barWidth / 2
+                      y: barWidth / 2,
                     }}
                     fillLinearGradientColorStops={
                       gradient &&
@@ -186,7 +179,7 @@ export default class TimeBarchartComponent extends React.Component<
                     }
                   />
                 </Group>
-              )
+              );
             })}
           </Layer>
           <Layer key="selected-times">
@@ -196,7 +189,7 @@ export default class TimeBarchartComponent extends React.Component<
                 offSet + 0,
                 this.props.selectedMinDateY,
                 offSet + position.w,
-                this.props.selectedMinDateY
+                this.props.selectedMinDateY,
               ]}
               stroke={Colors.active}
               strokeWidth={2}
@@ -208,7 +201,7 @@ export default class TimeBarchartComponent extends React.Component<
                 offSet + 0,
                 this.props.selectedMaxDateY,
                 offSet + position.w,
-                this.props.selectedMaxDateY
+                this.props.selectedMaxDateY,
               ]}
               stroke={Colors.active}
               strokeWidth={2}
@@ -217,6 +210,6 @@ export default class TimeBarchartComponent extends React.Component<
           </Layer>
         </Stage>
       </div>
-    )
+    );
   }
 }

@@ -1,31 +1,29 @@
-import React from 'react'
-import { Stage, Layer, Rect } from 'react-konva'
+import React from 'react';
+import { Stage, Layer, Rect } from 'react-konva';
 
-import Colors from './../../helpers/colors'
+import Colors from './../../helpers/colors';
 
 type Props = {
-  position: Object
-  bars: Array<Object>
-  selection: Object
-}
+  position: Object;
+  bars: Array<Object>;
+  selection: Object;
+};
 
-export default class TimeProfileComponent extends React.Component<
-  Props
-> {
-  props
+export default class TimeProfileComponent extends React.Component<Props> {
+  props;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   render() {
-    const position = this.props.position
+    const position = this.props.position;
 
     return (
       <div
-        className="panel-time-profile-wrapper panel-time-component panel-time-middle-component"
+        className="time-profile-wrapper time-component time-middle-component"
         style={{
           top: position.y,
-          left: position.x
+          left: position.x,
         }}
       >
         <Stage width={position.w} height={position.h}>
@@ -51,14 +49,13 @@ export default class TimeProfileComponent extends React.Component<
               draggable={true}
               onDragEnd={this.props.onDrag}
               dragBoundFunc={pos => {
-                const minX = 0
-                const maxX = position.w - this.props.selection.w
-                const newX =
-                  pos.x > maxX ? maxX : pos.x < minX ? minX : pos.x
+                const minX = 0;
+                const maxX = position.w - this.props.selection.w;
+                const newX = pos.x > maxX ? maxX : pos.x < minX ? minX : pos.x;
                 return {
                   x: newX,
-                  y: 0
-                }
+                  y: 0,
+                };
               }}
             />
             {this.props.bars.map((bar, bi) => {
@@ -72,11 +69,11 @@ export default class TimeProfileComponent extends React.Component<
                   fill={Colors.temporal}
                   fillOpacity={1}
                 />
-              )
+              );
             })}
           </Layer>
         </Stage>
       </div>
-    )
+    );
   }
 }

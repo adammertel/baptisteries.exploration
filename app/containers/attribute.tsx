@@ -11,7 +11,7 @@ type Props = {
 };
 
 @observer
-export default class TimePanelContainer extends React.Component<Props> {
+export default class TimeContainer extends React.Component<Props> {
   props;
   positions;
 
@@ -23,7 +23,7 @@ export default class TimePanelContainer extends React.Component<Props> {
     const appStore = this.props.stores.app;
 
     return (
-      <div className="container panel-container-attributes">
+      <div className="container container-attributes">
         <AttributeSettingsComponent store={appStore} />
         Attribute
       </div>

@@ -23,7 +23,7 @@ export default class TimeSettingsComponent extends React.Component<Props> {
     const position = this.props.position;
     return (
       <div
-        className="panel-time-settings-wrapper panel-time-component panel-time-top-component"
+        className="time-settings-wrapper time-component time-top-component"
         style={{
           position: 'absolute',
           top: position.y,

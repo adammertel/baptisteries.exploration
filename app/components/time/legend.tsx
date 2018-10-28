@@ -1,30 +1,28 @@
-import React from 'react'
-import { Stage, Layer, Text } from 'react-konva'
+import React from 'react';
+import { Stage, Layer, Text } from 'react-konva';
 
-import Base from './../../helpers/base'
-import Colors from './../../helpers/colors'
+import Base from './../../helpers/base';
+import Colors from './../../helpers/colors';
 
 type Props = {
-  position: Object
-}
+  position: Object;
+};
 
-export default class TimeLegendComponent extends React.Component<
-  Props
-> {
-  props
+export default class TimeLegendComponent extends React.Component<Props> {
+  props;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   render() {
-    const position = this.props.position
-    const fontSize = 10
+    const position = this.props.position;
+    const fontSize = 10;
     return (
       <div
-        className="panel-time-legend-wrapper panel-time-component panel-time-middle-component"
+        className="time-legend-wrapper time-component time-middle-component"
         style={{
           top: position.y,
-          left: position.x
+          left: position.x,
         }}
       >
         <Stage width={position.w} height={position.h}>
@@ -41,11 +39,11 @@ export default class TimeLegendComponent extends React.Component<
                   stroke={Colors.passive}
                   strokeWidth={0.5}
                 />
-              )
+              );
             })}
           </Layer>
         </Stage>
       </div>
-    )
+    );
   }
 }

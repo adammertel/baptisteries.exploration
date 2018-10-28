@@ -22,7 +22,7 @@ export default class AttributeSettingsComponent extends React.Component<Props> {
   render() {
     return (
       <div
-        className="panel-attribute-settings-wrapper panel-attribute-component"
+        className="attribute-settings-wrapper attribute-component"
         style={{}}
       >
         <div className="new-filter">

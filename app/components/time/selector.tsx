@@ -1,52 +1,43 @@
-import React from 'react'
-import {
-  Stage,
-  Layer,
-  Rect,
-  Text,
-  Group,
-  RegularPolygon
-} from 'react-konva'
+import React from 'react';
+import { Stage, Layer, Rect, Text, Group, RegularPolygon } from 'react-konva';
 
-import Colors from './../../helpers/colors'
-import Config from './../../helpers/config'
+import Colors from './../../helpers/colors';
+import Config from './../../helpers/config';
 
 type Props = {
-  position: Object
-  selectedMinDateY: number
-  selectedMaxDateY: number
-}
+  position: Object;
+  selectedMinDateY: number;
+  selectedMaxDateY: number;
+};
 
-export default class TimeSelectorComponent extends React.Component<
-  Props
-> {
-  props
+export default class TimeSelectorComponent extends React.Component<Props> {
+  props;
   constructor(props: any) {
-    super(props)
+    super(props);
   }
 
   render() {
-    const position = this.props.position
-    const selectedMaxDateY = this.props.selectedMaxDateY
-    const selectedMinDateY = this.props.selectedMinDateY
+    const position = this.props.position;
+    const selectedMaxDateY = this.props.selectedMaxDateY;
+    const selectedMinDateY = this.props.selectedMinDateY;
 
-    const handlerH = 10
-    const handlerW = 30
-    const handlerX = position.w / 2 - handlerW / 2
-    const pipeW = 10
+    const handlerH = 10;
+    const handlerW = 30;
+    const handlerX = position.w / 2 - handlerW / 2;
+    const pipeW = 10;
 
-    const minTextY = this.props.selectedMinDateY - handlerH / 2
-    const maxTextY = this.props.selectedMaxDateY - handlerH / 2
-    const minTextX = 5
-    const maxTextX = position.w - 30
-    const triangleR = 8
+    const minTextY = this.props.selectedMinDateY - handlerH / 2;
+    const maxTextY = this.props.selectedMaxDateY - handlerH / 2;
+    const minTextX = 5;
+    const maxTextX = position.w - 30;
+    const triangleR = 8;
 
     return (
       <div
-        className="panel-time-selector-wrapper panel-time-component panel-time-middle-component"
+        className="time-selector-wrapper time-component time-middle-component"
         style={{
           top: position.y,
-          left: position.x
+          left: position.x,
         }}
       >
         <Stage width={position.w} height={position.h}>
@@ -80,16 +71,16 @@ export default class TimeSelectorComponent extends React.Component<
                 draggable={true}
                 onDragEnd={this.props.onDragMax}
                 dragBoundFunc={pos => {
-                  const maxY = this.props.selectedMinDateY
-                  const minY = this.props.margin
-                  console.log(minY)
+                  const maxY = this.props.selectedMinDateY;
+                  const minY = this.props.margin;
+                  console.log(minY);
                   const newY =
-                    pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
+                    pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y;
 
                   return {
                     x: handlerX,
-                    y: newY
-                  }
+                    y: newY,
+                  };
                 }}
               />
               <Rect
@@ -101,16 +92,15 @@ export default class TimeSelectorComponent extends React.Component<
                 draggable={true}
                 onDragEnd={this.props.onDragMin}
                 dragBoundFunc={pos => {
-                  const maxY =
-                    this.props.position.h - this.props.margin
-                  const minY = this.props.selectedMaxDateY
+                  const maxY = this.props.position.h - this.props.margin;
+                  const minY = this.props.selectedMaxDateY;
                   const newY =
-                    pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y
+                    pos.y > maxY ? maxY : pos.y < minY ? minY : pos.y;
 
                   return {
                     x: handlerX,
-                    y: newY
-                  }
+                    y: newY,
+                  };
                 }}
               />
             </Group>
@@ -183,6 +173,6 @@ export default class TimeSelectorComponent extends React.Component<
           </Layer>
         </Stage>
       </div>
-    )
+    );
   }
 }

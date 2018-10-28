@@ -32,13 +32,38 @@ export default class TimePanelContainer extends React.Component<Props> {
   _middleTM; // margin of y for the middle components
   state;
   setState;
+  wrapperEl;
 
   constructor(props: any) {
     super(props);
     this._middleTM = 20;
     this.state = {
       selectionX: 0,
+      width: 0,
+      height: 0,
     };
+    this.wrapperEl = React.createRef();
+  }
+
+  componentDidMount() {
+    this._updateSizes();
+  }
+
+  componentDidUpdat() {
+    this._updateSizes();
+  }
+
+  _updateSizes() {
+    const divEl = this.wrapperEl.current;
+    const newHeight = divEl.clientHeight;
+    const newWidth = divEl.clientWidth;
+
+    if (newHeight !== this.state.height || newWidth !== this.state.width) {
+      this.setState({
+        height: newHeight,
+        width: newWidth,
+      });
+    }
   }
 
   handleTimeSelectDragMin(e) {
@@ -83,8 +108,8 @@ export default class TimePanelContainer extends React.Component<Props> {
     const w = this.width - margins * 2;
 
     const lineHeightTop = sizes.values.time.lines.topHeight;
-    const lineHeightMiddle = sizes.values.time.lines.middleHeight;
     const lineHeightBottom = sizes.values.time.lines.bottomHeight;
+    const lineHeightMiddle = h - (lineHeightTop + lineHeightBottom);
 
     const componentWidths = sizes.values.time.components;
     const histogramWidth = componentWidths.histogramWidth;
@@ -251,9 +276,12 @@ export default class TimePanelContainer extends React.Component<Props> {
     this.features = appStore.activeFeatures;
     this.noFeatures = this.features.length;
 
-    this.width = parseInt(this.props.sizes.width, 10);
-    this.height = parseInt(this.props.sizes.height, 10);
+    this.width = this.state.width; //parseInt(this.props.sizes.width(), 10);
+    this.height = this.state.height; //parseInt(this.props.sizes.height(), 10);
+
+    console.log(this.width, this.height);
     this.positions = this._calculatePositions();
+    console.log(this.positions);
 
     this.selectors = this._calculateSelectors();
 
@@ -274,52 +302,71 @@ export default class TimePanelContainer extends React.Component<Props> {
 
     console.log('time');
     return (
-      <div style={{}} className="container panel-container-time">
-        <TimeSettingsComponent
-          store={appStore}
-          position={this.positions.settings}
-        />
-        <hr className="panel-line" style={{ top: this.positions.settings.h }} />
-        <TimeBarchartComponent
-          position={this.positions.barchart}
-          bars={this.timeBars}
-          ticks={timeTicks}
-          margin={this._middleTM}
-          offset={this.selectors.barchart.x}
-          selectedMinDateY={selectedMinDateY}
-          selectedMaxDateY={selectedMaxDateY}
-          inMapArea={this.inMapArea.barchart}
-        />
-        <TimeLegendComponent
-          position={this.positions.legend}
-          margin={this._middleTM}
-          ticks={timeTicks}
-        />
-        <TimeSelectorComponent
-          margin={this._middleTM}
-          minDateY={this.dateToY(this.positions.selector.h, Config.dates.min)}
-          maxDateY={this.dateToY(this.positions.selector.h, Config.dates.max)}
-          selectedMinDateY={selectedMinDateY}
-          selectedMaxDateY={selectedMaxDateY}
-          minDate={appStore.dateSelection[0]}
-          maxDate={appStore.dateSelection[1]}
-          position={this.positions.selector}
-          onDragMin={this.handleTimeSelectDragMin.bind(this)}
-          onDragMax={this.handleTimeSelectDragMax.bind(this)}
-          rangeClicked={this.handleRangeClick.bind(this)}
-          incrementMin={this.handleIncrementMin.bind(this)}
-          incrementMax={this.handleIncrementMax.bind(this)}
-        />
-        <TimeProfileComponent
-          inMapArea={this.inMapArea.profile}
-          bars={this.timelineBars(
-            this.positions.profile.h,
-            this.positions.profile.w
-          )}
-          onDrag={this._handleTimelineDrag.bind(this)}
-          selection={this.selectors.profile}
-          position={this.positions.profile}
-        />
+      <div
+        ref={this.wrapperEl}
+        style={{ height: '100%' }}
+        className="container panel-container-time"
+      >
+        {this.width && this.height ? (
+          <div className="panel-container-time-content">
+            <TimeSettingsComponent
+              store={appStore}
+              position={this.positions.settings}
+            />
+            <hr
+              className="panel-line"
+              style={{ top: this.positions.settings.h }}
+            />
+            <TimeBarchartComponent
+              position={this.positions.barchart}
+              bars={this.timeBars}
+              ticks={timeTicks}
+              margin={this._middleTM}
+              offset={this.selectors.barchart.x}
+              selectedMinDateY={selectedMinDateY}
+              selectedMaxDateY={selectedMaxDateY}
+              inMapArea={this.inMapArea.barchart}
+            />
+            <TimeLegendComponent
+              position={this.positions.legend}
+              margin={this._middleTM}
+              ticks={timeTicks}
+            />
+            <TimeSelectorComponent
+              margin={this._middleTM}
+              minDateY={this.dateToY(
+                this.positions.selector.h,
+                Config.dates.min
+              )}
+              maxDateY={this.dateToY(
+                this.positions.selector.h,
+                Config.dates.max
+              )}
+              selectedMinDateY={selectedMinDateY}
+              selectedMaxDateY={selectedMaxDateY}
+              minDate={appStore.dateSelection[0]}
+              maxDate={appStore.dateSelection[1]}
+              position={this.positions.selector}
+              onDragMin={this.handleTimeSelectDragMin.bind(this)}
+              onDragMax={this.handleTimeSelectDragMax.bind(this)}
+              rangeClicked={this.handleRangeClick.bind(this)}
+              incrementMin={this.handleIncrementMin.bind(this)}
+              incrementMax={this.handleIncrementMax.bind(this)}
+            />
+            <TimeProfileComponent
+              inMapArea={this.inMapArea.profile}
+              bars={this.timelineBars(
+                this.positions.profile.h,
+                this.positions.profile.w
+              )}
+              onDrag={this._handleTimelineDrag.bind(this)}
+              selection={this.selectors.profile}
+              position={this.positions.profile}
+            />
+          </div>
+        ) : (
+          <div />
+        )}
       </div>
     );
   }

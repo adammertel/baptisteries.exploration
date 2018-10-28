@@ -11,7 +11,6 @@ import Card from './../components/card';
 import Hero from './../components/hero';
 
 import 'font-awesome/scss/font-awesome.scss';
-import { isAbsolute } from 'path';
 
 @observer
 export default class AppContainer extends React.Component<any, any> {
@@ -30,10 +29,11 @@ export default class AppContainer extends React.Component<any, any> {
       secondLine: (screenHeight - heroHeight) / 2 - bottomHeight,
     };
     const screenStore = this.props.stores.screen;
+
     return (
       <div className="container-wrapper">
         <Hero stores={this.props.stores} height={heights.hero} />
-        <div style={{ padding: '1rem' }}>
+        <div style={{ padding: '0.5rem' }}>
           <div
             className="columns"
             style={{
@@ -45,7 +45,7 @@ export default class AppContainer extends React.Component<any, any> {
             <div className="column is-one-quarter">
               <div className="column half-sized is-full">
                 <Card
-                  cardHeight={'calc(50% - 30px)'}
+                  cardHeight={'calc(50% - 1rem)'}
                   tabs={[
                     {
                       id: '1',
@@ -58,7 +58,7 @@ export default class AppContainer extends React.Component<any, any> {
               </div>
               <div className="column half-sized is-full">
                 <Card
-                  cardHeight={'calc(50% - 30px)'}
+                  cardHeight={'calc(50% - 1rem)'}
                   tabs={[
                     {
                       id: '1',
@@ -77,7 +77,7 @@ export default class AppContainer extends React.Component<any, any> {
             </div>
             <div className="column is-three-quarter">
               <Card
-                cardHeight={'calc(100% - 30px)'}
+                cardHeight={'calc(100% - 1rem)'}
                 tabs={[
                   {
                     id: '1',
@@ -104,7 +104,7 @@ export default class AppContainer extends React.Component<any, any> {
           >
             <div className="column is-one-third">
               <Card
-                cardHeight={'calc(100% - 30px)'}
+                cardHeight={'calc(100% - 50px)'}
                 tabs={[
                   {
                     id: '1',
@@ -122,7 +122,7 @@ export default class AppContainer extends React.Component<any, any> {
             </div>
             <div className="column is-two-third">
               <Card
-                cardHeight={'calc(100% - 30px)'}
+                cardHeight={'calc(100% - 50px)'}
                 tabs={[
                   {
                     id: '1',
@@ -130,7 +130,10 @@ export default class AppContainer extends React.Component<any, any> {
                     icon: 'calendar-o',
                     content: (
                       <TimePanelContainer
-                        sizes={screenStore._timePanelSizes}
+                        sizes={{
+                          width: () => (Base.screenWidth() / 3) * 2,
+                          height: () => Base.screenHeight() / 2,
+                        }}
                         stores={this.props.stores}
                       />
                     ),

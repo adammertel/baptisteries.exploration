@@ -10,7 +10,7 @@ var sizeValues = {
       margin: 2,
     },
     lines: {
-      topHeight: 80,
+      topHeight: 50,
       middleHeight: false,
       bottomHeight: 100,
     },

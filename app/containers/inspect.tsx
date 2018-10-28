@@ -18,17 +18,37 @@ export default class InspectContainer extends React.Component<Props> {
   }
 
   _renderSingle(feature) {
-    return <div>single</div>;
+    console.log(feature);
+    return (
+      <div className="inspect-single">
+        <div className="line line-strong">{feature.props.name}</div>
+        <div className="line">
+          <span className="definition">time</span>
+          {feature.props.date_after} - {feature.props.date_before}
+        </div>
+        <div className="line">
+          <span className="definition">ciborium</span>
+          {feature.props.ciborium ? 'yes' : 'no'}
+        </div>
+        <div className="line">
+          <span className="definition">building shape</span>
+          {feature.props.shape}
+        </div>
+        <div className="line">
+          <span className="definition">piscina shape</span>
+          {feature.props.piscina_shape}
+        </div>
+      </div>
+    );
   }
 
   _renderCluster(features) {
-    return <div>cluster</div>;
+    return <div className="inspect-cluster">cluster</div>;
   }
 
   render() {
     const appStore = this.props.stores.app;
     const features = this.props.stores.app.inspectedFeatures;
-    console.log(features);
 
     return (
       <div className="container container-inspect">

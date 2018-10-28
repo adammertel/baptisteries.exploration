@@ -31,6 +31,22 @@ html {
   height: 100%;
 }
 
+.container-inspect {
+  .inspect-single {
+    .line {
+      &.line-strong {
+        font-weight: 800;
+      }
+      .definition {
+        font-style: italic;
+        &:after {
+          content: ': ';
+        }
+      }
+    }
+  }
+}
+
 .tabs a {
   padding: 0.2em 0.5em;
 }

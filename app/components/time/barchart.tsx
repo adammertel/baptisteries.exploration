@@ -80,8 +80,6 @@ export default class TimeBarchartComponent extends React.Component<Props> {
               const gradient = gradientRatio !== 1;
               const inMap = feature.space;
 
-              console.log(feature.id);
-
               return (
                 <Group
                   onMouseOver={() =>

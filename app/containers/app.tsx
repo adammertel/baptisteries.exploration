@@ -23,10 +23,11 @@ export default class AppContainer extends React.Component<any, any> {
   public render() {
     const screenHeight = Base.screenHeight();
     const heroHeight = 50;
+    const bottomHeight = 20;
     const heights = {
       hero: heroHeight,
       firstLine: (screenHeight - heroHeight) / 2,
-      secondLine: (screenHeight - heroHeight) / 2,
+      secondLine: (screenHeight - heroHeight) / 2 - bottomHeight,
     };
     const screenStore = this.props.stores.screen;
     return (
@@ -49,7 +50,7 @@ export default class AppContainer extends React.Component<any, any> {
                     {
                       id: '1',
                       label: 'Settings',
-                      icon: 'filter',
+                      icon: 'cog',
                       content: <div />,
                     },
                   ]}
@@ -101,25 +102,6 @@ export default class AppContainer extends React.Component<any, any> {
               width: '100%',
             }}
           >
-            <div className="column is-two-third">
-              <Card
-                cardHeight={'calc(100% - 30px)'}
-                tabs={[
-                  {
-                    id: '1',
-                    label: 'Time',
-                    icon: 'calendar-o',
-                    content: (
-                      <TimePanelContainer
-                        sizes={screenStore._timePanelSizes}
-                        stores={this.props.stores}
-                      />
-                    ),
-                  },
-                ]}
-              />
-            </div>
-
             <div className="column is-one-third">
               <Card
                 cardHeight={'calc(100% - 30px)'}
@@ -132,6 +114,24 @@ export default class AppContainer extends React.Component<any, any> {
                       <AttributePanelContainer
                         stores={this.props.stores}
                         sizes={screenStore._attributePanelSizes}
+                      />
+                    ),
+                  },
+                ]}
+              />
+            </div>
+            <div className="column is-two-third">
+              <Card
+                cardHeight={'calc(100% - 30px)'}
+                tabs={[
+                  {
+                    id: '1',
+                    label: 'Time',
+                    icon: 'calendar-o',
+                    content: (
+                      <TimePanelContainer
+                        sizes={screenStore._timePanelSizes}
+                        stores={this.props.stores}
                       />
                     ),
                   },

@@ -10,9 +10,12 @@ $family-serif: 'Merriweather', 'Georgia', serif;
 
 $link: $color1;
 $primary: $color4;
-$secondary: $color1;
 $family-primary: $family-serif;
 $danger: $color1;
+$secondary: $color1;
+
+$tabs-link-active-color: $color4;
+$tabs-boxed-link-active-border-color: $color4;
 
 @import '~bulma/bulma';
 
@@ -26,8 +29,9 @@ html {
 }
 
 .card {
-  margin-left: 1px;
   overflow: hidden;
+  border: 1px solid $color4;
+  box-shadow: none;
 }
 
 .container-wrapper {

@@ -58,7 +58,11 @@ class Card extends React.Component<Props, State> {
             {this.props.tabs.map(tab => {
               return (
                 <li
-                  className={this.state.activeTab === tab.id ? 'is-active' : ''}
+                  className={
+                    this.state.activeTab === tab.id
+                      ? 'is-primary is-active'
+                      : ''
+                  }
                   onClick={this.handleChangeTab.bind(this, tab.id)}
                   key={tab.id}
                 >

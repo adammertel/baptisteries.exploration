@@ -42,7 +42,7 @@ class Card extends React.Component<Props, State> {
 
   style() {
     return {
-      padding: '1rem',
+      padding: '.5rem',
     };
     const cardStyle = {
       position: 'absolute',

@@ -23,7 +23,7 @@ export default class TimeSettingsComponent extends React.Component<Props> {
     const position = this.props.position;
     return (
       <div
-        className="panel-time-settings-wrapper columns panel-time-component panel-time-top-component"
+        className="panel-time-settings-wrapper panel-time-component panel-time-top-component"
         style={{
           position: 'absolute',
           top: position.y,
@@ -32,9 +32,9 @@ export default class TimeSettingsComponent extends React.Component<Props> {
           width: '100%',
         }}
       >
-        <div className="column settings-block right">
+        <div className="settings-block">
           <div className="text-normal">Timeline ordering</div>
-          <div className="new-filter">
+          <div className="">
             <div className="select is-small">
               <select
                 value={this.props.store.sortProp.id}

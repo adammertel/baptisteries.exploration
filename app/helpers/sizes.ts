@@ -1,8 +1,5 @@
 var sizeValues = {
-  panel: {
-    attributeWidth: 400,
-    timeHeight: 500,
-  },
+  panel: {},
   time: {
     bars: {
       width: 6,
@@ -10,7 +7,7 @@ var sizeValues = {
       margin: 2,
     },
     lines: {
-      topHeight: 50,
+      topHeight: 40,
       middleHeight: false,
       bottomHeight: 100,
     },
@@ -29,10 +26,6 @@ class Sizes {
 
   constructor(sizeValues) {
     this.values = sizeValues;
-
-    this.values.time.lines.middleHeight =
-      this.values.panel.timeHeight -
-      (this.values.time.lines.topHeight + this.values.time.lines.bottomHeight);
 
     this.values.time.bars.space =
       this.values.time.bars.stroke + this.values.time.bars.margin;

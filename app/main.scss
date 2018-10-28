@@ -115,11 +115,8 @@ $color-marker-icon-radius: 1px;
     position: absolute;
   }
   .panel-time-middle-component {
-    padding: 10;
   }
   .panel-time-top-component {
-    padding: 10;
-
     .panel-top-component-line {
       height: 50%;
 
@@ -128,22 +125,15 @@ $color-marker-icon-radius: 1px;
       }
     }
 
+    &.panel-time-settings-wrapper {
+      display: inline;
+      .settings-block {
+        display: inline-flex;
+      }
+    }
+
     .select {
       margin-right: 5px;
-    }
-
-    .heading {
-      padding-left: 0;
-      padding-right: 5px;
-    }
-
-    &.panel-time-settings-wrapper {
-      .settings-block {
-        text-align: left;
-        &.right {
-          text-align: right;
-        }
-      }
     }
 
     &.panelfilter-wrapper {

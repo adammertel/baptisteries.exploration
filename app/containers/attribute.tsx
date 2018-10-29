@@ -1,19 +1,19 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { SizeModel } from './../helpers/models';
 import Base from './../helpers/base';
 
-import AttributeFilterSelectionComponent from './../components/attribute/filterselection';
+import AttributeSelectionComponent from './../components/attribute/selection';
+import AttributeHistogramComponent from './../components/attribute/histogram';
 
 type Props = {
   stores: Array<Object>;
-  sizes: SizeModel;
 };
 
 @observer
 export default class AttributeContainer extends React.Component<Props> {
   props;
   positions;
+  store;
 
   constructor(props: any) {
     super(props);
@@ -21,18 +21,22 @@ export default class AttributeContainer extends React.Component<Props> {
 
   handleNewFilterAdd(e): void {
     const newColumn = e.target.value;
-    this.props.stores.filter.addNew(newColumn);
+    this.store.addNew(newColumn);
   }
 
   render() {
-    const appStore = this.props.stores.app;
+    this.store = this.props.stores.filter;
 
     return (
       <div className="container container-attributes">
-        <AttributeFilterSelectionComponent
-          columnsNotUsed={this.props.stores.filter.columnsNotUsed}
+        <AttributeSelectionComponent
+          columnsNotUsed={this.store.columnsNotUsed}
           handleNewFilterAdd={this.handleNewFilterAdd.bind(this)}
         />
+        {this.store.filters.map((filter, fi) => {
+          console.log(filter);
+          return <AttributeHistogramComponent key={fi} data={filter} />;
+        })}
       </div>
     );
   }

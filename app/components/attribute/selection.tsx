@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class AttributeFilterSelectionComponent extends React.Component {
+export default class AttributeSelectionComponent extends React.Component {
   props;
   state;
   constructor(props: any) {

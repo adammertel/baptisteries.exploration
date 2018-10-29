@@ -114,15 +114,7 @@ export default class AppContainer extends React.Component<any, any> {
                     id: '1',
                     label: 'Time',
                     icon: 'calendar-o',
-                    content: (
-                      <TimeContainer
-                        sizes={{
-                          width: () => (Base.screenWidth() / 3) * 2,
-                          height: () => Base.screenHeight() / 2,
-                        }}
-                        stores={this.props.stores}
-                      />
-                    ),
+                    content: <TimeContainer stores={this.props.stores} />,
                   },
                 ]}
               />

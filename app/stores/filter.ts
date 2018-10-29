@@ -81,14 +81,33 @@ export default class AppStore {
   // initialise filters
   initFilters(): void {
     this._columns.forEach(column => {
-      column.values = Base.unique(
-        this._dataStore.features.map(f => f.props[column.id])
-      );
-      column.frequencies = column.values.map(value => {
-        return this._dataStore.features.filter(
-          f => f.props[column.id] === value
-        ).length;
+      const freqs = [];
+
+      this._dataStore.features.forEach(f => {
+        const value = f.props[column.id];
+        const freq = freqs.find(fr => fr.value === value);
+        if (freq) {
+          freq.occ = freq.occ + 1;
+        } else {
+          freqs.push({ value: value, occ: 0 });
+        }
       });
+
+      const maxNumberOfVals = 5;
+      const freqsSorted = freqs.sort((a, b) => (a.occ > b.occ ? -1 : 1));
+
+      const freqsClipped = [];
+      const others = { value: 'others', occ: 0 };
+      freqsSorted.forEach((f, fi) => {
+        if (fi < maxNumberOfVals - 1) {
+          freqsClipped.push(f);
+        } else {
+          others.occ += f.occ;
+        }
+      });
+      freqsClipped.push(others);
+      console.log(freqsClipped);
+      column.values = freqsClipped;
     });
 
     console.log(this._columns);

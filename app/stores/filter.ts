@@ -10,6 +10,7 @@ import {
 import Base from './../helpers/base';
 import { featureProp } from './../helpers/feature';
 import Config from './../helpers/config';
+import { histogram, scaleLinear } from 'd3';
 
 export default class AppStore {
   _columns;
@@ -32,16 +33,19 @@ export default class AppStore {
       {
         id: 'piscina_shape',
         label: 'piscina shape',
+        domain: 'quality',
         values: [],
       },
       {
         id: 'shape',
         label: 'building shape',
+        domain: 'quality',
         values: [],
       },
       {
         id: 'piscina_depth',
         label: 'piscina depth',
+        domain: 'quantity',
         values: [],
       },
     ];
@@ -80,34 +84,61 @@ export default class AppStore {
 
   // initialise filters
   initFilters(): void {
+    const maxNumberOfIntervals = 10;
+
     this._columns.forEach(column => {
-      const freqs = [];
+      if (column.domain === 'quality') {
+        const freqs = [];
 
-      this._dataStore.features.forEach(f => {
-        const value = f.props[column.id];
-        const freq = freqs.find(fr => fr.value === value);
-        if (freq) {
-          freq.occ = freq.occ + 1;
-        } else {
-          freqs.push({ value: value, occ: 0 });
+        this._dataStore.features.forEach(f => {
+          const value = f.props[column.id];
+          const freq = freqs.find(freq => freq.check(value));
+
+          if (freq) {
+            freq.occ = freq.occ + 1;
+          } else {
+            freqs.push({ label: value, check: x => x === value, occ: 0 });
+          }
+        });
+
+        const freqsSorted = freqs.sort((a, b) => (a.occ > b.occ ? -1 : 1));
+
+        const freqsClipped = [];
+        const others = { label: 'others', occ: 0 };
+        freqsSorted.forEach((f, fi) => {
+          if (fi < maxNumberOfIntervals - 1) {
+            freqsClipped.push(f);
+          } else {
+            others.occ += f.occ;
+          }
+        });
+
+        const mentionedValues = freqs.map(f => f.value);
+        others['check'] = x => {
+          return mentionedValues.includes(x);
+        };
+
+        if (others.occ > 0) {
+          freqsClipped.push(others);
         }
-      });
 
-      const maxNumberOfVals = 5;
-      const freqsSorted = freqs.sort((a, b) => (a.occ > b.occ ? -1 : 1));
+        console.log(freqsClipped);
+        column.values = freqsClipped;
+      } else if (column.domain === 'quantity') {
+        const values = this._dataStore.features.map(f => f.props[column.id]);
+        var hist = histogram().thresholds(maxNumberOfIntervals);
 
-      const freqsClipped = [];
-      const others = { value: 'others', occ: 0 };
-      freqsSorted.forEach((f, fi) => {
-        if (fi < maxNumberOfVals - 1) {
-          freqsClipped.push(f);
-        } else {
-          others.occ += f.occ;
-        }
-      });
-      freqsClipped.push(others);
-      console.log(freqsClipped);
-      column.values = freqsClipped;
+        const bars = hist(values).map(bar => {
+          return {
+            label: bar.x0 + ' - ' + bar.x1,
+            check: x => x > bar.x0 && x < bar.x1,
+            occ: bar.length - 2,
+          };
+        });
+
+        console.log(bars);
+        column.values = bars;
+      }
     });
 
     console.log(this._columns);

@@ -52,6 +52,7 @@ html {
 }
 .card {
   overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid $color4;
   box-shadow: none;
 }

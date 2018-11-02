@@ -25,7 +25,7 @@ export default class AttributeHistogramComponent extends React.Component {
     };
 
     const barHMax = sizes.histH - sizes.histMT;
-    const maxOcc = data.column.bars[0].occ; // todo
+    const maxOcc = Math.max.apply(null, data.column.bars.map(bar => bar.occ));
     const histH = occ => (occ / maxOcc) * barHMax;
 
     console.log(data);
@@ -38,11 +38,8 @@ export default class AttributeHistogramComponent extends React.Component {
             <Layer>
               {data.column.bars.map((bar, bi) => {
                 const h = histH(bar.occ);
-                console.log(bar.occ, h);
                 return (
                   <Rect
-                    onMouseOver={this._handleBarOver.bind(this, bar)}
-                    onMouseOut={this.props.handleCancelInspect}
                     key={bi}
                     height={histH(bar.occ)}
                     width={sizes.barW}
@@ -57,9 +54,10 @@ export default class AttributeHistogramComponent extends React.Component {
           <Stage width={stageW} height={100}>
             <Layer>
               {data.column.bars.map((bar, bi) => {
-                console.log(bar.label);
                 return (
                   <Text
+                    onMouseOver={this._handleBarOver.bind(this, bar)}
+                    onMouseOut={this.props.handleCancelInspect}
                     key={bi}
                     className="label"
                     rotation={90}

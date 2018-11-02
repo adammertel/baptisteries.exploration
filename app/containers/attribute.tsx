@@ -32,10 +32,10 @@ export default class AttributeContainer extends React.Component<Props> {
     const ids = this.props.stores.data.features
       .filter(f => {
         const value = f.props[column.id];
-        console.log(value);
         return bar.check(value);
       })
       .map(f => f.props.id);
+    console.log(ids);
     this.props.stores.app.changeInspectedIds(ids);
   }
 

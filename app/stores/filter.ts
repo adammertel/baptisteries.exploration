@@ -118,9 +118,9 @@ export default class AppStore {
           }
         });
 
-        const mentionedValues = freqs.map(f => f.label);
+        const mentionedValues = bars.map(f => f.label);
         others['check'] = x => {
-          return mentionedValues.includes(x);
+          return !mentionedValues.includes(x);
         };
 
         if (others.occ > 0) {
@@ -134,7 +134,7 @@ export default class AppStore {
         bars = hist(values).map(bar => {
           return {
             label: bar.x0 + ' - ' + bar.x1,
-            check: x => x > bar.x0 && x < bar.x1,
+            check: x => x > bar.x0 && x <= bar.x1,
             occ: bar.length - 2,
           };
         });

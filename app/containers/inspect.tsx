@@ -42,7 +42,6 @@ export default class InspectContainer extends React.Component<Props> {
   }
 
   _renderCluster(features) {
-    console.log(features);
     return (
       <div className="inspect-cluster inspect-content">
         <div className="line line-strong">

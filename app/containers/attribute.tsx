@@ -21,7 +21,7 @@ export default class AttributeContainer extends React.Component<Props> {
 
   handleNewFilterAdd(e): void {
     const newColumn = e.target.value;
-    this.store.addNew(newColumn);
+    this.store.toggleColumnUsed(newColumn);
   }
 
   handleCancelInspect(e) {
@@ -35,7 +35,6 @@ export default class AttributeContainer extends React.Component<Props> {
         return bar.check(value);
       })
       .map(f => f.props.id);
-    console.log(ids);
     this.props.stores.app.changeInspectedIds(ids);
   }
 
@@ -48,13 +47,14 @@ export default class AttributeContainer extends React.Component<Props> {
           columnsNotUsed={this.store.columnsNotUsed}
           handleNewFilterAdd={this.handleNewFilterAdd.bind(this)}
         />
-        {this.store.filters.map((filter, fi) => {
+        {this.store.columnsUsed.map((column, fi) => {
+          console.log(column);
           return (
             <AttributeHistogramComponent
               handleCancelInspect={this.handleCancelInspect.bind(this)}
               handleInspectMarkers={this.handleInspectMarkers.bind(this)}
               key={fi}
-              data={filter}
+              column={column}
             />
           );
         })}

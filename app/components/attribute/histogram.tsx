@@ -10,11 +10,11 @@ export default class AttributeHistogramComponent extends React.Component {
   }
 
   _handleBarOver(bar) {
-    this.props.handleInspectMarkers(this.props.data.column, bar);
+    this.props.handleInspectMarkers(this.props.column, bar);
   }
 
   render() {
-    const data = this.props.data;
+    const column = this.props.column;
     const sizes = {
       barW: 20,
       barG: 5,
@@ -25,18 +25,18 @@ export default class AttributeHistogramComponent extends React.Component {
     };
 
     const barHMax = sizes.histH - sizes.histMT;
-    const maxOcc = Math.max.apply(null, data.column.bars.map(bar => bar.occ));
+    const maxOcc = Math.max.apply(null, column.bars.map(bar => bar.occ));
     const histH = occ => (occ / maxOcc) * barHMax;
 
-    console.log(data);
-    const stageW = (sizes.barW + sizes.barG) * data.column.bars.length;
+    const stageW = (sizes.barW + sizes.barG) * column.bars.length;
+
     return (
       <div className="panel-component histograms">
-        <strong>{data.column.label}</strong>
+        <strong>{column.label}</strong>
         <div className="histogram">
           <Stage width={stageW} height={sizes.histH}>
             <Layer>
-              {data.column.bars.map((bar, bi) => {
+              {column.bars.map((bar, bi) => {
                 const h = histH(bar.occ);
                 return (
                   <Rect
@@ -55,7 +55,7 @@ export default class AttributeHistogramComponent extends React.Component {
           </Stage>
           <Stage width={stageW} height={100}>
             <Layer>
-              {data.column.bars.map((bar, bi) => {
+              {column.bars.map((bar, bi) => {
                 return (
                   <Text
                     onMouseOver={this._handleBarOver.bind(this, bar)}

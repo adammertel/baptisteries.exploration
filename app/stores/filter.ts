@@ -15,21 +15,11 @@ import { histogram, scaleLinear } from 'd3';
 export default class AppStore {
   _columns;
   _dataStore;
-  _filters;
-  _newId;
-  _mode;
-  modes;
 
   constructor(dataStore) {
-    this._newId = 0;
-
-    this._mode = observable.box('highlight');
-    this.modes = ['highlight', 'display'];
-
     this._dataStore = dataStore;
-    this._filters = observable.box([]);
 
-    this._columns = [
+    this._columns = observable.box([
       {
         id: 'piscina_shape',
         label: 'piscina shape',
@@ -48,41 +38,36 @@ export default class AppStore {
         domain: 'quantity',
         values: [],
       },
-    ];
+    ]);
 
     this.initFilters();
   }
 
   @computed
-  get mode() {
-    return toJS(this._mode);
-  }
-
-  @action
-  modeChange(newMode: string): void {
-    this._mode.set(newMode);
-  }
-
-  @computed
-  get filters() {
-    return toJS(this._filters);
-  }
-
-  columns(): Array<Object> {
-    return this._columns;
-  }
-
-  columnById(columnId): Object | false {
-    return this._columns.find(c => c.id === columnId);
+  get columns(): Array<Object> {
+    return toJS(this._columns);
   }
 
   @computed
   get columnsNotUsed(): Array<Object> {
-    const filters = this.filters;
-    return this._columns.filter(c => !filters.find(f => f.column.id === c.id));
+    return this.columns.filter(c => !c.used);
+  }
+
+  @computed
+  get columnsUsed(): Array<Object> {
+    return this.columns.filter(c => c.used);
+  }
+
+  @action
+  toggleColumnUsed(columnId) {
+    const newColumns = this.columns.slice();
+    const columnToToggle = newColumns.find(column => column.id === columnId);
+    columnToToggle.used = !columnToToggle.used;
+    this._columns.set(newColumns);
   }
 
   // initialise filters
+  @action
   initFilters(): void {
     const maxNumberOfIntervals = 10;
 
@@ -97,7 +82,9 @@ export default class AppStore {
         id: newId,
       };
     };
-    this._columns.forEach(column => {
+    const columnsCopy = this.columns.slice();
+    columnsCopy.forEach(column => {
+      column.used = false;
       let bars = [];
       if (column.domain === 'quality') {
         // quality
@@ -151,9 +138,12 @@ export default class AppStore {
       column.bars = bars;
     });
 
+    this._columns.set(columnsCopy);
     console.log(this._columns);
   }
 
   @action
-  toggleBar = (column, barLabel) => {};
+  toggleBar = (columnId, barLabel) => {
+    const column = this.columns.find(column => column.id === columnId);
+  };
 }

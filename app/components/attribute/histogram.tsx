@@ -40,6 +40,8 @@ export default class AttributeHistogramComponent extends React.Component {
                 const h = histH(bar.occ);
                 return (
                   <Rect
+                    onMouseOver={this._handleBarOver.bind(this, bar)}
+                    onMouseOut={this.props.handleCancelInspect}
                     key={bi}
                     height={histH(bar.occ)}
                     width={sizes.barW}

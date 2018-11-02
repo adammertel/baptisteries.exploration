@@ -86,31 +86,35 @@ export default class AppStore {
   initFilters(): void {
     const maxNumberOfIntervals = 10;
 
+    const newBar = (label, checkFn) => {
+      return {
+        label: label,
+        check: checkFn,
+        occ: 0,
+        active: true,
+      };
+    };
     this._columns.forEach(column => {
       let bars = [];
       if (column.domain === 'quality') {
         // quality
-        const freqs = [];
+        const barsAll = [];
 
         this._dataStore.features.forEach(f => {
           const value = f.props[column.id];
-          const freq = freqs.find(freq => freq.check(value));
+          const bar = barsAll.find(bar => bar.check(value));
 
-          if (freq) {
-            freq.occ = freq.occ + 1;
+          if (bar) {
+            bar.occ = bar.occ + 1;
           } else {
-            freqs.push({
-              label: value,
-              check: x => x === value,
-              occ: 0,
-            });
+            barsAll.push(newBar(value, x => x === value));
           }
         });
 
-        const freqsSorted = freqs.sort((a, b) => (a.occ > b.occ ? -1 : 1));
+        const barsSorted = barsAll.sort((a, b) => (a.occ > b.occ ? -1 : 1));
 
         const others = { label: 'others', occ: 0 };
-        freqsSorted.forEach((f, fi) => {
+        barsSorted.forEach((f, fi) => {
           if (fi < maxNumberOfIntervals - 1) {
             bars.push(f);
           } else {
@@ -131,12 +135,13 @@ export default class AppStore {
         const values = this._dataStore.features.map(f => f.props[column.id]);
         var hist = histogram().thresholds(maxNumberOfIntervals);
 
-        bars = hist(values).map(bar => {
-          return {
-            label: bar.x0 + ' - ' + bar.x1,
-            check: x => x > bar.x0 && x <= bar.x1,
-            occ: bar.length - 2,
-          };
+        bars = hist(values).map(interval => {
+          const bar = newBar(
+            interval.x0 + ' - ' + interval.x1,
+            x => x > interval.x0 && x <= interval.x1,
+          );
+          bar.occ = interval.length - 2;
+          return bar;
         });
       }
 

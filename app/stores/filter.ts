@@ -87,7 +87,9 @@ export default class AppStore {
     const maxNumberOfIntervals = 10;
 
     this._columns.forEach(column => {
+      let bars = [];
       if (column.domain === 'quality') {
+        // quality
         const freqs = [];
 
         this._dataStore.features.forEach(f => {
@@ -97,46 +99,48 @@ export default class AppStore {
           if (freq) {
             freq.occ = freq.occ + 1;
           } else {
-            freqs.push({ label: value, check: x => x === value, occ: 0 });
+            freqs.push({
+              label: value,
+              check: x => x === value,
+              occ: 0,
+            });
           }
         });
 
         const freqsSorted = freqs.sort((a, b) => (a.occ > b.occ ? -1 : 1));
 
-        const freqsClipped = [];
         const others = { label: 'others', occ: 0 };
         freqsSorted.forEach((f, fi) => {
           if (fi < maxNumberOfIntervals - 1) {
-            freqsClipped.push(f);
+            bars.push(f);
           } else {
             others.occ += f.occ;
           }
         });
 
-        const mentionedValues = freqs.map(f => f.value);
+        const mentionedValues = freqs.map(f => f.label);
         others['check'] = x => {
           return mentionedValues.includes(x);
         };
 
         if (others.occ > 0) {
-          freqsClipped.push(others);
+          bars.push(others);
         }
-
-        column.bars = freqsClipped;
       } else if (column.domain === 'quantity') {
+        // quantity
         const values = this._dataStore.features.map(f => f.props[column.id]);
         var hist = histogram().thresholds(maxNumberOfIntervals);
 
-        const bars = hist(values).map(bar => {
+        bars = hist(values).map(bar => {
           return {
             label: bar.x0 + ' - ' + bar.x1,
             check: x => x > bar.x0 && x < bar.x1,
             occ: bar.length - 2,
           };
         });
-
-        column.bars = bars;
       }
+
+      column.bars = bars;
     });
 
     console.log(this._columns);

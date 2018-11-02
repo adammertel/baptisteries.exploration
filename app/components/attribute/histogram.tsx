@@ -9,6 +9,10 @@ export default class AttributeHistogramComponent extends React.Component {
     super(props);
   }
 
+  _handleBarOver(bar) {
+    this.props.handleInspectMarkers(this.props.data.column, bar);
+  }
+
   render() {
     const data = this.props.data;
     const sizes = {
@@ -21,7 +25,7 @@ export default class AttributeHistogramComponent extends React.Component {
     };
 
     const barHMax = sizes.histH - sizes.histMT;
-    const maxOcc = data.column.bars[0].occ;
+    const maxOcc = data.column.bars[0].occ; // todo
     const histH = occ => (occ / maxOcc) * barHMax;
 
     console.log(data);
@@ -37,6 +41,8 @@ export default class AttributeHistogramComponent extends React.Component {
                 console.log(bar.occ, h);
                 return (
                   <Rect
+                    onMouseOver={this._handleBarOver.bind(this, bar)}
+                    onMouseOut={this.props.handleCancelInspect}
                     key={bi}
                     height={histH(bar.occ)}
                     width={sizes.barW}

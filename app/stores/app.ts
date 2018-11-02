@@ -55,14 +55,14 @@ export default class AppStore {
 
   @computed
   get inspectedIds(): Array<number> {
-    return toJS(this._inspectedIds).slice();
+    return toJS(this._inspectedIds) ? toJS(this._inspectedIds).slice() : [];
   }
 
   @computed
   get inspectedFeatures(): Array<Object> {
     const ids = this.inspectedIds;
     const features = this._dataStore.features.filter(f =>
-      ids.includes(f.props.id)
+      ids.includes(f.props.id),
     );
     return features;
   }
@@ -140,12 +140,12 @@ export default class AppStore {
     validatedTimeSelection[0] = Base.clamp(
       validatedTimeSelection[0],
       Config.dates.min,
-      validatedTimeSelection[1] - 1
+      validatedTimeSelection[1] - 1,
     );
     validatedTimeSelection[1] = Base.clamp(
       validatedTimeSelection[1],
       validatedTimeSelection[0] + 1,
-      Config.dates.max
+      Config.dates.max,
     );
     return validatedTimeSelection;
   }

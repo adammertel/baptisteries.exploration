@@ -28,6 +28,10 @@ export default class AttributeContainer extends React.Component<Props> {
     this.props.stores.app.changeInspectedIds([]);
   }
 
+  handleToggleBar(column, bar) {
+    this.props.stores.filter.toggleBar(column.id, bar.id);
+  }
+
   handleInspectMarkers(column, bar) {
     const ids = this.props.stores.data.features
       .filter(f => {
@@ -53,6 +57,7 @@ export default class AttributeContainer extends React.Component<Props> {
             <AttributeHistogramComponent
               handleCancelInspect={this.handleCancelInspect.bind(this)}
               handleInspectMarkers={this.handleInspectMarkers.bind(this)}
+              handleToggleBar={this.handleToggleBar.bind(this)}
               key={fi}
               column={column}
             />

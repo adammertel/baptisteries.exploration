@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stage, Layer, Text, Rect, Line, Circle } from 'react-konva';
+import { Stage, Layer, Group, Text, Rect, Line, Circle } from 'react-konva';
 import Colors from './../../helpers/colors';
 
 export default class AttributeHistogramComponent extends React.Component {
@@ -13,6 +13,10 @@ export default class AttributeHistogramComponent extends React.Component {
     this.props.handleInspectMarkers(this.props.column, bar);
   }
 
+  _handleBarClick(bar) {
+    this.props.handleToggleBar(this.props.column, bar);
+  }
+
   render() {
     const column = this.props.column;
     const sizes = {
@@ -22,13 +26,16 @@ export default class AttributeHistogramComponent extends React.Component {
       histML: 10,
       histMR: 10,
       histMT: 5,
+      hl: 2,
     };
 
     const barHMax = sizes.histH - sizes.histMT;
     const maxOcc = Math.max.apply(null, column.bars.map(bar => bar.occ));
     const histH = occ => (occ / maxOcc) * barHMax;
 
-    const stageW = (sizes.barW + sizes.barG) * column.bars.length;
+    const stageW =
+      (sizes.barW + sizes.barG) * column.bars.length +
+      (sizes.histML + sizes.histMR);
 
     return (
       <div className="panel-component histograms">
@@ -38,17 +45,34 @@ export default class AttributeHistogramComponent extends React.Component {
             <Layer>
               {column.bars.map((bar, bi) => {
                 const h = histH(bar.occ);
+                const hl = sizes.hl;
                 return (
-                  <Rect
-                    onMouseOver={this._handleBarOver.bind(this, bar)}
-                    onMouseOut={this.props.handleCancelInspect}
-                    key={bi}
-                    height={histH(bar.occ)}
-                    width={sizes.barW}
-                    x={bi * (sizes.barW + sizes.barG)}
+                  <Group
+                    x={bi * (sizes.barW + sizes.barG) + sizes.histML}
                     y={sizes.histH - h}
-                    fill={Colors.temporal}
-                  />
+                    key={bi}>
+                    {bar.active && (
+                      <Rect
+                        onMouseOver={this._handleBarOver.bind(this, bar)}
+                        onMouseOut={this.props.handleCancelInspect}
+                        key="bar-hl"
+                        offsetX={hl}
+                        offsetY={hl}
+                        height={histH(bar.occ) + 2 * hl}
+                        width={sizes.barW + 2 * hl}
+                        fill="black"
+                      />
+                    )}
+                    <Rect
+                      onMouseOver={this._handleBarOver.bind(this, bar)}
+                      onMouseOut={this.props.handleCancelInspect}
+                      onClick={this._handleBarClick.bind(this, bar)}
+                      key="bar"
+                      height={histH(bar.occ)}
+                      width={sizes.barW}
+                      fill={Colors.temporal}
+                    />
+                  </Group>
                 );
               })}
             </Layer>
@@ -63,7 +87,7 @@ export default class AttributeHistogramComponent extends React.Component {
                     key={bi}
                     className="label"
                     rotation={90}
-                    x={(bi + 0.5) * (sizes.barW + sizes.barG)}
+                    x={(bi + 0.5) * (sizes.barW + sizes.barG) + sizes.histML}
                     text={bar.label}
                     y={5}
                   />

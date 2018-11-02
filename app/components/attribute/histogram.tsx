@@ -50,11 +50,12 @@ export default class AttributeHistogramComponent extends React.Component {
                   <Group
                     x={bi * (sizes.barW + sizes.barG) + sizes.histML}
                     y={sizes.histH - h}
-                    key={bi}>
+                    key={bi}
+                    onMouseOver={this._handleBarOver.bind(this, bar)}
+                    onMouseOut={this.props.handleCancelInspect}
+                    onClick={this._handleBarClick.bind(this, bar)}>
                     {bar.active && (
                       <Rect
-                        onMouseOver={this._handleBarOver.bind(this, bar)}
-                        onMouseOut={this.props.handleCancelInspect}
                         key="bar-hl"
                         offsetX={hl}
                         offsetY={hl}
@@ -64,13 +65,18 @@ export default class AttributeHistogramComponent extends React.Component {
                       />
                     )}
                     <Rect
-                      onMouseOver={this._handleBarOver.bind(this, bar)}
-                      onMouseOut={this.props.handleCancelInspect}
-                      onClick={this._handleBarClick.bind(this, bar)}
                       key="bar"
                       height={histH(bar.occ)}
                       width={sizes.barW}
                       fill={Colors.temporal}
+                    />
+                    <Text
+                      key="occ"
+                      text={bar.occ}
+                      align="center"
+                      offsetX={0}
+                      fontSize={10}
+                      offsetY={bar.occ > maxOcc / 2 ? -5 : 10}
                     />
                   </Group>
                 );

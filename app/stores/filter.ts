@@ -122,8 +122,7 @@ export default class AppStore {
           freqsClipped.push(others);
         }
 
-        console.log(freqsClipped);
-        column.values = freqsClipped;
+        column.bars = freqsClipped;
       } else if (column.domain === 'quantity') {
         const values = this._dataStore.features.map(f => f.props[column.id]);
         var hist = histogram().thresholds(maxNumberOfIntervals);
@@ -136,8 +135,7 @@ export default class AppStore {
           };
         });
 
-        console.log(bars);
-        column.values = bars;
+        column.bars = bars;
       }
     });
 

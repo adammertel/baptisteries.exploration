@@ -89,7 +89,7 @@ export default class TimeContainer extends React.Component<Props> {
   _handleTimelineDrag(e) {
     const newX = e.target.attrs.x;
     this.setState({ selectionX: newX / this.positions.profile.w });
-    console.log('timeline dragged', newX);
+    //console.log('timeline dragged', newX);
   }
 
   handleRangeClick(e) {
@@ -283,7 +283,7 @@ export default class TimeContainer extends React.Component<Props> {
     const filterStore = this.props.stores.filter;
 
     this.features = appStore.activeFeatures;
-    console.log(this.features);
+    //console.log(this.features);
     this.noFeatures = this.features.length;
 
     this.width = this.state.width; //parseInt(this.props.sizes.width(), 10);

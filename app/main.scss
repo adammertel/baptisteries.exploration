@@ -51,7 +51,7 @@ html {
   padding: 0.2em 0.5em;
 }
 .card {
-  overflow: hidden;
+  overflow-y: auto;
   border: 1px solid $color4;
   box-shadow: none;
 }
@@ -157,30 +157,14 @@ $color-marker-icon-radius: 1px;
     .select {
       margin-right: 5px;
     }
+  }
+}
 
-    &.panelfilter-wrapper {
-      div {
-      }
-      .filter-column {
-        margin-right: 10px;
-      }
-      .dropdown {
-        .dropdown-menu {
-          z-index: 2000;
-          padding: 10px;
-          .line {
-            display: block;
-            text-align: left;
-            label.checkbox {
-              line-height: 1;
-            }
-            .line-label {
-              vertical-align: text-bottom;
-              display: inline;
-              font-weight: 500;
-              margin-left: 3px;
-            }
-          }
+.container-attributes {
+  .histograms {
+    .histogram {
+      .labels {
+        .label {
         }
       }
     }

@@ -143,7 +143,15 @@ export default class AppStore {
   }
 
   @action
-  toggleBar = (columnId, barLabel) => {
-    const column = this.columns.find(column => column.id === columnId);
+  toggleBar = (columnId, barId) => {
+    const newColumns = this.columns.slice();
+    const column = newColumns.find(column => column.id === columnId);
+    if (column) {
+      const bar = column.bars.find(bar => bar.id === barId);
+      if (bar) {
+        bar.active = !bar.active;
+      }
+    }
+    this._columns.set(newColumns);
   };
 }

@@ -1,3 +1,5 @@
-# Baptisteries.exploration
+# Argo-explorer
 
-Tool to assist of spatiotemporal exploration of dataset of early christian baptisteries
+Experimental (un-finished) application to explore spatio-temporal historical data.
+
+![Application screenshot](screen.png)
